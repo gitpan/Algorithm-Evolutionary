@@ -35,7 +35,7 @@ Crossover operator for a  individual with vector representation
 
 package Algorithm::Evolutionary::Op::VectorCrossover;
 
-our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -92,25 +92,26 @@ sub  apply ($$;$){
   croak "Incorrect type ".(ref $victim) if !$self->check($victim);
   croak "Incorrect type ".(ref $victim2) if !$self->check($victim2);
   if ( (scalar @{$victim->{_array}} == 2) || (scalar @{$victim2->{_array}} == 2 ) ) {
-	#Too small, don't pay attention to number of cutting points
-	my $i = (rand() > 0.5 )? 0:1;
-	$victim->{_array}[$i] =  $victim2->{_array}[$i];
+    #Too small, don't pay attention to number of cutting points
+    my $i = (rand() > 0.5 )? 0:1;
+    $victim->{_array}[$i] =  $victim2->{_array}[$i];
   } else {
-	my $pt1 = int( rand( @{$victim->{_array}} ) ) ; #in int env; contains $# +1
-
-	#  print "Puntos: $pt1, $range \n";
-	my $range;
-	if ( $self->{_numPoints} > 1 ) {
-	  $range =  1+ int ( rand( @{$victim->{_array}}  - $pt1 - 1) );
-	} else {
-	  $range = @{$victim->{_array}} - $pt1 - 1;
-	}
-	#Check length to avoid unwanted lengthening
-	return $victim if ( ( $pt1+$range >= @{$victim->{_array}} ) || ( $pt1+$range >= @{$victim2->{_array}} ));
-						
-	@{$victim->{_array}}[$pt1..($pt1+$range)] =  
-	  @{$victim2->{_array}}[$pt1..($pt1+$range)];
-	$victim->Fitness( undef ); #It's been changed, so fitness is invalid
+    my $pt1 = int( rand( @{$victim->{_array}} - 1 ) ) ; #in int env; contains $# +1
+    
+    my $possibleRange = @{$victim->{_array}} - $pt1 - 1;
+    my $range;
+    if ( $self->{_numPoints} > 1 ) {
+      $range = 1+ int ( rand( $possibleRange ) );
+    } else {
+      $range = $possibleRange + 1;
+    }
+    print "Puntos: $pt1, $possibleRange, $range \n";
+    #Check length to avoid unwanted lengthening
+    return $victim if ( ( $pt1+$range >= @{$victim->{_array}} ) || ( $pt1+$range >= @{$victim2->{_array}} ));
+    
+    @{$victim->{_array}}[$pt1..($pt1+$range)] =  
+      @{$victim2->{_array}}[$pt1..($pt1+$range)];
+    $victim->Fitness( undef ); #It's been changed, so fitness is invalid
   }
   return $victim;
 }
@@ -120,10 +121,10 @@ sub  apply ($$;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/19 06:10:15 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/VectorCrossover.pm,v 1.4 2002/06/19 06:10:15 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 12:18:17 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/VectorCrossover.pm,v 1.5 2002/09/25 12:18:17 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

@@ -130,8 +130,14 @@ my $vx =  new Algorithm::Evolutionary::Op::VectorCrossover 2;
 ok( ref $vx, "Algorithm::Evolutionary::Op::VectorCrossover" );
 
 #test 19
-my $v2 = new Algorithm::Evolutionary::Individual::Vector 10, -5, 5;;
-ok( $v2->asString()  ne $vx->apply( $v, $v2 )->asString(), 1);
+my $v2 = new Algorithm::Evolutionary::Individual::Vector 10, -5, 5;
+my $ok = 1;
+for ( my $i = 0; $i < 10; $i++ ) {
+  my $vclone = $v->clone();
+  $ok &&= ( $v2->asString()  ne $vx->apply( $vclone, $v2 )->asString() );
+  print "$i\n";
+}
+ok( $ok, 1);
 
 #test 20
 use Algorithm::Evolutionary::Op::CX;
@@ -269,10 +275,10 @@ ok( $sortPop[0]->Fitness() >= $oldBestFitness, 1);
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 18:40:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.3 2002/09/24 18:40:17 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 12:18:17 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.5 2002/09/25 12:18:17 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

@@ -11,7 +11,7 @@ WriteMakefile( 'NAME'		=> 'Algorithm::Evolutionary',
 	       'PMLIBDIRS'       => [ 'Evolutionary', 'Evolutionary/Op', 'Evolutionary/Individual' ],
 	       ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
 		(ABSTRACT_FROM => 'Evolutionary.pm', # retrieve abstract from module
-		 AUTHOR     => 'J. J. Merelo <jmerelo@geneura.ugr.es>') : ())
+		 AUTHOR     => 'J. J. Merelo <jmerelo (at) geneura.ugr.es>') : ())
 );
 
 #Add new targets
