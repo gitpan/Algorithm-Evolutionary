@@ -1,6 +1,6 @@
 package Algorithm::Evolutionary;
 
-our $VERSION = '0.53';
+our $VERSION = '0.53_1';
 
 # Preloaded methods go here.
 
