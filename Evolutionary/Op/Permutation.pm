@@ -10,30 +10,33 @@ use warnings;
   use Algorithm::Evolutionary::Op::Mutation;
 
   my $xmlStr=<<EOC;
-  <op name='Mutation' type='unary' rate='2'>
-    <param name='probability' value='0.5' />
-  </op>
+  <op name='Permutation' type='unary' rate='2' />
   EOC
   my $ref = XMLin($xmlStr);
 
   my $op = Algorithm::Evolutionary::Op::->fromXML( $ref );
   print $op->asXML(), "\n*Arity ->", $op->arity(), "\n";
 
-  my $op = new Algorithm::Evolutionary::Op::Mutation (0.5 ); #Create from scratch
+  my $op = new Algorithm::Evolutionary::Op::Permutation ; #Create from scratch
+  my $bitChrom =  new Algorithm::Evolutionary::Individual::BitString 10;
+  $op->apply( $bitChrom );
 
 =head1 Base Class
 
-L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
+L<Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-Mutation operator for a GA
+Class independent permutation operator; any individual that has the
+    C<_str> instance variable (like
+    L<Algorithm::Evolutionary::Individual::String> and
+    L<Algorithm::Evolutionary::Individual::BitString>) of its elements swapped.
 
 =cut
 
 package  Algorithm::Evolutionary::Op::Permutation;
 
-our ($VERSION) = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -49,8 +52,8 @@ our $ARITY = 1;
 
 =head2 new
 
-Creates a new mutation operator with a bitflip application rate, which defaults to 0.5,
-and an operator application rate (general for all ops), which defaults to 1.
+Creates a new permutation operator; see
+    L<Algorithm::Evolutionary::Op::Base> for details.
 
 =cut
 
@@ -84,10 +87,8 @@ sub create {
 
 =head2 apply
 
-Applies mutation operator to a "Chromosome", a bitstring, really. Can be
-applied only to I<victims> with the C<_str> instance variable; 
-it checks before application that the operand is of type
-L<Algorithm::Evolutionary::Individual::BitString|Algorithm::Evolutionary::Individual::BitString>. It returns the victim.
+Applies mutation operator to a "Chromosome" that includes the C<_str>
+    instance variable, swapping positions for two of its components.
 
 =cut
 
@@ -107,10 +108,10 @@ sub apply ($;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/26 10:20:27 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Permutation.pm,v 1.2 2002/09/26 10:20:27 jmerelo Exp $ 
+  CVS Info: $Date: 2002/11/17 17:08:10 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Permutation.pm,v 1.3 2002/11/17 17:08:10 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.3 $
   $Name $
 
 =cut

@@ -9,12 +9,12 @@ use warnings;
 
     use Algorithm::Evolutionary::Individual::String;
 
-    my $indi = new Algorithm::Evolutionary::Individual::String [a..z] 10; # Build random bitstring with length 10
-                                   # Each element in the range 0 .. 1
+    my $indi = new Algorithm::Evolutionary::Individual::String [a..z] 10;
+                                   # Build random bitstring with length 10
 
     my $indi3 = new Algorithm::Evolutionary::Individual::String;
     $indi3->set( _length => 20, 
-				 _chars => [A..Z] );   #Sets values, but does not build the string
+		 _chars => [A..Z] );   #Sets values, but does not build the string
     $indi3->randomize(); #Creates a random bitstring with length as above
     print $indi3->Atom( 7 );       #Returns the value of the 7th character
     $indi3->Atom( 3 ) = 'q';       #Sets the value
@@ -32,9 +32,16 @@ use warnings;
     print $indi3->asString(); #Prints the individual
     print $indi3->asXML() #Prints it as XML. See 
 
+    my $xml=<<EOC;
+<indi type='String'>
+    <atom>a</atom><atom>z</atom><atom>q</atom><atom>i</atom><atom>h</atom>
+</indi>
+EOC
+    my $indi4=  Algorithm::Evolutionary::Individual::String->fromXML( $xml );
+
 =head1 Base Class
 
-L<Algorithm::Evolutionary::Individual::Base|Algorithm::Evolutionary::Individual::Base>
+L<Algorithm::Evolutionary::Individual::Base>
 
 =head1 DESCRIPTION
 
@@ -49,7 +56,7 @@ package Algorithm::Evolutionary::Individual::String;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ );
 use Algorithm::Evolutionary::Individual::Base;
 our @ISA = qw ( Algorithm::Evolutionary::Individual::Base );
 
@@ -273,9 +280,9 @@ L<Algorithm::Evolutionary::Individual::BitString|Algorithm::Evolutionary::Indivi
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/26 10:50:59 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/String.pm,v 1.5 2002/07/26 10:50:59 jmerelo Exp $ 
+  CVS Info: $Date: 2002/11/17 17:10:59 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/String.pm,v 1.6 2002/11/17 17:10:59 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.6 $
 
 =cut

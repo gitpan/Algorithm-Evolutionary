@@ -45,7 +45,7 @@ evolutionary computation tutorial>
 
 package Algorithm::Evolutionary::Op::CX;
 
-our ($VERSION) = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -158,7 +158,7 @@ sub  apply ($$;$){
   };
   for ( $i = 0; $i < $leng; $i ++ ) {
 	if ($child->Atom($i) eq $no ){
-	  print "La Jodimos, tía María\n";
+	  print "Messed up!\n";
 	}
   }
   return $child; #return Child
@@ -169,10 +169,10 @@ sub  apply ($$;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:24:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/CX.pm,v 1.2 2002/06/18 12:24:00 jmerelo Exp $ 
+  CVS Info: $Date: 2002/11/19 12:26:49 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/CX.pm,v 1.3 2002/11/19 12:26:49 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.3 $
   $Name $
 
 =cut

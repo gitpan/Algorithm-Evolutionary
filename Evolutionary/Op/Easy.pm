@@ -48,7 +48,7 @@ iteration of the algorithm to the population it takes as input
 
 package Algorithm::Evolutionary::Op::Easy;
 
-our $VERSION = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 use Algorithm::Evolutionary::Wheel;
@@ -103,7 +103,7 @@ sub set {
   $self->{_selrate} = $hashref->{selrate};
 
   for ( keys %$codehash ) {
-	$self->{"_$_"} =  eval "sub {  $codehash->{$_} } ";
+	$self->{"_$_"} =  eval "sub {  $codehash->{$_} } " || croak "Error compiling fitness function";
   }
 
   $self->{_ops} =();
@@ -195,10 +195,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 12:38:29 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Easy.pm,v 1.4 2002/09/24 12:38:29 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/27 08:03:09 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Easy.pm,v 1.5 2003/02/27 08:03:09 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

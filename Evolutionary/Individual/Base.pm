@@ -9,7 +9,7 @@ use warnings;
 =head1 SYNOPSIS
 
   use  Algorithm::Evolutionary::Individual::Base;
-  my $xmlStr="<indi type='BinaryIndi'><atom>1</atom><atom>0</atom><atom>1</atom><atom>0</atom></indi>";
+  my $xmlStr="<indi type='BitString'><atom>1</atom><atom>0</atom><atom>1</atom><atom>0</atom></indi>";
   my $ref = XMLin($xmlStr);
 
   my $binIndi2 = Algorithm::Evolutionary::Individual::Base->fromXML( $ref ); #From XML fragment
@@ -34,7 +34,7 @@ use XML::Parser;
 use XML::Parser::EasyTree;
 use Carp;
 
-our ($VERSION) = ( '$Revision: 1.13 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.14 $ ' =~ /(\d+\.\d+)/ );
 
 
 =head1 METHODS 
@@ -262,10 +262,10 @@ L<lgorithm::Evolutionary::Individual::Tree>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 18:40:16 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Base.pm,v 1.13 2002/09/24 18:40:16 jmerelo Exp $ 
+  CVS Info: $Date: 2002/11/17 17:10:59 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Base.pm,v 1.14 2002/11/17 17:10:59 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.13 $
+  $Revision: 1.14 $
   $Name $
 
 =cut

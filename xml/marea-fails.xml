@@ -7,16 +7,18 @@
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2003/02/14 11:03:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/xml/marea.xml,v 1.3 2003/02/14 11:03:00 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/13 19:40:45 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/xml/marea-fails.xml,v 1.1 2003/02/13 19:40:45 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.1 $
   $Name $
 
 -->
 
-<ea version='0.4'>
-
+<ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation='EvoSpec.xsd'
+    version='0.4'>
+  <casca />
   <initial>
     <op name='Creator' >
       <param name='number' value='20' />

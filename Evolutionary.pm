@@ -1,6 +1,6 @@
 package Algorithm::Evolutionary;
 
-our $VERSION = '0.52_3';
+our $VERSION = '0.53';
 
 # Preloaded methods go here.
 
@@ -43,9 +43,9 @@ reports, news, updates, whatever.
 =head1 AUTHOR
 
 Main author and developer is J. J. Merelo,
-E<lt>jmerelo@geneura.ugr.es<gt>. There have also been some
-contributions from Javi García, E<lt>javi@geneura.ugr.es<gt> and Pedro
-Castillo, E<lt>javi@geneura.ugr.es<gt>
+E<lt>jmerelo@ (at) geneura.ugr.es<gt>. There have also been some
+contributions from Javi García, E<lt>fjgc (at) decsai.ugr.es<gt> and Pedro
+Castillo, E<lt>pedro  (at) geneura.ugr.es<gt>
 
 =head1 SEE ALSO
 

@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+<!DOCTYPE ea SYSTEM "EvoSpec.dtd">
 <!-- Parameters for an evolutionary algorithm; also generation 0 of the same algorithm -->
 
 <!--
@@ -6,31 +7,23 @@
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/01 16:04:01 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/xml/onemax.xml,v 1.2 2002/09/01 16:04:01 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/27 09:19:29 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/xml/onemax.xml,v 1.5 2003/02/27 09:19:29 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.5 $
   $Name $
 -->
 
-<ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
-    version='0.3'>
+<ea version='0.4'>
 
   <initial>
     <op name='Creator' >
       <param name='number' value='20' />
-      <param name='class' value='Bitstring' />       
+      <param name='class' value='BitString' />       
       <param name='options'>
         <param name='length' value='64' />
       </param>
     </op>
-    <pop size='20'>
-     <section name='indi'> 
-      <param name='type' value='BitString' /> 
-      <param name='length' value='64' />
-     </section>
-    </pop>
 
     <op name='Easy' type='unary'>
         <param name='selrate' value='0.4' />
@@ -39,8 +32,8 @@
     	  <src><![CDATA[ 
           my $indi = shift;
     	  my $total = 0;
-    	  for ( my $i = 0; $i < length( $indi->{_bitstr} ); $i ++ ) {
-	  		$total += substr( $indi->{_bitstr}, $i, 1 );
+    	  for ( my $i = 0; $i < length( $indi->{_str} ); $i ++ ) {
+	  		$total += substr( $indi->{_str}, $i, 1 );
 		  }
 		  return $total;
     	  ]]>
@@ -51,7 +44,7 @@
             <param name='howMany' value='1' />
       	</op>
       	<op name='Crossover' type='binary' rate='1'>
-        	<param name='numpoints' value='2' />
+        	<param name='numPoints' value='2' />
       	</op>
       </op>
   </initial>

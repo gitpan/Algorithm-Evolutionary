@@ -40,7 +40,7 @@ Crossover operator for a GA
 
 package Algorithm::Evolutionary::Op::Crossover;
 
-our ($VERSION) = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -104,6 +104,7 @@ sub  apply ($$$){
   my $pt1 = int( rand( $minlen ) );
   my $range = 1 + int( rand( $minlen  - $pt1 ) );
 #  print "Puntos: $pt1, $range \n";
+  croak "No number of points to cross defined" if !defined $self->{_numPoints};
   if ( $self->{_numPoints} > 1 ) {
 	$range =  int ( rand( length( $victim->{_str} ) - $pt1 ) );
   }
@@ -118,10 +119,10 @@ sub  apply ($$$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/26 10:51:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Crossover.pm,v 1.6 2002/07/26 10:51:00 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/27 08:03:09 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Crossover.pm,v 1.7 2003/02/27 08:03:09 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.6 $
+  $Revision: 1.7 $
   $Name $
 
 =cut

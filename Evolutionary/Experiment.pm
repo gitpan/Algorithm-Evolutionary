@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Experiment - Class for setting up an experiment
+    Algorithm::Evolutionary::Experiment - Class for setting up an experiment with algorithms and population
                  
 =head1 SYNOPSIS
   
@@ -17,7 +17,9 @@ use warnings;
 
 =head1 DESCRIPTION
 
-Experiment contains an algorithm and a population, and applies one to the other. Contains both as instance variables.
+Experiment contains an algorithm and a population, and applies one to
+the other. Contains both as instance variables. Can be serialized
+using XML, and can read an XML description of the experiment. 
 
 =head1 METHODS
 
@@ -27,8 +29,9 @@ package Algorithm::Evolutionary::Experiment;
 
 use Algorithm::Evolutionary::Individual::Base;
 use Algorithm::Evolutionary::Op::Base;
+use Algorithm::Evolutionary::Op::Creator;
 
-our $VERSION = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.8 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 use XML::Parser;
@@ -46,9 +49,9 @@ use XML::Parser::EasyTree;
 
 sub new ($$$$;$) {
   my $class = shift;
-  my $self = ();
-  $self->{_pop} = ();
-  if ( (ref $_[0]) !~ /Algorithm::Evolutionary/ ) { 
+  my $self = { _pop => [] };
+  if ( index ( ref $_[0], 'Algorithm::Evolutionary') == -1 )   {  
+    #If the first arg is not an algorithm, create one
     my $popSize = shift || carp "Pop size = 0, can't create\n";
     my $indiType = shift || carp "Empty individual class, can't create\n";
     my $indiSize = shift || carp "Empty individual size, no reasonable default, can't create\n";
@@ -58,7 +61,7 @@ sub new ($$$$;$) {
       push @{$self->{_pop}}, $indi;
     }
   };
-  @_ || die "Can't find an algorithm";
+  @_ || croak "Can't find an algorithm";
   push @{$self->{_algo}}, @_;
   bless $self, $class;
   return $self
@@ -118,10 +121,25 @@ sub fromXML ($;$) {
     $xml = $p->parse($xml);
   }
 
-  my $self = {}; # Create a reference
-
+  my $self = { _pop => []}; # Create a reference
   #Process population, via the creator operator
   for ( @{$xml->[0]{content}[0]{content}} ) { #Should process the <initial> tag
+    if ( $_->{name} eq 'pop' ) {
+      my $size = $_->{attrib}{size};
+      my $type;
+      my %params;
+      for ( @{$_->{content}} ) {
+	if ( $_->{attrib}{name} eq 'type' ) {
+	  $type = $_->{attrib}{value};
+	} else {
+	  $params{ $_->{attrib}{name} } = $_->{attrib}{value};
+	}
+      }
+      my $creator = new Algorithm::Evolutionary::Op::Creator  $size, $type, \%params ;
+      my @pop;
+      $creator->apply( \@pop );
+      push( @{$self->{_pop}}, @pop ) ;
+    }
     if ( $_->{name} eq 'op' ) {
       push( @{$self->{_algo}}, 
 	  Algorithm::Evolutionary::Op::Base::fromXML( $_->{attrib}{name}, $_->{content} ) );
@@ -129,11 +147,12 @@ sub fromXML ($;$) {
   }
 
   #Process population, if it exists
-  $self->{_pop} = [];
-  for (  @{$xml->[0]{content}[1]{content}} ) {
-    if ( $_->{name} eq 'indi' ) {
-      push( @{$self->{_pop}}, 
-	    Algorithm::Evolutionary::Individual::Base::fromXML( $_->{attrib}{type}, $_->{content} ) );
+  if ( $xml->[0]{content}[1]{content} ) { #Process runtime population
+    for (  @{$xml->[0]{content}[1]{content}} ) {
+      if ( $_->{name} eq 'indi' ) {
+	push( @{$self->{_pop}}, 
+	      Algorithm::Evolutionary::Individual::Base::fromXML( $_->{attrib}{type}, $_->{content} ) );
+      }
     }
   }
   #Bless and return
@@ -168,11 +187,9 @@ the population
 sub asXML {
   my $self = shift;
   my $str=<<'EOC';
-<ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
-    version='0.3'>
+<ea version='0.4'>
 <!-- Serialization of an Experiment object. Generated automatically by
-     Experiment $Revision: 1.5 $ -->
+     Experiment $Revision: 1.8 $ -->
     <initial>
 EOC
 
@@ -193,10 +210,10 @@ EOC
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/25 09:32:44 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Experiment.pm,v 1.5 2002/09/25 09:32:44 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/27 08:03:08 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Experiment.pm,v 1.8 2003/02/27 08:03:08 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.8 $
   $Name $
 
 =cut

@@ -7,92 +7,96 @@
 =head1 SYNOPSIS
  
    my $xml==<<EOC;
-   <ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
-    version='0.3'>
-   <!-- XML file that describes the Royal Road function -->
+  <?xml version="1.0"?>
+  <!DOCTYPE ea SYSTEM "EvoSpec.dtd">
+  
+  <ea version='0.4'>
    <initial>
-    <pop size='20'>
-       <section name='indi'> 
-          <param name='type' value='BitString' /> 
-          <param name='length' value='64' />
-       </section>
-    </pop>
+    <op name='Creator' >
+      <param name='number' value='20' />
+      <param name='class' value='Vector' />       
+      <param name='options'>
+        <param name='length' value='2' />
+	    <param name='rangestart' value='0' />
+        <param name='rangeend' value='1' />
+      </param>
+    </op>
 
     <op name='Easy'  type='unary'>
-        <param name='selrate' value='0.4' />
-        <param name='maxgen' value='100' />
-        <code type='eval' language='perl'>
-    	  <src><![CDATA[ my $chrom = shift;
-                my $str = $chrom->Chrom();
-                my $fitness = 0;
-                for ( my $i = 0; $i < length( $str ) / $blockSize; $i++ ) {
-	              my $block = 1;
-	              for ( my $j = 0; $j < $blockSize; $j++ ) {
-	                $block &= substr( $str, $i*$blockSize+$j, 1 );
-	              }
-	              ( $fitness += $blockSize ) if $block;
-                }
-                return $fitness;
+       <param name='selrate' value='0.4' />
+       <param name='maxgen' value='100' />
+       <code type='eval' language='perl'>
+    	  <src><![CDATA[ my $indi = shift;
+	                 my ( $x, $y ) = @{$indi->{_array}};
+		         my $sqrt = sqrt( $x*$x+$y*$y);
+			 return sin( $sqrt )/$sqrt;
           ]]></src>
         </code>
-        <op name='Mutation' type='unary' rate='1'>
-            <param name='probability' value='0.5' />
+        <op name='GaussianMutation' type='unary' rate='1'>
+        	<param name='avg' value='0' />
+		<param name='stddev' value='0.1' />
       	</op>
-      	<op name='Crossover' type='binary' rate='5'>
-        	<param name='numpoints' value='2' />
+      	<op name='VectorCrossover' type='binary' rate='1'>
+        	<param name='numPoints' value='1' />
       	</op>
-    </op>
-    
-    
+      </op>
    </initial>
 
   </ea>
   EOC
-  # This XML doc will be read by a program like this one, which will
-  # run the EA (parse-opeal-1.pl)
-
-  #!/usr/bin/perl
-
   use Algorithm::Evolutionary::Experiment;
   use Algorithm::Evolutionary::Op::Easy;
   my $xp = Algorithm::Evolutionary::Experiment->fromXML( $xml );
+  my $popRef = $xp->go();
+  
   
 
 =head1 DESCRIPTION
 
-OPEAL supports XML as a language for description of the evolutionary algorithm. 
-The language is described in the F<ea-alpha.xsd> file, which is an
-XSchema file, something like a dictionnary that allows to check which
+Algorithm::Evolutionary supports XML as a language for description of
+the evolutionary algorithm.  
+The language is described in the F<EvoSpec.dtd> file, which is an
+DTD file, something like a dictionnary that allows to check which
 constructions in XML are syntactically correct and which are not. This
-XML dialect will be called, for lack of a better name, B<EvoSpec>.
+XML dialect will be called, for lack of a better name, B<EvoSpec>. I
+tried to use XML Schemas instead of DTDs, but couldn't find a good
+tool to process them in Perl.
 
-This dialect will be used to describe the algorithm, and also the
-results of the algorithm, that is, the population of individuals the
+This dialect will be used to describe the algorithm, and also its
+results, that is, the population of individuals the
 algorithms is going to be applied to. The first part is contained
 within the B<initial> tag, while the latter goes between a couple of
-B<runtime> tags.
+B<pop> tags, and right after the  B<initial> element.
 
 The  B<initial> tag contains several sections. In principle, the
-number of sections is not bounded, but it's usual to have only two,
+number of sections is not bounded, but it is usual to have only two,
 one related to the individuals, and another related to the
-population. 
+population. Imagine that section as a set of transformations to be
+performed in turn. If you put a B<pop> descriptor at the beginning of
+the B<initial> element, and then an operator, the operator will be
+applied to the population; if it is an population L<Algorithm::Evolutionary::Op::Creator|Creator>, and then
+several operators, the population will be created and then each
+operator will be applied in turn. B<initial> is like a pipeline that
+applies operators to a population, which is implied or not, in
+document order.
 
-The first section describes the parameters used to create
-an individual by the evolutionary algorithm, included its type. In
-this case, individuals of the class L<Algorithm::Evolutionary::Individual::Vector> will be created to
-form the population, described in the second section. All parameters
-have a B<name> and a B<value>, and you can have as many as you
-need. The only compulsory one is the B<type> parameter, which
-indicates the class in which the population members will be instantiated.
-
-The second section describes population-related stuff; basically
-population parameters and the algorithms that are going to be applied
-to the population; the tag B<op> describes the operator applied to the
-population; how these operators will be applied is left to the program
-that parses this file. In this case, an algorithm of the class L<Easy|Easy>
-will be applied.
-
+So, basically what you will find or include in this section are 
+L<Algorithm::Evolutionary::Op::Base|operator> and population
+elements. 
+A population element might look like this:C<
+  <pop size='20'>
+       <section name='indi'> 
+          <param name='type' value='BitString' /> 
+          <param name='length' value='64' />
+       </section>
+  </pop>
+>
+(but this B<section> stuff is kinda ugly, and will try to get rid of
+it in the future). The pop element has an attribute that indicates its
+size, and then a B<section> devoted to describing the kind of individuals
+that are going to be created (hence the C<name='indi'>). This section
+includes parameters that describe the parameter type and any other
+thing needed to create it; the parameters are 
 This operator includes in itself all the parameters and operators that
 it needs, in such a way that it recursively creates the objects that
 are described in the XML fragment: the
@@ -114,9 +118,9 @@ the operator via the C<self->{_type}> pointer.
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/26 10:50:59 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/XML.pod,v 1.5 2002/07/26 10:50:59 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/17 18:59:40 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/XML.pod,v 1.6 2003/02/17 18:59:40 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.6 $
 
 =cut

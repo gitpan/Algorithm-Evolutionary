@@ -27,13 +27,15 @@ L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-Mutation operator for a GA; changes a single element in a string
+  Mutation operator for a GA; changes a single element in a string by
+  changing it to the next in the sequence deducted from the chromosome
+  itself.
 
 =cut
 
 package Algorithm::Evolutionary::Op::IncMutation;
 
-our ($VERSION) = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
 
 
 use Carp;
@@ -61,9 +63,17 @@ sub create {
 
 =head2 apply
 
-Applies mutation operator to a "Chromosome", a bitstring, really. Can be
+Applies mutation operator to a "Chromosome", a string, really. Can be
 applied only to I<victims> with the C<_str> instance variable; but
-it checks before application that both operands are of the required type.
+it checks before application that both operands are of the required
+type. The chosen character is changed to the next or previous in
+the array of chars used for coding the the string
+    my $strChrom = new Algorithm::Evolutionary::Individual::String ['a','c','g','t'] 10;
+    my $xmen = new Algorithm::Evolutionary::Op::IncMutation;
+    $xmen->apply( $strChrom ) # will change 'acgt' into 'aagt' or
+			      # 'aggt', for instance
+
+Issues an error if there is no C<_chars> array.
 
 =cut
 
@@ -76,8 +86,11 @@ sub apply ($;$){
   my $char = $victim->Atom( $rnd );
   #Compute its place in the array
   my $i = 0;
+  #Compute order in the array
+  croak "Can't do nuthin'; there's no alphabet in the victim" if @{$victim->{_chars}}< 0;
   while (  ($victim->{_chars}[$i] ne $char ) 
 		   && ($i < @{$victim->{_chars}}) ) { $i++;};
+  #Generate next or previous
   my $newpos = ( rand() > 0.5)?$i-1:$i+1;
   $newpos = @{$victim->{_chars}}-1 if !$newpos;
   $newpos = 0 if $newpos >= @{$victim->{_chars}};
@@ -91,10 +104,10 @@ sub apply ($;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:21:13 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/IncMutation.pm,v 1.2 2002/06/18 12:21:13 jmerelo Exp $ 
+  CVS Info: $Date: 2002/11/19 12:26:49 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/IncMutation.pm,v 1.4 2002/11/19 12:26:49 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.4 $
   $Name $
 
 

@@ -45,7 +45,12 @@ t/DeltaTerm.t
 t/ops.t
 t/individuals.t
 t/experiment.t
-xml/ea-alpha.xsd
+t/validate.t
+t/run.t
+xml/EvoSpec.dtd
+xml/EvoSpecValidate.pl
 xml/marea.xml
+xml/marea-fails.xml
 xml/royalroad.xml
 xml/onemax.xml
+xml/experiment.xml

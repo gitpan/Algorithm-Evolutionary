@@ -29,9 +29,7 @@ my $e = new Algorithm::Evolutionary::Experiment $popSize, $indiType, $indiSize, 
 isa_ok ( $e, 'Algorithm::Evolutionary::Experiment' ); # test 1
 
 my $xml=<<'EOC';
-<ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
-    version='0.3'>
+<ea version='0.4'>
 
   <initial>
     <op name='Creator'>
@@ -105,10 +103,10 @@ EOC
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 18:40:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/experiment.t,v 1.5 2002/09/24 18:40:17 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/14 11:34:05 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/experiment.t,v 1.6 2003/02/14 11:34:05 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.6 $
   $Name $
 
 =cut

@@ -1,24 +1,21 @@
 <?xml version="1.0"?>
+<!DOCTYPE ea SYSTEM "EvoSpec.dtd">
 <!-- Royal road function represented as an XML file. Ready for instantiating
      an 'Experiment' class
-  CVS Info: $Date: 2002/07/25 08:41:34 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/xml/royalroad.xml,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
+  CVS Info: $Date: 2003/02/27 09:19:29 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/xml/royalroad.xml,v 1.6 2003/02/27 09:19:29 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.6 $
   $Name $    
 
 -->
 
-  <ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
-    version='0.3'>
+  <ea version='0.4'>
 
   <initial>
     <pop size='20'>
-       <section name='indi'> 
-          <param name='type' value='BitString' /> 
-          <param name='length' value='64' />
-       </section>
+      <param name='type' value='BitString' /> 
+      <param name='length' value='64' />
     </pop>
 
     <op name='Easy'  type='unary'>
@@ -28,6 +25,7 @@
     	  <src><![CDATA[ my $chrom = shift;
                 my $str = $chrom->Chrom();
                 my $fitness = 0;
+                my $blockSize = 4;
                 for ( my $i = 0; $i < length( $str ) / $blockSize; $i++ ) {
 	              my $block = 1;
 	              for ( my $j = 0; $j < $blockSize; $j++ ) {
@@ -39,10 +37,10 @@
           ]]></src>
         </code>
         <op name='Mutation' type='unary' rate='1'>
-            <param name='probability' value='0.5' />
+            <param name='mutRate' value='0.5' />
       	</op>
       	<op name='Crossover' type='binary' rate='5'>
-        	<param name='numpoints' value='2' />
+        	<param name='numPoints' value='2' />
       	</op>
     </op>
     
