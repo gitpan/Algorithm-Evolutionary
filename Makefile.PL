@@ -7,7 +7,8 @@ WriteMakefile( 'NAME'		=> 'Algorithm::Evolutionary',
 					    XML::Parser::EasyTree => 0.01,
 					    Math::Random => 0.63,
 					    Tree::DAG_Node => 1.04,
-					    B::Deparse => 0.56}, # e.g., Module::Name => 1.1
+					    B::Deparse => 0.56,
+					    Algorithm::Permute => 0.01}, # e.g., Module::Name => 1.1
 	       'PMLIBDIRS'       => [ 'Evolutionary', 'Evolutionary/Op', 'Evolutionary/Individual' ],
 	       ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
 		(ABSTRACT_FROM => 'Evolutionary.pm', # retrieve abstract from module

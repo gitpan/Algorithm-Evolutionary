@@ -45,7 +45,7 @@ our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
 
 use Tree::DAG_Node;
 
-use Algorithm::Evolutionary::Individual::Tree;
+use Algorithm::Evolutionary::Individual::Base;
 
 our @ISA = qw (Algorithm::Evolutionary::Individual::Base);
 

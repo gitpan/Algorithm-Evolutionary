@@ -105,7 +105,7 @@ sub  apply ($$;$){
     } else {
       $range = $possibleRange + 1;
     }
-    print "Puntos: $pt1, $possibleRange, $range \n";
+#    print "Puntos: $pt1, $possibleRange, $range \n";
     #Check length to avoid unwanted lengthening
     return $victim if ( ( $pt1+$range >= @{$victim->{_array}} ) || ( $pt1+$range >= @{$victim2->{_array}} ));
     
