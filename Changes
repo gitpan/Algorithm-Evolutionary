@@ -1,0 +1,6 @@
+Revision history for Perl extension Algorithm::Evolutionary.
+
+0.01  Fri Jun  7 09:43:33 2002
+	- original version; created by h2xs 1.21 with options
+		-AX -n Algorithm::Evolutionary
+

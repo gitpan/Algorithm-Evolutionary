@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!-- Parameters for an evolutionary algorithm; also generation 0 of the same algorithm -->
+
+<!--   
+  This file is released under the GPL. See the LICENSE file included in this distribution,
+  or go to http://www.fsf.org/licenses/gpl.txt
+
+  CVS Info: $Date: 2002/06/21 06:52:10 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/xml/marea.xml,v 1.1 2002/06/21 06:52:10 jmerelo Exp $ 
+  $Author: jmerelo $ 
+  $Revision: 1.1 $
+  $Name $
+
+-->
+
+<ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
+    version='0.2'>
+
+  <initial>
+    <section name='indi'> 
+      <param name='type' value='VectorIndi' /> 
+      <param name='length' value='2' />
+	  <param name='rangestart' value='0' />
+      <param name='rangeend' value='1' />
+    </section>
+
+    <section name='pop'> 
+      <param name='size'  value='20' />
+      <op name='EasyAlgorithm'  type='unary'>
+        <param name='selrate' value='0.4' />
+        <param name='maxgen' value='100' />
+        <code type='eval' language='perl'>
+    	  <src>	my ( $x, $y ) = @{$indi->{_array}};
+				my $sqrt = sqrt( $x*$x+$y*$y);
+				return sin( $sqrt )/$sqrt;
+          </src>
+        </code>
+        <op name='GaussianMutation' type='unary' rate='1'>
+        	<param name='avg' value='0' />
+			<param name='stddev' value='0.1' />
+      	</op>
+      	<op name='VectorCrossover' type='binary' rate='1'>
+        	<param name='numpoints' value='1' />
+      	</op>
+      </op>
+    </section>
+    
+  </initial>
+
+  <runtime>
+  </runtime> 
+
+</ea>
