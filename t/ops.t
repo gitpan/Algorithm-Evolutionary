@@ -1,6 +1,7 @@
 #-*-Perl-*-
 
-use Test;
+use Test::More;
+
 BEGIN { plan tests => 32 };
 use lib qw( .. ../../.. ../..); #Just in case we are testing it in-place
 use Algorithm::Evolutionary::Op::Base;
@@ -41,7 +42,7 @@ sub createAndTest ($$;$) {
 	eval " require  $class" || die "Can't load module $class: $@";
 	my $nct = new $class @$newArgs; 
 	print "Testing $module\n";
-	ok( ref $nct, $class );
+	isa_ok( $nct, $class );
 
 	my $xml = $nct->asXML();
 	my $newnct =  Algorithm::Evolutionary::Op::Base->fromXML( $xml );
@@ -56,10 +57,10 @@ sub createAndTest ($$;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/25 08:41:34 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/ops.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 09:46:07 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/ops.t,v 1.3 2002/09/24 09:46:07 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.3 $
   $Name $
 
 =cut

@@ -30,10 +30,11 @@ Base class for individuals in evolutionary computation algorithms
 
 package Algorithm::Evolutionary::Individual::Base;
 
+use XML::Parser;
+use XML::Parser::EasyTree;
 use Carp;
-use XML::Simple;
 
-our ($VERSION) = ( '$Revision: 1.10 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.13 $ ' =~ /(\d+\.\d+)/ );
 
 
 =head1 METHODS 
@@ -42,7 +43,7 @@ our ($VERSION) = ( '$Revision: 1.10 $ ' =~ /(\d+\.\d+)/ );
 
 Creates a new Base individual of the required class, with a fitness, and sets fitnes to undef.
 Takes as params a hash to the options of the individual, that will be passed
-on to the object of the class when it's initialized.
+on to the object of the class when it iss initialized.
 
 =cut
 
@@ -72,7 +73,7 @@ sub new {
 Creates a new random string, but uses a different interface: takes a
 ref-to-hash, with named parameters, which gives it a common interface
 to all the hierarchy. The main difference with respect to new is that
-after creation, it's initialized with random values.
+after creation, it is initialized with random values.
 
 =cut
 
@@ -111,27 +112,35 @@ about is C<require>d in runtime.
 sub fromXML {
   my $class = shift;
   my $xml = shift || croak "XML fragment missing ";
-  if ( (ref $xml) ne "HASH" ) { #We are receiving a string
-    $xml = XMLin($xml);
+  if ( ref $xml eq ''  ) { #We are receiving a string, parse it
+    my $p=new XML::Parser(Style=>'EasyTree');
+    $XML::Parser::EasyTree::Noempty=1;
+    $xml = $p->parse($xml);
   }
-  if ( $class eq __PACKAGE__ ) { #Deduct class from the XML
-    $class = "Algorithm::Evolutionary::Individual::$xml->{type}";
+
+  my $thisClassName = $xml->[0]{attrib}{type};
+  if ( $class eq  __PACKAGE__ ) { #Deduct class from the XML
+    $class = $thisClassName || shift || croak "Class name missing";
   }
-  carp "XML type does not correspond to class type" if "Algorithm::Evolutionary::Individual::$xml->{type}" ne $class;
+
+  #Calls new, adds preffix if it's not there
   my $self = Algorithm::Evolutionary::Individual::Base::new( $class );
-  
-  if ( !$INC{"$class\.pm"} ) {
-	eval "require $class"  || croak "Can't find $class\.pm Module";
-  }
+  ($self->Fitness( $xml->[0]{attrib}{fitness} ) )if defined $xml->[0]{attrib}{fitness};
+ 
+  $class = ref $self;
+  eval "require $class"  || croak "Can't find $class\.pm Module";
   no strict qw(refs); # To be able to check if a ref exists or not
-  for (@{$xml->{atom}} ) {
+  my $fragment;
+  if ( scalar @$xml > 1 ) { #Received from experiment or suchlike; already processed
+    $fragment = $xml;
+  }  else {
+    $fragment = $xml->[0]{content};
+  } 
+  for (@$fragment ) {
     if ( defined(  $_->{content} ) ) { 
-	  $self->addAtom($_->{content});
-    } else {
-      $self->addAtom( $_ );
-    }
+      $self->addAtom($_->{content}->[0]->{content}); #roundabout way of adding the content of the stuff
+    } 
   }
-  ($self->Fitness( $xml->{fitness} ) )if defined $xml->{fitness};
   return $self;
 }
 
@@ -154,36 +163,20 @@ object to interpret.
 sub fromParam {
   my $class = shift;
   my $xml = shift || croak "XML fragment missing ";
-  if ( defined $xml->{type}{value} ) {
-    $class = "Algorithm::Evolutionary::Individual::$xml->{type}{value}";
-  } elsif ( defined $xml->{param}{type}{value} ) {
-	$class = "Algorithm::Evolutionary::Individual::$xml->{param}{type}{value}";
-  } else {
-    $class = "Algorithm::Evolutionary::Individual::$xml->{type}";
-  }
-
-  if ( !$INC{"$class\.pm"} ) {
-	eval "require $class" || croak "Can't find $class\.pm Module";
-  }
-  my $self = $class->new();
+  my $thisClass;
+  
   my %params;
-  if ( defined $xml->{param} ) {
-	for (keys %{$xml->{param}} ) {
-	  if ( defined  $xml->{param}{$_}{value} ) {
-        $params{$_} = $xml->{param}{$_}{value};
-	  } else {
-        $params{$_} = $xml->{param}{$_};
-	  }
-	}
-  } else {
-	for (keys %{$xml} ) {
-	  if ( defined  $xml->{$_}{value} ) {
-        $params{$_} = $xml->{$_}{value};
-	  } else {
-        $params{$_} = $xml->{$_};
-	  }
-	}
+  for ( @$xml ) {
+    if ( $_->{attrib}{name} eq 'type' ) {
+      $thisClass = $_->{attrib}{value}
+    } else {
+      $params{ $_->{attrib}{name} } = $_->{attrib}{value};
+    }
   }
+  $thisClass = "Algorithm::Evolutionary::Individual::$thisClass" if $thisClass !~ /Algorithm::Evolutionary/;
+
+  eval "require $thisClass" || croak "Can't find $class\.pm Module";
+  my $self = $thisClass->new();
   $self->set( \%params );
   $self->randomize();
   return $self;
@@ -269,10 +262,10 @@ L<lgorithm::Evolutionary::Individual::Tree>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/26 10:50:59 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Base.pm,v 1.10 2002/07/26 10:50:59 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 18:40:16 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Base.pm,v 1.13 2002/09/24 18:40:16 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.10 $
+  $Revision: 1.13 $
   $Name $
 
 =cut

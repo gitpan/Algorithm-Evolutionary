@@ -1,17 +1,6 @@
 Algorithm/Evolutionary version 0.01
 ===================================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
-
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
-
 INSTALLATION
 
 To install this module type the following:
@@ -21,15 +10,27 @@ To install this module type the following:
    make test
    make install
 
+WARNING
+
+Since evolutionary algorithms are stochastic optimization algorithms,
+some of them, specially in the general.t test, might fail; running
+them again might yield a different result. If your installation (from
+CPAN or CPANPLUS) fails for this reason, run a force install, or try
+to make install.  
+
 DEPENDENCIES
 
-This module requires these other modules and libraries:
+This module requires these other modules and libraries (with versions used for development):
 
-  blah blah blah
+XML::Parser::EasyTree => 0.01,
+Math::Random => 0.63,
+Tree::DAG_Node => 1.04,
+B::Deparse => 0.56
+
 
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
-
-Copyright (C) 2002 A. U. Thor blah blah blah
+Copyright (C) 2002 J. J. Merelo-Guervós, jmerelo (at) geneura.ugr.es
+This module is released under the GNU General Public License (see the
+LICENSE file in this distribution).
 

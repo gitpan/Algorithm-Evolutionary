@@ -6,7 +6,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test;
+use Test::More;
 BEGIN { plan tests => 8 };
 use lib qw( ../../.. ../.. .. ); #Just in case we are testing it in-place
 
@@ -40,7 +40,7 @@ sub createAndTest ($$;$) {
 	eval " require  $class" || die "Can't load module $class: $@";
 	my $nct = new $class @$newArgs; 
 	print "Testing $module\n";
-	ok( ref $nct, $class );
+	isa_ok( $nct, $class );
 
 	my $xml = $nct->asXML();
 	my $newnct =  Algorithm::Evolutionary::Individual::Base->fromXML( $xml );
@@ -55,10 +55,10 @@ sub createAndTest ($$;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/25 08:41:34 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 10:13:39 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.2 2002/09/24 10:13:39 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

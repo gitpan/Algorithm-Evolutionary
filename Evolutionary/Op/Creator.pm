@@ -43,10 +43,8 @@ use lib qw( ../.. ../../.. );
 
 use Algorithm::Evolutionary::Individual::Base;
 
-use XML::Simple;
-
 use Carp;
-our $VERSION = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ ) ;
 
 
 =head2 new
@@ -120,13 +118,15 @@ sub set {
   $self->{_number} = $hash->{number};
   $self->{_class} = $hash->{class};
   $self->{_hash} = {};
-  if ( $hash->{options}->{param}->{name} ) {
-    $self->{_hash}->{ $hash->{options}->{param}->{name} } = $hash->{options}->{param}->{value};
-  } else {
-     for ( keys %{$hash->{options}->{param}} ) {
-	   $self->{_hash}->{$_} =  defined $hash->{options}->{param}->{$_}->{value} ? $hash->{options}->{param}->{$_}->{value} : $hash->{options}->{param}->{$_};
-	 }
+  for ( @{$hash->{options}} ) {
+    $self->{_hash}->{$_->{attrib}{name}} = $_->{attrib}{value}
   }
+  
+ # } else {
+#     for ( keys %{$hash->{options}->{param}} ) {
+#	   $self->{_hash}->{$_} =  defined $hash->{options}->{param}->{$_}->{value} ? $hash->{options}->{param}->{$_}->{value} : $hash->{options}->{param}->{$_};
+#	 }
+#  }
 }
 
 
@@ -135,10 +135,10 @@ sub set {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/01 15:39:31 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Creator.pm,v 1.4 2002/09/01 15:39:31 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 12:38:29 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Creator.pm,v 1.6 2002/09/24 12:38:29 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.6 $
   $Name $
 
 =cut

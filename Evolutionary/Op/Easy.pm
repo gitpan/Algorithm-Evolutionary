@@ -48,7 +48,7 @@ iteration of the algorithm to the population it takes as input
 
 package Algorithm::Evolutionary::Op::Easy;
 
-our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 use Algorithm::Evolutionary::Wheel;
@@ -108,7 +108,9 @@ sub set {
 
   $self->{_ops} =();
   for ( keys %$opshash ) {
-	push @{$self->{_ops}},  Algorithm::Evolutionary::Op::Base->fromXML( $opshash->{$_}, $_ );
+    #First element of the array contains the content, second the rate.
+    push @{$self->{_ops}},  
+      Algorithm::Evolutionary::Op::Base::fromXML( $_, $opshash->{$_}->[1], $opshash->{$_}->[0] );
   }
 }
 
@@ -193,10 +195,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/01 15:39:31 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Easy.pm,v 1.3 2002/09/01 15:39:31 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 12:38:29 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Easy.pm,v 1.4 2002/09/24 12:38:29 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.4 $
   $Name $
 
 =cut

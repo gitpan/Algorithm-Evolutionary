@@ -51,7 +51,7 @@ used, along with its priorities
 
 package Algorithm::Evolutionary::Op::GeneralGeneration;
 
-our $VERSION = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.8 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 
@@ -101,7 +101,8 @@ sub set {
 
   $self->{_ops} =();
   for ( keys %$opshash ) {
-	push @{$self->{_ops}},  Algorithm::Evolutionary::Op::Base->fromXML( $opshash->{$_}, $_ );
+	push @{$self->{_ops}}, 
+	  Algorithm::Evolutionary::Op::Base::fromXML( $_, $opshash->{$_}->[1], $opshash->{$_}->[0] ) ;
   }
 }
 
@@ -167,10 +168,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/21 09:22:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/GeneralGeneration.pm,v 1.6 2002/06/21 09:22:00 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 09:16:09 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/GeneralGeneration.pm,v 1.8 2002/09/25 09:16:09 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.6 $
+  $Revision: 1.8 $
   $Name $
 
 =cut

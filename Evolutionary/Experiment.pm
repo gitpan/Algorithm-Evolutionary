@@ -28,10 +28,11 @@ package Algorithm::Evolutionary::Experiment;
 use Algorithm::Evolutionary::Individual::Base;
 use Algorithm::Evolutionary::Op::Base;
 
-our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
-use XML::Simple;
+use XML::Parser;
+use XML::Parser::EasyTree;
 
 =head2 new
 
@@ -104,31 +105,36 @@ example of it follows:
  
  This is an alternative constructor. Takes a well-formed string with the XML
  spec, which should have been done according to EvoSpec 0.3, or the same
- string processed with C<XML::Simple>, and returns a built experiment
+ string processed with C<XML::Parser::EasyTree>, and returns a built experiment
 
 =cut
 
 sub fromXML ($;$) {
   my $class = shift;
   my $xml = shift || carp "XML fragment missing ";
-  if ( (ref $xml) ne "HASH" ) { #We are receiving a string
-    $xml = XMLin($xml);
+  if ( ref $xml eq ''  ) { #We are receiving a string, parse it
+    my $p=new XML::Parser(Style=>'EasyTree');
+    $XML::Parser::EasyTree::Noempty=1;
+    $xml = $p->parse($xml);
   }
+
   my $self = {}; # Create a reference
 
   #Process population, via the creator operator
-  if ( $xml->{initial}{op}{name} ) {
-    push( @{$self->{_algo}}, Algorithm::Evolutionary::Op::Base->fromXML( $xml->{initial}{op} ) );
-  } else {
-    for ( keys  %{$xml->{initial}{op}} ) {
-      push( @{$self->{_algo}}, Algorithm::Evolutionary::Op::Base->fromXML( $xml->{initial}{op}{$_}, $_ ) );
+  for ( @{$xml->[0]{content}[0]{content}} ) { #Should process the <initial> tag
+    if ( $_->{name} eq 'op' ) {
+      push( @{$self->{_algo}}, 
+	  Algorithm::Evolutionary::Op::Base::fromXML( $_->{attrib}{name}, $_->{content} ) );
     }
   }
 
   #Process population, if it exists
   $self->{_pop} = [];
-  for (  @{$xml->{pop}{indi}} ) {
-	push( @{$self->{_pop}}, Algorithm::Evolutionary::Individual::Base->fromXML( $_ ) );
+  for (  @{$xml->[0]{content}[1]{content}} ) {
+    if ( $_->{name} eq 'indi' ) {
+      push( @{$self->{_pop}}, 
+	    Algorithm::Evolutionary::Individual::Base::fromXML( $_->{attrib}{type}, $_->{content} ) );
+    }
   }
   #Bless and return
   bless $self, $class;
@@ -166,7 +172,7 @@ sub asXML {
     xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
     version='0.3'>
 <!-- Serialization of an Experiment object. Generated automatically by
-     Experiment $Revision: 1.3 $ -->
+     Experiment $Revision: 1.5 $ -->
     <initial>
 EOC
 
@@ -187,10 +193,10 @@ EOC
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/01 15:27:51 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Experiment.pm,v 1.3 2002/09/01 15:27:51 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 09:32:44 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Experiment.pm,v 1.5 2002/09/25 09:32:44 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

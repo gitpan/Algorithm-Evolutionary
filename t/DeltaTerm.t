@@ -1,5 +1,4 @@
-# Before `make install' is performed this script should be runnable with
-# `make test'. After `make install' it should work as `perl test.pl'
+#-*-Perl-*-
 
 #########################
 
@@ -35,10 +34,10 @@ ok( $xml, $newnct->asXML() );
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/25 08:41:34 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/DeltaTerm.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 18:40:17 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/DeltaTerm.t,v 1.2 2002/09/24 18:40:17 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

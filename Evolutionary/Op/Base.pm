@@ -37,11 +37,12 @@ package Algorithm::Evolutionary::Op::Base;
 
 use lib qw( ../.. ../../.. );
 
-use XML::Simple;
+use XML::Parser;
+use XML::Parser::EasyTree;
 use B::Deparse; #For serializing code
 
 use Carp;
-our $VERSION = ( '$Revision: 1.14 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.20 $ ' =~ /(\d+\.\d+)/ ) ;
 
 
 =head2 AUTOLOAD
@@ -96,53 +97,49 @@ subclass via the "set" method.
 sub fromXML {
   my $class = shift;
   my $xml = shift || carp "XML fragment missing ";
-  if ( (ref $xml) ne "HASH" ) { #We are receiving a string
-    $xml = XMLin($xml);
+  if ( ref $xml eq ''  ) { #We are receiving a string, parse it
+    my $p=new XML::Parser(Style=>'EasyTree');
+    $XML::Parser::EasyTree::Noempty=1;
+    $xml = $p->parse($xml);
   }
-  my $self = {}; # Create a reference
-  $self->{rate} = $xml->{rate};
+  my $self = { rate => shift || $xml->[0]{attrib}{rate} }; # Create a reference
+
   if ( $class eq  __PACKAGE__ ) { #Deduct class from the XML
-    $class = $xml->{name} || shift || croak "Class name missing";
+    $class = $xml->[0]{attrib}{name} || shift || croak "Class name missing";
   }
-  if ( defined  $xml->{name} and ($xml->{name} ne $class) ) {
-	croak "XML type does not correspond to class type" ;
-  }
+  
   $class = "Algorithm::Evolutionary::Op::$class" if $class !~ /Algorithm::Evolutionary/;
   bless $self, $class; # And bless it
 
-  my %params;
-  if ( defined $xml->{param}{value} ) { # There's a single param
-	$params{$xml->{param}{name}} = $xml->{param}{value};
-  } else {
-        #Params might be defined recursively too, that accounts for the ||
-	for ( keys %{$xml->{param}} ) {
-	  $params{$_} = defined $xml->{param}{$_}{value}? $xml->{param}{$_}{value} : $xml->{param}{$_};
-	}
+  my (%params, %codeFrags, %ops);
+  my $fragment;
+  if ( ( scalar @$xml > 1 ) || ! $xml->[0]{content}[0] ) { #Received from experiment or suchlike; already processed
+    $fragment = $xml;
+  }  else {
+    $fragment = $xml->[0]{content};
+  }
+  for (@$fragment ) {
+    next if !defined  $_->{name};
+    if ( $_->{name} eq 'param' ) { 
+      if ( ! defined ( $_->{'content'}[0] ) ) {
+	$params{$_->{'attrib'}{'name'}} = $_->{'attrib'}{'value'};
+      } else {
+	$params{$_->{'attrib'}{'name'}} = $_->{'content'}
+      }
+    }
+
+    if ( $_->{name} eq 'code' ) { 
+      $codeFrags{$_->{'attrib'}{'type'}} = $_->{'content'}[0]{'content'}[0]{content};
+    }
+    
+    if ( $_->{name} eq 'op' ) { 
+      $ops{$_->{'attrib'}{'name'}} = [$_->{'attrib'}{'rate'}, $_->{'content'}, $_->{'attrib'}{'id'}];
+    }
   }
 
-  #Now process code fragments
-  my %codeFrags;
-  if ( defined $xml->{code}{type} ) { # There's a single param
-	$codeFrags{$xml->{code}{type}} = $xml->{code}{src};
-  } else {
-	for ( keys %{$xml->{code}} ) {
-	  $codeFrags{$_} = $xml->{code}{$_}{value};
-	}
-  }
-
-  #Now Recursively process operators
-  my %ops;
-  if ( defined $xml->{op}{value} ) { # There's a single param
-	$ops{$xml->{op}{name}} = $xml->{op}{value};
-  } else {
-	for ( keys %{$xml->{op}} ) {
-	  $ops{$_} = $xml->{op}{$_};
-	}
-  }
   #If the class is not loaded, we load it. The 
-  if ( !$INC{"$class\.pm"} ) {
-    eval "require $class" || croak "Can't find $class Module";
-  }
+  eval "require $class" || croak "Can't find $class Module";
+
   #Let the class configure itself
   $self->set( \%params, \%codeFrags, \%ops );
   return $self;
@@ -325,10 +322,10 @@ L<Algorithm::Evolutionary::XML.pod|Algorithm::Evolutionary::XML.pod>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/01 15:39:31 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Base.pm,v 1.14 2002/09/01 15:39:31 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 09:16:09 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Base.pm,v 1.20 2002/09/25 09:16:09 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.14 $
+  $Revision: 1.20 $
   $Name $
 
 =cut

@@ -54,7 +54,7 @@ a termination condition
 
 package Algorithm::Evolutionary::Op::FullAlgorithm;
 
-our $VERSION = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 
@@ -98,8 +98,9 @@ sub set {
   $self->SUPER::set( $hashref );
   #Now reconstruct operators
   for ( keys %$opshash ) {
-	$self->{$opshash->{$_}->{id}} = 
-	  Algorithm::Evolutionary::Op::Base::fromXML( "Algorithm::Evolutionary::Op::$_", $opshash->{$_} );
+	$self->{$opshash->{$_}[2]} = 
+#	  Algorithm::Evolutionary::Op::Base::fromXML( "Algorithm::Evolutionary::Op::$_", $opshash->{$_} );
+	  Algorithm::Evolutionary::Op::Base::fromXML( $_, $opshash->{$_}->[1], $opshash->{$_}->[0] ); 
   }
 
 }
@@ -144,8 +145,8 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/01 15:39:31 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.2 2002/09/01 15:39:31 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 18:40:17 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.3 2002/09/24 18:40:17 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut

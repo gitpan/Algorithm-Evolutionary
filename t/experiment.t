@@ -1,6 +1,6 @@
 #-*-Perl-*-
 
-use Test;
+use Test::More;
 BEGIN { plan tests => 10 };
 use lib qw( .. ../../.. ../..); #Just in case we are testing it in-place
 
@@ -26,7 +26,7 @@ my $indiType = 'BitString';
 my $indiSize = 64;
 
 my $e = new Algorithm::Evolutionary::Experiment $popSize, $indiType, $indiSize, $ez;
-ok ( ref $e, 'Algorithm::Evolutionary::Experiment' );
+isa_ok ( $e, 'Algorithm::Evolutionary::Experiment' ); # test 1
 
 my $xml=<<'EOC';
 <ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -75,40 +75,40 @@ my $xml=<<'EOC';
 </ea>
 EOC
   my $e2 = Algorithm::Evolutionary::Experiment->fromXML( $xml );
-  ok( ref $e2, 'Algorithm::Evolutionary::Experiment' );
-  ok( ref $e2->{_algo}[1], 'Algorithm::Evolutionary::Op::Easy' );
+  isa_ok( $e2, 'Algorithm::Evolutionary::Experiment' ); # Test 2
+  isa_ok( $e2->{_algo}[1], 'Algorithm::Evolutionary::Op::Easy' ); # Test 3 
   my $popRef = $e2->go();
-  ok( scalar @{$popRef}, 20 );
+  ok( scalar @{$popRef} == 20 ); # Test 4
 
   my $xpxml = $e2->asXML();
   my $bke2 = Algorithm::Evolutionary::Experiment->fromXML( $xpxml );
-  ok ( scalar @{$bke2->{_pop}}, 20 );
+  ok ( scalar @{$bke2->{_pop}} == 20 ); # Test 5
 
-  open( I, "<xml/marea.xml" );
+  open( I, "<xml/marea.xml" ) || die "Can't open xml/marea.xml";
   my $xml2 = join( "", <I> );
   close I;
   my $mxp =  Algorithm::Evolutionary::Experiment->fromXML( $xml2 );
-  ok( ref $mxp, 'Algorithm::Evolutionary::Experiment' );
-  ok( ref $mxp->{_algo}[1], 'Algorithm::Evolutionary::Op::Easy' );
+  isa_ok( $mxp, 'Algorithm::Evolutionary::Experiment' ); # Test 6
+  isa_ok( $mxp->{_algo}[1], 'Algorithm::Evolutionary::Op::Easy' ); # Test 7
   $popRef = $mxp->go();
-  ok( scalar  @{$popRef}, 20 );
+  ok( scalar  @{$popRef} == 20 );# Test 8
   
-  open( I, "<xml/onemax.xml" );
+  open( I, "<xml/onemax.xml" ) || die "Can't open xml/onemax.xml";
   my $xml3 = join( "", <I> );
   close I;
   my $oxp =  Algorithm::Evolutionary::Experiment->fromXML( $xml3 );
-  ok( ref $oxp, 'Algorithm::Evolutionary::Experiment' );
-  ok( ref $oxp->{_algo}[1], 'Algorithm::Evolutionary::Op::Easy' );
+  isa_ok( $oxp, 'Algorithm::Evolutionary::Experiment' ); # Test 9
+  isa_ok( $oxp->{_algo}[1], 'Algorithm::Evolutionary::Op::Easy' ); # Test 10
 
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/25 08:41:34 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/experiment.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/24 18:40:17 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/experiment.t,v 1.5 2002/09/24 18:40:17 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

@@ -1,4 +1,5 @@
 Changes
+LICENSE
 Makefile.PL
 MANIFEST
 README
@@ -9,11 +10,11 @@ Evolutionary/XML.pod
 Evolutionary/Op/ArithCrossover.pm
 Evolutionary/Op/Base.pm
 Evolutionary/Op/Bitflip.pm
-Evolutionary/Op/CX.pm
+Evolutionary/Op/CanonicalGA.pm
 Evolutionary/Op/ChangeLengthMutation.pm
 Evolutionary/Op/Creator.pm
 Evolutionary/Op/Crossover.pm
-Evolutionary/Op/CanonicalGA.pm
+Evolutionary/Op/CX.pm
 Evolutionary/Op/DeltaTerm.pm	
 Evolutionary/Op/Easy.pm
 Evolutionary/Op/FullAlgorithm.pm
