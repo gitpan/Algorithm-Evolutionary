@@ -274,10 +274,10 @@ ok( $sortPop[0]->Fitness() >= $oldBestFitness, 1);
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/25 12:18:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.5 2002/09/25 12:18:17 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 20:48:42 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.6 2002/09/25 20:48:42 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.6 $
   $Name $
 
 =cut

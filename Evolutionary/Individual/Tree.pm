@@ -41,7 +41,7 @@ package Algorithm::Evolutionary::Individual::Tree;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
 
 use Tree::DAG_Node;
 
@@ -283,10 +283,10 @@ sub growSubTree {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/19 12:36:57 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Tree.pm,v 1.4 2002/06/19 12:36:57 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/25 20:48:42 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Tree.pm,v 1.5 2002/09/25 20:48:42 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

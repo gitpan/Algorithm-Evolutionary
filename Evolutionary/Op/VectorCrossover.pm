@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op:VectorCrossover - Crossover for lgorithm::Evolutionary::Individual::Vector.
+    Algorithm::Evolutionary::Op::VectorCrossover - Crossover for lgorithm::Evolutionary::Individual::Vector.
 
 =head1 SYNOPSIS
 
@@ -35,7 +35,7 @@ Crossover operator for a  individual with vector representation
 
 package Algorithm::Evolutionary::Op::VectorCrossover;
 
-our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -121,10 +121,10 @@ sub  apply ($$;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/25 12:18:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/VectorCrossover.pm,v 1.5 2002/09/25 12:18:17 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/26 10:20:27 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/VectorCrossover.pm,v 1.7 2002/09/26 10:20:27 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.7 $
   $Name $
 
 =cut

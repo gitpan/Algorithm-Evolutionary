@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op:FullAlgorithm - evolutionary algorithm, single generation, with 
+    Algorithm::Evolutionary::Op::FullAlgorithm - evolutionary algorithm, single generation, with 
                     variable operators.
                  
 
@@ -54,7 +54,7 @@ a termination condition
 
 package Algorithm::Evolutionary::Op::FullAlgorithm;
 
-our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 
@@ -145,8 +145,8 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 18:40:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.3 2002/09/24 18:40:17 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/26 10:20:27 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.4 2002/09/26 10:20:27 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut

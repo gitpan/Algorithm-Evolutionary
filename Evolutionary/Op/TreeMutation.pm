@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-  Mutation - BitFlip mutation, changes several bits, depending on the probability
+  Algorithm::Evolutionary::Op::TreeMutation - GP-like mutation operator for trees
 
 =head1 SYNOPSIS
 
@@ -22,7 +22,7 @@ a certain probability
 
 package Algorithm::Evolutionary::Op::TreeMutation;
 
-our ($VERSION) = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -130,10 +130,10 @@ sub mutate {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:21:13 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/TreeMutation.pm,v 1.2 2002/06/18 12:21:13 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/26 10:20:27 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/TreeMutation.pm,v 1.3 2002/09/26 10:20:27 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.3 $
   $Name $
 
 =cut
