@@ -25,13 +25,13 @@ not changed, and returns false after that limit is reached.
 It is useful if you want to run an algorithm for a certain time, or if
 you want to apply some fancy diversity operator
 
-=head METHODS
+=head1 METHODS
 
 =cut
 
 package Algorithm::Evolutionary::Op::NoChangeTerm;
 
-our $VERSION = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Algorithm::Evolutionary::Op::Base;
 our @ISA = qw(Algorithm::Evolutionary::Op::Base);
@@ -87,10 +87,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:00:58 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/NoChangeTerm.pm,v 1.2 2002/06/18 12:00:58 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/25 09:09:02 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/NoChangeTerm.pm,v 1.3 2002/07/25 09:09:02 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.3 $
   $Name $
  
 =cut

@@ -40,7 +40,7 @@ Crossover operator for a GA
 
 package Algorithm::Evolutionary::Op::Crossover;
 
-our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -86,7 +86,7 @@ sub create {
 Applies xover operator to a "Chromosome", a bitstring, really. Can be
 applied only to I<victims> with the C<_bitstring> instance variable; but
 it checks before application that both operands are of type
-L<BinaryIndi|BinaryIndi>.
+L<BitString|Algorithm::Evolutionary::Individual::BitString>.
 
 Changes the first parent, and returns it.
 
@@ -118,10 +118,10 @@ sub  apply ($$$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:37:20 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Crossover.pm,v 1.4 2002/06/18 12:37:20 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/26 10:51:00 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Crossover.pm,v 1.6 2002/07/26 10:51:00 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.6 $
   $Name $
 
 =cut

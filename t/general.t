@@ -5,8 +5,8 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test;
-BEGIN { plan tests => 36 };
-use lib qw( ../.. ../../.. .. ); #Just in case we are testing it in-place
+BEGIN { plan tests => 39 };
+use lib qw( ../.. ../../.. ); #Just in case we are testing it in-place
 
 use Algorithm::Evolutionary::Individual::String;
 use Algorithm::Evolutionary::Individual::BitString;
@@ -18,9 +18,23 @@ use Algorithm::Evolutionary::Individual::Tree;
 # Insert your test code below, the Test module is use()ed here so read
 # its man page ( perldoc Test ) for help writing this test script.
 
+#String
+print "Testing Individual objects...String \n";
 ok( ref Algorithm::Evolutionary::Individual::String->new([a..z],10), "Algorithm::Evolutionary::Individual::String" );
+ok( ref Algorithm::Evolutionary::Individual::Base::create( 'String', { chars => [a..e], length => 10 }), "Algorithm::Evolutionary::Individual::String" );
+
+#Bitstring
+print "BitString...\n";
 ok( ref Algorithm::Evolutionary::Individual::BitString->new(10), "Algorithm::Evolutionary::Individual::BitString" );
+ok( ref Algorithm::Evolutionary::Individual::Base::create( 'BitString', { length => 10 }), "Algorithm::Evolutionary::Individual::BitString" );
+
+#Vector
+print "Vector...\n";
 ok( ref Algorithm::Evolutionary::Individual::Vector->new(10), "Algorithm::Evolutionary::Individual::Vector" );
+ok( ref Algorithm::Evolutionary::Individual::Base::create( 'Vector', 
+							   { length => 20,
+							     rangestart => -5,
+							     rangeend => 5 }), "Algorithm::Evolutionary::Individual::Vector" );
 
 my $primitives = { sum => [2, -1, 1],
 		   multiply => [2, -1, 1],
@@ -97,14 +111,14 @@ ok( ref $g, "Algorithm::Evolutionary::Op::GaussianMutation" );
 my $v = new Algorithm::Evolutionary::Individual::Vector 10, -5, 5;;
 ok( $v->Atom(3) != $g->apply( $v )->Atom(3), 1);
 
-#test 16
+#test 19
 use Algorithm::Evolutionary::Op::TreeMutation;
 my $t =  new Algorithm::Evolutionary::Op::TreeMutation 0.5;
 ok( ref $t, "Algorithm::Evolutionary::Op::TreeMutation" );
 
-#test 17
+#test 20
 my $tv = Algorithm::Evolutionary::Individual::Tree->new($primitives, 4);
-ok( $tv->asString()  ne $t->apply( $tv )->asString(), 1);
+ok( $tv->asString() ne $t->apply( $tv )->asString(), 1);
 
 #test 18
 use Algorithm::Evolutionary::Op::VectorCrossover;
@@ -159,9 +173,9 @@ ok( $bs->asString()  ne $im->apply( $bs )->asString(), 1);
 
 print "Testing algorithms\n";
 
-#test 30
+#test 33
 use Algorithm::Evolutionary::Op::LinearFreezer;
-use Algorithm::Evolutionary::SimulatedAnnealing;
+use Algorithm::Evolutionary::Op::SimulatedAnnealing;
 
   my $m  = new Algorithm::Evolutionary::Op::Bitflip; #Changes a single bit
   my $initTemp = 2;
@@ -175,10 +189,10 @@ use Algorithm::Evolutionary::SimulatedAnnealing;
 		my $sqrt = sqrt( $x*$x+$y*$y);
 		return sin( $sqrt )/$sqrt;
     };
-  my $sa = new Algorithm::Evolutionary::SimulatedAnnealing( $eval, $m, $freezer, $initTemp, $minTemp,  );
-  ok( ref $sa, 'Algorithm::Evolutionary::SimulatedAnnealing' );
+  my $sa = new Algorithm::Evolutionary::Op::SimulatedAnnealing( $eval, $m, $freezer, $initTemp, $minTemp,  );
+  ok( ref $sa, 'Algorithm::Evolutionary::Op::SimulatedAnnealing' );
 
-#test 31
+#test 34
   use Algorithm::Evolutionary::Op::Bitflip;
   my $m = new Algorithm::Evolutionary::Op::Bitflip; #Changes a single bit
   my $c = new Algorithm::Evolutionary::Op::Crossover; #Classical 2-point crossover
@@ -190,11 +204,11 @@ use Algorithm::Evolutionary::SimulatedAnnealing;
   my $onemax = sub { 
     my $indi = shift;
     my $total = 0;
-	my $len = $indi->length();
-    my $i;
-	while ($i < $len ) {
-	  $total += substr($indi->{'_str'}, $i, 1);
-	  $i++;
+    my $len = $indi->length();
+    my $i = 0;
+    while ($i < $len ) {
+      $total += substr($indi->{'_str'}, $i, 1);
+      $i++;
     }
     return $total;
   };
@@ -253,10 +267,10 @@ use Algorithm::Evolutionary::SimulatedAnnealing;
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/20 16:57:27 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/t/general.t,v 1.8 2002/06/20 16:57:27 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/25 11:44:00 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.2 2002/07/25 11:44:00 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.8 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

@@ -1,15 +1,16 @@
 #-*-Perl-*-
 
 use Test;
-BEGIN { plan tests => 30 };
-use lib qw( ../../.. ../.. ..); #Just in case we are testing it in-place
+BEGIN { plan tests => 32 };
+use lib qw( .. ../../.. ../..); #Just in case we are testing it in-place
+use Algorithm::Evolutionary::Op::Base;
 
 #Use: module name, args to ctor. 
 my %modulesToTest = (
 					 Mutation => [0.5],
 					 Bitflip => [10],
 					 Crossover => [2],
-					 GaussianMutation => [],
+					 GaussianMutation => [1,1],
 					 TreeMutation => [0.5],
 					 VectorCrossover => [0.5],
 					 CX =>[],
@@ -20,7 +21,8 @@ my %modulesToTest = (
 					 TournamentSelect=>[100,7],
 					 NoChangeTerm => [10],
 					 GenerationalTerm => [10],
-					 DeltaTerm => [1, 0.1] );
+					 DeltaTerm => [1, 0.1],
+					 Creator => [ 20, BitString, {length => 10 }] );
 
 my %ops;
 for ( keys %modulesToTest ) {
@@ -54,10 +56,10 @@ sub createAndTest ($$;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/20 15:41:35 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/t/ops.t,v 1.2 2002/06/20 15:41:35 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/25 08:41:34 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/ops.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.1 $
   $Name $
 
 =cut

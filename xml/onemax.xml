@@ -6,29 +6,38 @@
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/21 06:52:10 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/xml/onemax.xml,v 1.1 2002/06/21 06:52:10 jmerelo Exp $ 
+  CVS Info: $Date: 2002/09/01 16:04:01 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/xml/onemax.xml,v 1.2 2002/09/01 16:04:01 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.2 $
   $Name $
 -->
 
 <ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation='ea-alpha.xsd'
-    version='0.2'>
+    version='0.3'>
 
   <initial>
-    <section name='indi'> 
-      <param name='type' value='BinaryIndi' /> 
+    <op name='Creator' >
+      <param name='number' value='20' />
+      <param name='class' value='Bitstring' />       
+      <param name='options'>
+        <param name='length' value='64' />
+      </param>
+    </op>
+    <pop size='20'>
+     <section name='indi'> 
+      <param name='type' value='BitString' /> 
       <param name='length' value='64' />
-    </section>
-    <section name='pop'> 
-      <param name='size'  value='100' />
-      <op name='EasyAlgorithm' type='unary'>
+     </section>
+    </pop>
+
+    <op name='Easy' type='unary'>
         <param name='selrate' value='0.4' />
         <param name='maxgen' value='100' />
         <code type='eval' language='perl'>
     	  <src><![CDATA[ 
+          my $indi = shift;
     	  my $total = 0;
     	  for ( my $i = 0; $i < length( $indi->{_bitstr} ); $i ++ ) {
 	  		$total += substr( $indi->{_bitstr}, $i, 1 );
@@ -37,18 +46,14 @@
     	  ]]>
           </src>
         </code>
-        <op name='MutationOne' type='unary' rate='1.0'>
+        <op name='Bitflip' type='unary' rate='1.0'>
         	<param name='probability' value='0.1' />
+            <param name='howMany' value='1' />
       	</op>
       	<op name='Crossover' type='binary' rate='1'>
         	<param name='numpoints' value='2' />
       	</op>
       </op>
-    </section>
   </initial>
-
-
-  <runtime>
-  </runtime> 
 
 </ea>

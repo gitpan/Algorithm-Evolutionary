@@ -49,7 +49,7 @@ package Algorithm::Evolutionary::Individual::String;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
 use Algorithm::Evolutionary::Individual::Base;
 our @ISA = qw ( Algorithm::Evolutionary::Individual::Base );
 
@@ -230,7 +230,7 @@ sub length {
 
 =head2 asXML
 
-Prints it as XML. See L<XML> for more info on this
+Prints it as XML. See L<Algorithm::Evolutionary::XML> for more info on this
 
 =cut
 
@@ -273,9 +273,9 @@ L<Algorithm::Evolutionary::Individual::BitString|Algorithm::Evolutionary::Indivi
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/21 09:22:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/String.pm,v 1.4 2002/06/21 09:22:00 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/26 10:50:59 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/String.pm,v 1.5 2002/07/26 10:50:59 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.5 $
 
 =cut

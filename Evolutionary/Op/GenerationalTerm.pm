@@ -26,7 +26,7 @@ or not
 
 package Algorithm::Evolutionary::Op::GenerationalTerm;
 
-our $VERSION = ( '$Revision: 1.1 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Algorithm::Evolutionary::Op::Base;
 our @ISA = qw(Algorithm::Evolutionary::Op::Base);
@@ -46,7 +46,7 @@ will make the C<apply> method return false after 100 calls
 sub new {
   my $class = shift;
   my $hash = { generations => shift || 100,
-	       counter => 0 };
+			   counter => 0 };
   my $self = Algorithm::Evolutionary::Op::Base::new( __PACKAGE__, 1, $hash );
   return $self;
 }
@@ -78,10 +78,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:00:58 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/GenerationalTerm.pm,v 1.1 2002/06/18 12:00:58 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/25 07:03:09 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/GenerationalTerm.pm,v 1.2 2002/07/25 07:03:09 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

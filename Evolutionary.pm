@@ -1,6 +1,6 @@
 package Algorithm::Evolutionary;
 
-our $VERSION = '0.5';
+our $VERSION = '0.51';
 
 # Preloaded methods go here.
 
@@ -34,7 +34,7 @@ as more complex ones, that interface with databases or with the
 web. 
 
 The project is hosted at
-L<Sourceforge|http://opeal.sourceforge.net>. Latest aditions, and
+E<lt>a href='http://opeal.sourceforge.net'E<gt>Sourceforge  E<lt>/aE<gt>. Latest aditions, and
 nightly updates, can be downloaded from there before they are uploaded
 to CPAN. That page also hosts the mailing list, as well as bug
 reports, news, updates, whatever.
@@ -42,13 +42,14 @@ reports, news, updates, whatever.
 
 =head1 AUTHOR
 
-J. J. Merelo, E<lt>jmerelo@geneura.ugr.es<gt>
-Javi García, E<lt>javi@geneura.ugr.es<gt>
-Pedro Castillo, E<lt>javi@geneura.ugr.es<gt>
+Main author and developer is J. J. Merelo,
+E<lt>jmerelo@geneura.ugr.es<gt>. There have also been some
+contributions from Javi García, E<lt>javi@geneura.ugr.es<gt> and Pedro
+Castillo, E<lt>javi@geneura.ugr.es<gt>
 
 =head1 SEE ALSO
 
-L<Op/Base>.
-L<Individual/Base>.
+L<Algorithm::Evolutionary::Op::Base>.
+L<Algorithm::Evolutionary::Individual::Base>.
 
 =cut

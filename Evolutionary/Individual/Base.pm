@@ -33,7 +33,7 @@ package Algorithm::Evolutionary::Individual::Base;
 use Carp;
 use XML::Simple;
 
-our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.10 $ ' =~ /(\d+\.\d+)/ );
 
 
 =head1 METHODS 
@@ -41,14 +41,15 @@ our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
 =head2 new
 
 Creates a new Base individual of the required class, with a fitness, and sets fitnes to undef.
-Takes no params.
+Takes as params a hash to the options of the individual, that will be passed
+on to the object of the class when it's initialized.
 
 =cut
 
 sub new {
   my $class = shift;
   if ( $class !~ /Algorithm::Evolutionary/ ) {
-	$class = "Algorithm::Evolutionary::Individual::$class";
+    $class = "Algorithm::Evolutionary::Individual::$class";
   }
   my $options = shift;
   no strict qw(refs);
@@ -63,6 +64,23 @@ sub new {
 	$self->set( $options );
   }
 
+  return $self;
+}
+
+=head2 create
+
+Creates a new random string, but uses a different interface: takes a
+ref-to-hash, with named parameters, which gives it a common interface
+to all the hierarchy. The main difference with respect to new is that
+after creation, it's initialized with random values.
+
+=cut
+
+sub create {
+  my $class = shift; 
+  my $ref = shift || carp "Can't find the parameters hash";
+  my $self = Algorithm::Evolutionary::Individual::Base::new( $class, $ref );
+  $self->randomize();
   return $self;
 }
 
@@ -234,15 +252,15 @@ sub Chrom {
 
 =item * 
 
-L<Algorithm::Evolutionary::Individual::Vector|Algorithm::Evolutionary::Individual::Vector>
+L<Algorithm::Evolutionary::Individual::Vector>
 
 =item * 
 
-L<Algorithm::Evolutionary::Individual::String|Algorithm::Evolutionary::Individual::String>
+L<Algorithm::Evolutionary::Individual::String>
 
 =item * 
 
-L<GPIndi|GPIndi>
+L<lgorithm::Evolutionary::Individual::Tree>
 
 =back
 
@@ -251,10 +269,10 @@ L<GPIndi|GPIndi>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/21 09:22:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Base.pm,v 1.7 2002/06/21 09:22:00 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/26 10:50:59 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Base.pm,v 1.10 2002/07/26 10:50:59 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.7 $
+  $Revision: 1.10 $
   $Name $
 
 =cut

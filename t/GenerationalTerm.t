@@ -7,23 +7,20 @@
 
 use Test;
 BEGIN { plan tests => 4 };
-use lib qw( ../../.. ../.. .. ); #Just in case we are testing it in-place
+use lib qw( ../../.. ../..); #Just in case we are testing it in-place
 
-use Algorithm::Evolutionary::Op::DeltaTerm;
+use Algorithm::Evolutionary::Op::GenerationalTerm;
 use Algorithm::Evolutionary::Individual::String;
 
 #########################
 
-my $target = 1;
-my $delta = 0.1;
-my $nct = new Algorithm::Evolutionary::Op::DeltaTerm $target, $delta; 
-ok( ref $nct, "Algorithm::Evolutionary::Op::DeltaTerm" );
+my $gens = 1;
+my $nct = new Algorithm::Evolutionary::Op::GenerationalTerm $gens; 
+ok( ref $nct, "Algorithm::Evolutionary::Op::GenerationalTerm" );
 
 my $indi= new Algorithm::Evolutionary::Individual::String [0,1], 2;
-$indi->Fitness(1);
-ok( $nct->apply([$indi]), '' ); #Should return 0
-$indi->Fitness(0);
-ok( $nct->apply([$indi]), 1 ); #Should return 0
+ok( $nct->apply([$indi]), 1 ); #Runs once, possible
+ok( $nct->apply([$indi]), '' ); #Runs twice, returns fail
 
 my $xml = $nct->asXML();
 my $newnct =  Algorithm::Evolutionary::Op::Base->fromXML( $xml );
@@ -36,7 +33,7 @@ ok( $xml, $newnct->asXML() );
   or go to http://www.fsf.org/licenses/gpl.txt
 
   CVS Info: $Date: 2002/07/25 08:41:34 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/DeltaTerm.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/GenerationalTerm.t,v 1.1 2002/07/25 08:41:34 jmerelo Exp $ 
   $Author: jmerelo $ 
   $Revision: 1.1 $
   $Name $

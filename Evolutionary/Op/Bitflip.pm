@@ -35,7 +35,7 @@ does not need a rate
 
 package Algorithm::Evolutionary::Op::Bitflip;
 
-our ($VERSION) = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
 
 
 use Carp;
@@ -58,7 +58,7 @@ sub new {
   my $howMany = shift || 1; 
   my $rate = shift || 1;
 
-  my $hash = { howMany => $howMany };
+  my $hash = { howMany => $howMany || 1};
   my $self = Algorithm::Evolutionary::Op::Base::new( 'Algorithm::Evolutionary::Op::Bitflip', $rate, $hash );
   return $self;
 }
@@ -81,7 +81,7 @@ sub create {
 Applies mutation operator to a "Chromosome", a bitstring, really. Can be
 applied only to I<victims> with the C<_str> instance variable; but
 it checks before application that both operands are of type
-L<BinaryIndi|BinaryIndi>.
+L<BitString|Algorithm::Evolutionary::Individual::BitString>.
 
 =cut
 
@@ -103,10 +103,10 @@ sub apply ($;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/18 12:21:13 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Bitflip.pm,v 1.2 2002/06/18 12:21:13 jmerelo Exp $ 
+  CVS Info: $Date: 2002/07/26 10:51:00 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Bitflip.pm,v 1.5 2002/07/26 10:51:00 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.5 $
   $Name $
 
 =cut
