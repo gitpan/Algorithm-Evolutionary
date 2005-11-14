@@ -1,8 +1,6 @@
-<!ELEMENT code ( src ) >
-<!ATTLIST code language NMTOKEN #REQUIRED >
-<!ATTLIST code type NMTOKEN #REQUIRED >
+<!-- EvoSpec language $Revision: 1.2 $ -->
 
-<!ELEMENT ea ( initial, pop? ) >
+<!ELEMENT ea ( initial, pop?) >
 <!ATTLIST ea version NMTOKEN #REQUIRED >
 
 <!ELEMENT initial ( pop?, op+ ) >
@@ -30,3 +28,6 @@
 
 <!ELEMENT atom ( #PCDATA ) >
 
+<!ELEMENT code ( src ) >
+<!ATTLIST code language NMTOKEN #REQUIRED >
+<!ATTLIST code type NMTOKEN #REQUIRED >

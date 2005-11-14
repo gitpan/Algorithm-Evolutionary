@@ -1,15 +1,13 @@
-2002-09-26  Juan Julian Merelo Guervos  <jmerelo@localhost>
+2005-11-14  Juan Julian Merelo Guervos  <jmerelo@localhost>
 
-	* 0.52_3 -> after seeing some weird things in the CPAN release, I
-	have fixed some documentation bugs. There are probably many more
-	to be fixed. This CPAN thing is just plain wonderful, forces you
-	to test, document properly, and lots of things...
+	* Fixed many problems with DTDs. It should work now.
 
-2002-09-25  Juan Julian Merelo Guervos  <jmerelo@localhost>
-
-	* Substituted everything related to XML::Simple; XML parsing is
-	now done using  XML::Parser::Tree. Modified some administrative
-	files, and run tests. They work. So far.
+Revision history for Perl extension Algorithm::Evolutionary.
+0.51 Sept 22 2002
+	- Fixed some problems with the PODs.
+	- Updated to the version in CVS.
+	- Fixed files missing in the MANIFEST.
+	- Included all files mentioned in the YAPC::Europe presentation
 
 0.01  Fri Jun  7 09:43:33 2002
 	- original version; created by h2xs 1.21 with options

@@ -3,13 +3,13 @@ use ExtUtils::MakeMaker;
 # the contents of the Makefile that is written.
 WriteMakefile( 'NAME'		=> 'Algorithm::Evolutionary',
 	       'VERSION_FROM'	=> 'Evolutionary.pm', # finds $VERSION
-	       'PREREQ_PM'		=> {Test::Simple => 0.44,
-					    XML::Parser::EasyTree => 0.01,
-					    Math::Random => 0.63,
-					    Tree::DAG_Node => 1.04,
-					    B::Deparse => 0.56,
-					    Algorithm::Permute => 0.01,
-					    XML::LibXML => 1.50 }, # e.g., Module::Name => 1.1
+	       'PREREQ_PM'	=> {Test::Simple => 0.44,
+				    XML::Parser::EasyTree => 0.01,
+				    Math::Random => 0.63,
+				    Tree::DAG_Node => 1.04,
+				    B::Deparse => 0.56,
+				    Algorithm::Permute => 0.01,
+				    XML::LibXML => 1.50 }, # e.g., Module::Name => 1.1
 	       'PMLIBDIRS'       => [ 'Evolutionary', 'Evolutionary/Op', 'Evolutionary/Individual' ],
 	       ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
 		(ABSTRACT_FROM => 'Evolutionary.pm', # retrieve abstract from module

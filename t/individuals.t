@@ -18,7 +18,7 @@ my $primitives = { sum => [2, -1, 1],
 		   x => [0, -10, 10],
 		   y => [0, -10, 10] };
 
-my %modulesToTest = ( String => [[a..z],10 ],
+my %modulesToTest = ( String => [['a'..'z'],10 ],
 		      BitString => [10],
 		      Vector => [10],
 		      Tree => [$primitives, 3] );
@@ -26,7 +26,7 @@ my %modulesToTest = ( String => [[a..z],10 ],
 my %indis;
 for ( keys %modulesToTest ) {
   my $indi = createAndTest( $_, $modulesToTest{$_});
-  $indis{ ref $op } = $indi;
+  $indis{ ref $_ } = $indi;
 }
 
 #Subroute that tests and creates an op. Takes as argument
@@ -55,10 +55,10 @@ sub createAndTest ($$;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 10:13:39 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.2 2002/09/24 10:13:39 jmerelo Exp $ 
+  CVS Info: $Date: 2005/11/14 12:34:08 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.3 2005/11/14 12:34:08 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.3 $
   $Name $
 
 =cut

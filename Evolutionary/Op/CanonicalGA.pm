@@ -36,7 +36,7 @@ population.
 
 package Algorithm::Evolutionary::Op::CanonicalGA;
 
-our $VERSION = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.1 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 use Algorithm::Evolutionary::Wheel;
@@ -128,10 +128,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/24 19:16:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Easy.pm,v 1.2 2002/07/24 19:16:17 jmerelo Exp $ 
+  CVS Info: $Date: 2005/11/14 12:55:07 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/CanonicalGA.pm,v 1.1 2005/11/14 12:55:07 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.1 $
   $Name $
 
 =cut
