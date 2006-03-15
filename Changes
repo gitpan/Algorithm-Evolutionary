@@ -1,6 +1,7 @@
 2005-11-14  Juan Julian Merelo Guervos  <jmerelo@localhost>
-
+0.53_4 Nov 2005
 	* Fixed many problems with DTDs. It should work now.
+	* Fixed Changes and some docs.
 
 Revision history for Perl extension Algorithm::Evolutionary.
 0.51 Sept 22 2002

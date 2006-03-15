@@ -11,16 +11,16 @@ use warnings;
 
     use Algorithm::Evolutionary::Individual::BitString;
 
-    my $indi = new  10 ; # Build random bitstring with length 10
+    my $indi = new Algorithm::Evolutionary::Individual::BitString 10 ; # Build random bitstring with length 10
                                    # Each element in the range 0 .. 1
 
     my $indi3 = new Algorithm::Evolutionary::Individual::BitString;
-    $indi3->set( length => 20 );   #Sets values, but does not build the string
+    $indi3->set( { length => 20 } );   #Sets values, but does not build the string
     
     $indi3->randomize(); #Creates a random bitstring with length as above
  
     print $indi3->Atom( 7 );       #Returns the value of the 7th character
-    $indi3->Atom( 3 ) = '2.35';       #Sets the value
+    $indi3->Atom( 3 ) = 1;       #Sets the value
 
     $indi3->addAtom( 1 ); #Adds a new character to the bitstring at the end
 
@@ -49,7 +49,7 @@ package Algorithm::Evolutionary::Individual::BitString;
 use Carp;
 use Exporter;
 
-our ($VERSION) =  ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) =  ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
 
 use Algorithm::Evolutionary::Individual::String;
 our @ISA = qw (Algorithm::Evolutionary::Individual::String);
@@ -89,10 +89,10 @@ sub set {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/06/21 09:22:00 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/BitString.pm,v 1.6 2002/06/21 09:22:00 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 08:51:22 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/BitString.pm,v 1.7 2006/03/15 08:51:22 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.6 $
+  $Revision: 1.7 $
   $Name $
 
 =cut

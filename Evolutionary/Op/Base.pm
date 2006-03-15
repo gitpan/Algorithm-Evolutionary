@@ -42,7 +42,7 @@ use XML::Parser::EasyTree;
 use B::Deparse; #For serializing code
 
 use Carp;
-our $VERSION = ( '$Revision: 1.20 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.21 $ ' =~ /(\d+\.\d+)/ ) ;
 
 
 =head2 AUTOLOAD
@@ -211,7 +211,8 @@ sub rate {
 
 =head2 check
 
-Check if the object the operator is applied to has the correct type
+Check if the object the operator is applied to has is in the correct
+class. 
 
 =cut
 
@@ -322,10 +323,10 @@ L<Algorithm::Evolutionary::XML.pod|Algorithm::Evolutionary::XML.pod>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/25 09:16:09 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Base.pm,v 1.20 2002/09/25 09:16:09 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 08:51:22 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Base.pm,v 1.21 2006/03/15 08:51:22 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.20 $
+  $Revision: 1.21 $
   $Name $
 
 =cut

@@ -18,7 +18,7 @@ use Algorithm::Evolutionary::Individual::Tree;
 
 #String
 print "Testing Individual objects...String \n";
-ok( ref Algorithm::Evolutionary::Individual::String->new([a..z],10), "Algorithm::Evolutionary::Individual::String" );
+ok( ref Algorithm::Evolutionary::Individual::String->new(['a'..'z'],10), "Algorithm::Evolutionary::Individual::String" );
 ok( ref Algorithm::Evolutionary::Individual::Base::create( 'String', { chars => ['a'..'e'], length => 10 }), "Algorithm::Evolutionary::Individual::String" );
 
 #Bitstring
@@ -257,7 +257,7 @@ my $fxml = $f->asXML();
 my $txml = $f->{_terminator}->asXML();
 my $fprime = Algorithm::Evolutionary::Op::Base->fromXML( $fxml );
 ok( $txml eq $fprime->{_terminator}->asXML() , 1 ); #Code snippets will never be exactly the same.
-my $oldBestFitness = $bestIndi->Fitness();
+$oldBestFitness = $bestIndi->Fitness();
 for ( @sortPop ) {
   if ( !defined $_->Fitness() ) {
     my $fitness = $onemax->( $_ );
@@ -272,10 +272,10 @@ ok( $sortPop[0]->Fitness() >= $oldBestFitness, 1);
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2005/11/14 12:34:08 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.7 2005/11/14 12:34:08 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 09:29:41 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/general.t,v 1.8 2006/03/15 09:29:41 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.7 $
+  $Revision: 1.8 $
   $Name $
 
 =cut

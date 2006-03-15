@@ -47,6 +47,7 @@ t/individuals.t
 t/experiment.t
 t/validate.t
 t/run.t
+t/string.t
 xml/EvoSpec.dtd
 xml/EvoSpecValidate.pl
 xml/marea.xml
@@ -54,3 +55,6 @@ xml/marea-fails.xml
 xml/royalroad.xml
 xml/onemax.xml
 xml/experiment.xml
+xml/XML.pod
+samples/5_marea_reales.pl
+META.yml                                 Module meta-data (added by MakeMaker)

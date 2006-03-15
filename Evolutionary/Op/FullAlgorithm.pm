@@ -3,8 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op::FullAlgorithm - evolutionary algorithm, single generation, with 
-                    variable operators.
+    Algorithm::Evolutionary::Op::FullAlgorithm - Skeleton class for a fully-featured evolutionary algorithm
                  
 
 =head1 SYNOPSIS
@@ -47,21 +46,24 @@ L<Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-Easy full algoritm, includes a "generation", that is, a step, and
-a termination condition
+Class Easy-to-use full evolutionary algoritm.It takes a
+single-generarion algorithm, and mixes it with a termination condition
+to create a full algorithm. Includes a sensible default
+(100-generation generational algorithm) if it is issued only an object
+of class L<Algorithm::Evolutionary::Op::GeneralGeneration>.
 
 =cut
 
 package Algorithm::Evolutionary::Op::FullAlgorithm;
 
-our $VERSION = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use Carp;
 
 use Algorithm::Evolutionary::Op::Base;
 our @ISA = qw(Algorithm::Evolutionary::Op::Base);
 
-# Class-wide constants
+#  Class-wide constants
 our $APPLIESTO =  'ARRAY';
 our $ARITY = 1;
 
@@ -73,7 +75,7 @@ Takes an already created algorithm and a terminator, and creates an object
 
 sub new {
   my $class = shift;
-  my $algo = shift|| croak "No single generation algo found";
+  my $algo = shift|| croak "No single generation algorithm found";
   my $term = shift ||  new  Algorithm::Evolutionary::Op::GenerationalTerm 100;
   my $verbose = shift || 0;
   my $hash = { algo => $algo,
@@ -145,8 +147,8 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/26 10:20:27 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.4 2002/09/26 10:20:27 jmerelo Exp $ 
+  CVS Info: $Date: 2005/11/14 13:24:21 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.5 2005/11/14 13:24:21 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut

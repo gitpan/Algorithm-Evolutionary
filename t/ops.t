@@ -1,5 +1,8 @@
 #-*-Perl-*-
 
+use strict;
+use warnings;
+
 use Test::More;
 
 BEGIN { plan tests => 34 };
@@ -24,9 +27,10 @@ my %modulesToTest = (
 		     NoChangeTerm => [10],
 		     GenerationalTerm => [10],
 		     DeltaTerm => [1, 0.1],
-		     Creator => [ 20, BitString, {length => 10 }] );
+		     Creator => [ 20, 'BitString', {length => 10 }] );
 
 my %ops;
+sub createAndTest ($$;$);
 for ( keys %modulesToTest ) {
   my $op = createAndTest( $_, $modulesToTest{$_});
   $ops{ ref $op } = $op;
@@ -58,10 +62,10 @@ sub createAndTest ($$;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/25 20:48:42 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/ops.t,v 1.4 2002/09/25 20:48:42 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 09:29:41 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/ops.t,v 1.5 2006/03/15 09:29:41 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

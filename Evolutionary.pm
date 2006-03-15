@@ -1,6 +1,6 @@
 package Algorithm::Evolutionary;
 
-our $VERSION = '0.53_4';
+our $VERSION = '0.54';
 
 # Preloaded methods go here.
 
@@ -33,23 +33,32 @@ The algorithm allows to create simple evolutionary algorithms, as well
 as more complex ones, that interface with databases or with the
 web. 
 
+=begin html
 The project is hosted at
-E<lt>a href='http://opeal.sourceforge.net'E<gt>Sourceforge  E<lt>/aE<gt>. Latest aditions, and
+<a href='http://opeal.sourceforge.net'>Sourceforge </a>. Latest aditions, and
 nightly updates, can be downloaded from there before they are uploaded
 to CPAN. That page also hosts the mailing list, as well as bug
 reports, news, updates, whatever.
-
+=end html
 
 =head1 AUTHOR
 
-Main author and developer is J. J. Merelo,
-E<lt>jmerelo@ (at) geneura.ugr.es<gt>. There have also been some
-contributions from Javi García, E<lt>fjgc (at) decsai.ugr.es<gt> and Pedro
-Castillo, E<lt>pedro  (at) geneura.ugr.es<gt>
+=begin html
+
+Main author and developer is J. J. Merelo, jmerelo (at)
+geneura.ugr.es. There have also been some contributions from Javi
+García, fjgc (at) decsai.ugr.es< and Pedro Castillo, pedro (at)
+geneura.ugr.es. Patient users that have submitted bugs include <a
+href='http://barbacana.net'>jamarier</a>. Bugs, requests and any kind
+of comment are welcome.
+
+=end html
 
 =head1 SEE ALSO
 
 L<Algorithm::Evolutionary::Op::Base>.
 L<Algorithm::Evolutionary::Individual::Base>.
+
+See also xml/XML.pod
 
 =cut

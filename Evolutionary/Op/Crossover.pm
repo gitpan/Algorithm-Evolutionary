@@ -3,27 +3,29 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op::Crossover - n-point crossover operator; puts a part of the second operand
-                into the first operand; can be 1 or 2 points
-                 
+  Algorithm::Evolutionary::Op::Crossover - n-point crossover
+    operator; puts a part of the second operand into the first
+    operand; can be 1 or 2 points.
+             
 
 =head1 SYNOPSIS
 
+  #Create from XML description using EvoSpec
   my $xmlStr3=<<EOC;
   <op name='Crossover' type='binary' rate='1'>
     <param name='numPoints' value='3' /> #Max is 2, anyways
   </op>
   EOC
-  my $ref3 = XMLin($xmlStr3);
-
-  my $op3 = Algorithm::Evolutionary::Op::Base->fromXML( $ref3 );
+  my $op3 = Algorithm::Evolutionary::Op::Base->fromXML( $xmlStr3 );
   print $op3->asXML(), "\n";
 
+  #Apply to 2 Individuals. Could be String.
   my $indi = new Algorithm::Evolutionary::Individual::BitString 10;
   my $indi2 = $indi->clone();
   my $indi3 = $indi->clone();
-  $op3->apply( $indi2, $indi3 );
+  my $offspring = $op3->apply( $indi2, $indi3 ); #$indi2 == $offspring
 
+  #Initialize using OO interface
   my $op4 = new Algorithm::Evolutionary::Op::Crossover 3; #Crossover with 3 crossover points
 
 =head1 Base Class
@@ -32,7 +34,13 @@ L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-Crossover operator for a GA
+Crossover operator for a Individuals of type
+L<Algorithm::Evolutionary::Individual::String|Individual::String> and
+their descendants
+(L<Algorithm::Evolutionary::Individual::BitString|Individual::BitString>). Crossover
+for L<Algorithm::Evolutionary::Individual::Vector|Individual::Vector>
+would be  L<Algorithm::Evolutionary::Op::VectorCrossover|Op::VectorCrossover>
+
 
 =head1 METHODS
 
@@ -40,7 +48,7 @@ Crossover operator for a GA
 
 package Algorithm::Evolutionary::Op::Crossover;
 
-our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.8 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -50,7 +58,6 @@ our @ISA = ('Algorithm::Evolutionary::Op::Base');
 #Class-wide constants
 our $APPLIESTO =  'Algorithm::Evolutionary::Individual::String';
 our $ARITY = 2;
-
 
 =head2 new
 
@@ -83,12 +90,14 @@ sub create {
 
 =head2 apply
 
-Applies xover operator to a "Chromosome", a bitstring, really. Can be
-applied only to I<victims> with the C<_bitstring> instance variable; but
+Applies xover operator to a "Chromosome", a string, really. Can be
+applied only to I<victims> with the C<_str> instance variable; but
 it checks before application that both operands are of type
-L<BitString|Algorithm::Evolutionary::Individual::BitString>.
+L<BitString|Algorithm::Evolutionary::Individual::String>.
 
-Changes the first parent, and returns it.
+Changes the first parent, and returns it. If you want to change both
+parents at the same time, check L<Algorithm::Evolutionary::Op:QuadXOver|Algorithm::Evolutionary::Op:QuadXOver>
+
 
 =cut
 
@@ -119,10 +128,10 @@ sub  apply ($$$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2003/02/27 08:03:09 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Crossover.pm,v 1.7 2003/02/27 08:03:09 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 08:51:22 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Crossover.pm,v 1.8 2006/03/15 08:51:22 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.7 $
+  $Revision: 1.8 $
   $Name $
 
 =cut

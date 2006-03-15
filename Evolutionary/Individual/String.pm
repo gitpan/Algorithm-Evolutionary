@@ -9,17 +9,17 @@ use warnings;
 
     use Algorithm::Evolutionary::Individual::String;
 
-    my $indi = new Algorithm::Evolutionary::Individual::String [a..z] 10;
+    my $indi = new Algorithm::Evolutionary::Individual::String ['a'..'z'], 10;
                                    # Build random bitstring with length 10
 
     my $indi3 = new Algorithm::Evolutionary::Individual::String;
-    $indi3->set( _length => 20, 
-		 _chars => [A..Z] );   #Sets values, but does not build the string
+    $indi3->set( { length => 20, 
+		   chars => ['A'..'Z'] } );   #Sets values, but does not build the string
     $indi3->randomize(); #Creates a random bitstring with length as above
     print $indi3->Atom( 7 );       #Returns the value of the 7th character
-    $indi3->Atom( 3 ) = 'q';       #Sets the value
+    $indi3->Atom( 3, 'Q' );       #Sets the value
 
-    $indi3->addAtom( 'k' ); #Adds a new character to the bitstring at the end
+    $indi3->addAtom( 'K' ); #Adds a new character to the bitstring at the end
 
     my $indi4 = Algorithm::Evolutionary::Individual::String->fromString( 'esto es un string');   #Creates an individual from that string
 
@@ -30,14 +30,14 @@ use warnings;
     print tied( @vector )->asXML();
     
     print $indi3->asString(); #Prints the individual
-    print $indi3->asXML() #Prints it as XML. See 
+    print $indi3->asXML(); #Prints it as XML. See 
 
     my $xml=<<EOC;
 <indi type='String'>
     <atom>a</atom><atom>z</atom><atom>q</atom><atom>i</atom><atom>h</atom>
 </indi>
 EOC
-    my $indi4=  Algorithm::Evolutionary::Individual::String->fromXML( $xml );
+    $indi4=  Algorithm::Evolutionary::Individual::String->fromXML( $xml );
 
 =head1 Base Class
 
@@ -56,22 +56,24 @@ package Algorithm::Evolutionary::Individual::String;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
 use Algorithm::Evolutionary::Individual::Base;
 our @ISA = qw ( Algorithm::Evolutionary::Individual::Base );
 
 =head2 new
 
-Creates a new random string, with fixed initial length, and 
-uniform distribution of characters along the character class
-that is defined.
+Creates a new random string, with fixed initial length, and uniform
+distribution of characters along the character class that is
+defined. However, this character class is just used to generate new
+individuals and in mutation operators, and the validity is not
+enforced unless the client class does it
 
 =cut
 
 sub new {
   my $class = shift; 
   my $self = Algorithm::Evolutionary::Individual::Base::new( $class );
-  $self->{_chars} = shift;
+  $self->{_chars} = shift || ['a'..'z'];
   $self->{_length} = shift || 10;
   $self->randomize();
   return $self;
@@ -94,6 +96,7 @@ Assigns random values to the elements
 
 sub randomize {
   my $self = shift; 
+  $self->{_str} = ''; # Reset string
   for ( my $i = 0; $i <  $self->{_length}; $i ++ ) {
 	$self->{_str} .= $self->{_chars}[ rand( @{$self->{_chars}} ) ];
   }
@@ -160,7 +163,8 @@ sub asString {
 
 =head2 Atom
 
-Sets or gets the value of the n-th character in the string
+Sets or gets the value of the n-th character in the string. Counting
+starts at 0, as usual in Perl arrays.
 
 =cut
 
@@ -168,9 +172,9 @@ sub Atom {
   my $self = shift;
   my $index = shift;
   if ( @_ ) {
-    substr( $self->{_str}, $index, 1 ) = shift;
+    substr( $self->{_str}, $index, 1 ) = substr(shift,0,1);
   } else {
-    return  substr( $self->{_str}, $index, 1 );
+    substr( $self->{_str}, $index, 1 );
   }
 }
 
@@ -280,9 +284,10 @@ L<Algorithm::Evolutionary::Individual::BitString|Algorithm::Evolutionary::Indivi
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/11/17 17:10:59 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/String.pm,v 1.6 2002/11/17 17:10:59 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 08:51:22 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/String.pm,v 1.7 2006/03/15 08:51:22 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.6 $
+  $Revision: 1.7 $
+  $Name $
 
 =cut

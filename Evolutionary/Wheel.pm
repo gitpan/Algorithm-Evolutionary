@@ -13,7 +13,7 @@ use warnings;
 =head1 DESCRIPTION
 
 Creates a "roulette wheel" for spinning and selecting stuff. It will be
-used in several places
+used in several places; mainly in the L<Algorithm::Evolutionary::Op::CanonicalGA>. 
 
 =head1 METHODS
 
@@ -21,8 +21,8 @@ used in several places
 
 package Algorithm::Evolutionary::Wheel;
 use Carp;
-our $VERSION = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ ) ;
 
+our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
 
 =head2 new
 
@@ -72,8 +72,8 @@ sub spin {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/07/26 10:50:59 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Wheel.pm,v 1.2 2002/07/26 10:50:59 jmerelo Exp $ 
+  CVS Info: $Date: 2005/11/14 13:24:21 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Wheel.pm,v 1.3 2005/11/14 13:24:21 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut

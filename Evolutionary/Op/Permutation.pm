@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-  Algorithm::Evolutionary::Op::Permutation - BitFlip mutation, changes several bits in a bitstring, depending on the probability
+  Algorithm::Evolutionary::Op::Permutation - Per-mutation. Got it? 
 
 =head1 SYNOPSIS
 
@@ -36,7 +36,7 @@ Class independent permutation operator; any individual that has the
 
 package  Algorithm::Evolutionary::Op::Permutation;
 
-our ($VERSION) = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
@@ -108,10 +108,10 @@ sub apply ($;$) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/11/17 17:08:10 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Permutation.pm,v 1.3 2002/11/17 17:08:10 jmerelo Exp $ 
+  CVS Info: $Date: 2005/11/14 13:24:21 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Op/Permutation.pm,v 1.4 2005/11/14 13:24:21 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.4 $
   $Name $
 
 =cut

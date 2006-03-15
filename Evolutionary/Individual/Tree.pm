@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-     Tree - Array as an individual for evolutionary computation
+     Tree - A Direct Acyclic Graph, or tree, useful for Genetic Programming-Style stuff
 
 =head1 SYNOPSIS
 
@@ -27,7 +27,7 @@ use warnings;
 
 =head1 Base Class
 
-L<Algorithm::Evolutionary::Individual::Tree|Algorithm::Evolutionary::Individual::Tree>
+L<Algorithm::Evolutionary::Individual::Base|Algorithm::Evolutionary::Individual::Base>
 
 =head1 DESCRIPTION
 
@@ -41,7 +41,7 @@ package Algorithm::Evolutionary::Individual::Tree;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.5 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ );
 
 use Tree::DAG_Node;
 
@@ -109,8 +109,7 @@ sub randomize {
 
 =head2 fromString
 
-Similar to a copy ctor; creates a bitstring individual from a string composed of 
-stuff separated by a separator
+Probably useless, in this case. To be evolved.
 
 =cut
 
@@ -283,10 +282,10 @@ sub growSubTree {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/25 20:48:42 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Tree.pm,v 1.5 2002/09/25 20:48:42 jmerelo Exp $ 
+  CVS Info: $Date: 2005/11/14 13:24:21 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/Evolutionary/Individual/Tree.pm,v 1.6 2005/11/14 13:24:21 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.5 $
+  $Revision: 1.6 $
   $Name $
 
 =cut

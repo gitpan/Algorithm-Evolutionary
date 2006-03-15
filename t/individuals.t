@@ -7,6 +7,9 @@
 # change 'tests => 1' to 'tests => last_test_to_print';
 
 use Test::More;
+use warnings;
+use strict;
+
 BEGIN { plan tests => 8 };
 use lib qw( ../../.. ../.. .. ); #Just in case we are testing it in-place
 
@@ -23,42 +26,48 @@ my %modulesToTest = ( String => [['a'..'z'],10 ],
 		      Vector => [10],
 		      Tree => [$primitives, 3] );
 
+####################################################################
+#Subroutine that tests and creates an op. Takes as argument
+#the name of the op and a ref-to-array with the arguments to new
+####################################################################
+
+sub createAndTest ($$;$) {
+  my $module = shift || die "No module name";
+  my $newArgs = shift || die "No args";
+  
+  my $class = "Algorithm::Evolutionary::Individual::$module";
+  #require module
+  eval " require  $class" || die "Can't load module $class: $@";
+  my $nct = new $class @$newArgs; 
+  print "Testing $module\n";
+  isa_ok( $nct, $class );
+  
+  my $xml = $nct->asXML();
+  my $newnct =  Algorithm::Evolutionary::Individual::Base->fromXML( $xml );
+  
+  ok( $xml, $newnct->asXML() );
+  
+  return $nct;
+}
+
+###########################################################################
+
 my %indis;
 for ( keys %modulesToTest ) {
   my $indi = createAndTest( $_, $modulesToTest{$_});
   $indis{ ref $_ } = $indi;
 }
 
-#Subroute that tests and creates an op. Takes as argument
-#the name of the op and a ref-to-array with the arguments to new
-sub createAndTest ($$;$) {
-	my $module = shift || die "No module name";
-	my $newArgs = shift || die "No args";
-
-	my $class = "Algorithm::Evolutionary::Individual::$module";
-	#require module
-	eval " require  $class" || die "Can't load module $class: $@";
-	my $nct = new $class @$newArgs; 
-	print "Testing $module\n";
-	isa_ok( $nct, $class );
-
-	my $xml = $nct->asXML();
-	my $newnct =  Algorithm::Evolutionary::Individual::Base->fromXML( $xml );
-
-	ok( $xml, $newnct->asXML() );
-
-	return $nct;
-  }
   
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2005/11/14 12:34:08 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.3 2005/11/14 12:34:08 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 08:51:22 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.4 2006/03/15 08:51:22 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.4 $
   $Name $
 
 =cut

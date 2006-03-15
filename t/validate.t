@@ -1,22 +1,23 @@
 #!/usr/bin/perl
 
-use XML::LibXML;
-my $parser = XML::LibXML->new();
-XML::LibXML->new();
-
 use Test;
 BEGIN { plan tests => 5 };
+
+use XML::LibXML;
+my $parser = XML::LibXML->new();
+
+
 use lib qw( ../.. ../../.. .. ); #Just in case we are testing it in-place
 
 my @filesGood = qw( marea.xml royalroad.xml onemax.xml experiment.xml );
 my @filesBad = qw( marea-fails.xml );
 
 for ( @filesGood ) {
-  ok ( validate ( "xml/$_", $parser ) =~ /Validated/, 1 );
+  skip ( !$parser, validate ( "xml/$_", $parser ) =~ /Validated/, 1 );
 }
 
 for ( @filesBad ) {
-  ok ( validate ( "xml/$_", $parser ) =~ /error/, 1 );
+  skip ( !$parser,  validate ( "xml/$_", $parser ) =~ /error/, 1 );
 }
 
 ########################################################################
@@ -40,10 +41,10 @@ sub validate {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2005/11/14 12:34:08 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/validate.t,v 1.4 2005/11/14 12:34:08 jmerelo Exp $ 
+  CVS Info: $Date: 2006/03/15 09:29:41 $ 
+  $Header: /cvsroot/opeal/opeal/Algorithm/t/validate.t,v 1.5 2006/03/15 09:29:41 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.5 $
   $Name $
 
 =cut
