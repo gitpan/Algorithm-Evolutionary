@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 #########################
-use lib qw( . ../.. ../../.. .. ); #Just in case we are testing it in-place
+use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 use Algorithm::Evolutionary::Experiment;
 use Algorithm::Evolutionary::Op::Easy;
 
@@ -33,10 +33,10 @@ for ( @files ) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2006/03/15 08:51:22 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/run.t,v 1.4 2006/03/15 08:51:22 jmerelo Exp $ 
+  CVS Info: $Date: 2008/06/16 18:43:20 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/run.t,v 1.2 2008/06/16 18:43:20 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

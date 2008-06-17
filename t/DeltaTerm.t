@@ -6,7 +6,7 @@
 
 use Test;
 BEGIN { plan tests => 4 };
-use lib qw( ../../.. ../.. .. ); #Just in case we are testing it in-place
+use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
 use Algorithm::Evolutionary::Op::DeltaTerm;
 use Algorithm::Evolutionary::Individual::String;
@@ -34,8 +34,8 @@ ok( $xml, $newnct->asXML() );
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2002/09/24 18:40:17 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/DeltaTerm.t,v 1.2 2002/09/24 18:40:17 jmerelo Exp $ 
+  CVS Info: $Date: 2008/06/16 18:43:20 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/DeltaTerm.t,v 1.2 2008/06/16 18:43:20 jmerelo Exp $ 
   $Author: jmerelo $ 
   $Revision: 1.2 $
   $Name $

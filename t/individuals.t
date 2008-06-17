@@ -11,7 +11,7 @@ use warnings;
 use strict;
 
 BEGIN { plan tests => 8 };
-use lib qw( ../../.. ../.. .. ); #Just in case we are testing it in-place
+use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
 #Use: module name, args to ctor. 
 my $primitives = { sum => [2, -1, 1],
@@ -64,10 +64,10 @@ for ( keys %modulesToTest ) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2006/03/15 08:51:22 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/t/individuals.t,v 1.4 2006/03/15 08:51:22 jmerelo Exp $ 
+  CVS Info: $Date: 2008/06/16 18:43:20 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/individuals.t,v 1.2 2008/06/16 18:43:20 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

@@ -2,10 +2,10 @@
 <!DOCTYPE ea SYSTEM "EvoSpec.dtd">
 <!-- Royal road function represented as an XML file. Ready for instantiating
      an 'Experiment' class
-  CVS Info: $Date: 2003/02/27 09:19:29 $ 
-  $Header: /cvsroot/opeal/opeal/Algorithm/xml/royalroad.xml,v 1.6 2003/02/27 09:19:29 jmerelo Exp $ 
+  CVS Info: $Date: 2008/02/12 17:49:38 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/xml/royalroad.xml,v 1.1.1.1 2008/02/12 17:49:38 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.6 $
+  $Revision: 1.1.1.1 $
   $Name $    
 
 -->
@@ -13,7 +13,7 @@
   <ea version='0.4'>
 
   <initial>
-    <pop size='20'>
+    <pop size='256'>
       <param name='type' value='BitString' /> 
       <param name='length' value='64' />
     </pop>
@@ -39,7 +39,7 @@
         <op name='Mutation' type='unary' rate='1'>
             <param name='mutRate' value='0.5' />
       	</op>
-      	<op name='Crossover' type='binary' rate='5'>
+      	<op name='Crossover' type='binary' rate='0.5'>
         	<param name='numPoints' value='2' />
       	</op>
     </op>
