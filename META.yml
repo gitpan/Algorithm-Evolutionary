@@ -1,10 +1,13 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Algorithm-Evolutionary
-version:      0.55
-version_from: lib/Algorithm/Evolutionary.pm
-installdirs:  site
-requires:
+--- #YAML:1.0
+name:                Algorithm-Evolutionary
+version:             0.56
+abstract:            Perl extension for performing paradigm-free evolutionary algorithms. 
+license:             ~
+author:              
+    - J. J. Merelo <jmerelo (at) geneura.ugr.es>
+generated_by:        ExtUtils::MakeMaker version 6.44
+distribution_type:   module
+requires:     
     Algorithm::Permute:            0.01
     B::Deparse:                    0.56
     Math::Random:                  0.63
@@ -14,8 +17,9 @@ requires:
     Time::HiRes:                   0
     Tree::DAG_Node:                1.04
     XML::LibXML:                   1.5
+    XML::Parser:                   0
     XML::Parser::EasyTree:         0.01
     YAML:                          0
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

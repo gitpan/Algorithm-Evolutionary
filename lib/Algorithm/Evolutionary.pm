@@ -1,6 +1,6 @@
 package Algorithm::Evolutionary;
 
-our $VERSION = '0.55';
+our $VERSION = '0.56';
 
 # Preloaded methods go here.
 
@@ -60,7 +60,9 @@ of comment are welcome.
 
 L<Algorithm::Evolutionary::Op::Base>.
 L<Algorithm::Evolutionary::Individual::Base>.
+L<Algorithm::Evolutionary::Fitness::Base>.
+L<Algorithm::Evolutionary::Experiment>.
 L<Algorithm::Evolutionary::XML>
-L<Algorithm::samples::5_marea_reales.pl>
+
 
 =cut
