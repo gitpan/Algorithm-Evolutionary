@@ -34,6 +34,7 @@ use warnings;
 
     print $indi3->asString(); #Prints the individual
     print $indi3->asXML() #Prints it as XML. See 
+    print $indi3->as_yaml() #Change of convention, I know...
 
 =head1 Base Class
 
@@ -41,36 +42,40 @@ L<Algorithm::Evolutionary::Individual::String|Algorithm::Evolutionary::Individua
 
 =head1 DESCRIPTION
 
-Bitstring Individual for ao GA
+Bitstring Individual for a Genetic Algorithm. Used, for instance, in a canonical GA
 
 =cut
 
 package Algorithm::Evolutionary::Individual::BitString;
 use Carp;
-use Exporter;
 
-our ($VERSION) =  ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ );
 
-use Algorithm::Evolutionary::Individual::String;
-our @ISA = qw (Algorithm::Evolutionary::Individual::String);
+our ($VERSION) =  ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
+
+use base 'Algorithm::Evolutionary::Individual::String';
+
+use constant MY_OPERATORS => (Algorithm::Evolutionary::Individual::String::MY_OPERATORS, 
+			      qw(Algorithm::Evolutionary::Op::BitFlip Algorithm::Evolutionary::Op::Mutation )); 
+ 
 
 =head1 METHODS
 
-=head2 new
+=head2 new( $length )
 
 Creates a new random bitstring individual, with fixed initial length, and 
-uniform distribution of bits.
+uniform distribution of bits. Options as in L<Algorithm::Evolutionary::Individual::String>
 
 =cut
 
 sub new {
   my $class = shift; 
   my $chars = [ '0', '1' ];
-  my $self = Algorithm::Evolutionary::Individual::String::new( 'Algorithm::Evolutionary::Individual::BitString', $chars, @_ );
+  my $self = 
+      Algorithm::Evolutionary::Individual::String::new( 'Algorithm::Evolutionary::Individual::BitString', $chars, @_ );
   return $self;
 }
 
-=head2 set
+=head2 set( $hash )
 
 Sets values of an individual; takes a hash as input. Keys are prepended an
 underscore and turn into instance variables
@@ -84,15 +89,16 @@ sub set {
   $self->SUPER::set( $hash );
 }
 
+
 =head2 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/02/12 17:49:39 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/BitString.pm,v 1.1.1.1 2008/02/12 17:49:39 jmerelo Exp $ 
+  CVS Info: $Date: 2008/06/23 11:37:55 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/BitString.pm,v 1.4 2008/06/23 11:37:55 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1.1.1 $
+  $Revision: 1.4 $
   $Name $
 
 =cut

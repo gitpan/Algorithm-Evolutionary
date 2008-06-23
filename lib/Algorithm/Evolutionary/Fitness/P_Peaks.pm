@@ -21,7 +21,7 @@ P_Peaks fitness function; optimizes the distance to the closest in a series of p
 
 package Algorithm::Evolutionary::Fitness::P_Peaks;
 
-our $VERSION = ( '$Revision: 1.8 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.9 $ ' =~ /(\d+\.\d+)/ ) ;
 
 use String::Random;
 
@@ -106,10 +106,10 @@ sub p_peaks {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/06/22 07:51:21 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/P_Peaks.pm,v 1.8 2008/06/22 07:51:21 jmerelo Exp $ 
+  CVS Info: $Date: 2008/06/23 11:27:10 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/P_Peaks.pm,v 1.9 2008/06/23 11:27:10 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.8 $
+  $Revision: 1.9 $
   $Name $
 
 =cut
