@@ -41,6 +41,7 @@ lib/Algorithm/Evolutionary/Individual/BitString.pm
 lib/Algorithm/Evolutionary/Individual/Tree.pm
 lib/Algorithm/Evolutionary/Individual/Vector.pm
 lib/Algorithm/Evolutionary/Fitness/Base.pm
+lib/Algorithm/Evolutionary/Fitness/String.pm
 lib/Algorithm/Evolutionary/Fitness/MMDP.pm
 lib/Algorithm/Evolutionary/Fitness/P_Peaks.pm
 lib/Algorithm/Evolutionary/Fitness/wP_Peaks.pm

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Algorithm-Evolutionary
-version:             0.5.7
+version:             0.5.8
 abstract:            Perl extension for performing paradigm-free evolutionary algorithms. 
 license:             ~
 author:              

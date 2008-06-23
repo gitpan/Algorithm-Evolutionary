@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op::CanonicalGA - Canonical Genetic Algorithm, with any representation
+Algorithm::Evolutionary::Op::CanonicalGA - Canonical Genetic Algorithm, with any representation
                  
 
 =head1 SYNOPSIS
@@ -94,8 +94,7 @@ sub apply ($) {
   for ( @$pop ) {
     my $fitness;  #Evaluates only those that have no fitness
     if ( !defined ($_->Fitness() ) ) {
-      $fitness = $eval->( $_ );
-      $_->Fitness( $fitness );
+	$_->evaluate( $eval );
     }
   }
 

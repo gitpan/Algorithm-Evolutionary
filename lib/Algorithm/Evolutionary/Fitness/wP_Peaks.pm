@@ -29,25 +29,26 @@ our $VERSION = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ ) ;
 use String::Random;
 use Algorithm::Evolutionary::Utils qw(hamming);
 
-use base qw(Algorithm::Evolutionary::Fitness::Base);
+use base qw(Algorithm::Evolutionary::Fitness::String);
 
 =head2 new( $number_of_bits, $ref_to_weights_hash )
 
-    Creates a new instance of the problem, with the said number of bits and peaks
+Creates a new instance of the problem, with the said number of bits and peaks
 
 =cut 
 
 sub new {
   my $class = shift;
   my ( $bits, @weights ) = @_;
+  my $self = $class->SUPER::new();
 
   #Generate peaks
   my $generator = new String::Random;
   my @peaks;
   my $regex = "\[01\]{$bits}";
-  my $self = { bits => $bits,
-	       generator => $generator,
-	       regex => $regex };
+  for my $s qw( bits generator regex ) {
+      eval "\$self->{'$s'} = \$$s";
+  }
   while ( @weights ) {
       my $this_w = shift @weights;
       push( @peaks, [$this_w, $generator->randregex($regex)]);
@@ -69,16 +70,9 @@ sub random_string {
     return $self->{'generator'}->randregex($self->{'regex'});
 }
 
-=head2 _apply
-
-Applies the instantiated problem to a chromosome
-
-=cut
-
-sub _apply {
+sub _really_apply {
     my $self = shift;
-    my $individual = shift;
-    return  $self->p_peaks( $individual->{_str})/$self->{'bits'};
+    return  $self->p_peaks( @_ )/$self->{'bits'};
 }
 
 =head2 p_peaks
@@ -87,32 +81,21 @@ Applies the instantiated problem to a string
 
 =cut
 
-our %cache;
-
 sub p_peaks {
     my $self = shift;
     my @peaks = @{$self->{'peaks'}};
     my $string = shift;
-    if ( $cache{$string} ) {
-	return $cache{$string};
+    my $cache = $self->{'_cache'};
+    
+    if ( $cache->{$string} ) {
+	return $cache->{$string};
     }
     my $bits = $self->{'bits'};
     my @distances = sort {$b <=> $a} map($bits*$_->[0]- hamming( $string, $_->[1]), @peaks);
-    $cache{$string} = $distances[0];
-    return $cache{$string};
+    $cache->{$string} = $distances[0];
+    return $cache->{$string};
 
 }
-
-=head2 cached_evals
-
-Returns the number of keys in the evaluation cache
-
-=cut
-
-sub cached_evals {
-    return scalar keys %cache;
-}
-
 
 
 =head1 Copyright

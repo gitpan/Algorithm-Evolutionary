@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Fitness::P_Peaks - P Peaks problem generator
+Algorithm::Evolutionary::Fitness::P_Peaks - P Peaks problem generator
 
 =head1 SYNOPSIS
 
@@ -27,7 +27,7 @@ use String::Random;
 
 use lib qw(../../.. ../.. ..);
 
-use base qw(Algorithm::Evolutionary::Fitness::Base);
+use base qw(Algorithm::Evolutionary::Fitness::String);
 use Algorithm::Evolutionary::Utils qw(hamming);
 
 =head2 new
@@ -39,14 +39,14 @@ use Algorithm::Evolutionary::Utils qw(hamming);
 sub new {
   my $class = shift;
   my ($peaks, $bits ) = @_;
-
+  my $self = $class->SUPER::new();
   #Generate peaks
   my $generator = new String::Random;
   my @peaks;
   my $regex = "\[01\]{$bits}";
-  my $self = { bits => $bits,
-	       generator => $generator,
-	       regex => $regex };
+  for my $s qw( bits generator regex ) {
+      eval "\$self->{'$s'} = \$$s";
+  }
   for my $p ( 1..$peaks ) {
     push( @peaks, $generator->randregex($regex));
   }
@@ -73,10 +73,9 @@ Applies the instantiated problem to a chromosome
 
 =cut
 
-sub _apply {
-    my $self = shift;
-    my $individual = shift;
-    return $self->p_peaks( $individual->{_str})/$self->{'bits'} ;
+sub _really_apply {
+  my $self = shift;
+  return $self->p_peaks( @_ )/$self->{'bits'} ;
 }
 
 =head2 p_peaks
@@ -91,24 +90,15 @@ sub p_peaks {
     my $self = shift;
     my @peaks = @{$self->{'peaks'}};
     my $string = shift;
-    if ( $cache{$string} ) {
-	return $cache{$string};
+    my $cache = $self->{'_cache'};
+    if ( $cache->{$string} ) {
+	return $cache->{$string};
     }
     my $bits = $self->{'bits'};
     my @distances = sort {$b <=> $a}  map($bits - hamming( $string, $_), @peaks);
-    $cache{$string} = $distances[0];
-    return $cache{$string};
+    $cache->{$string} = $distances[0];
+    return $cache->{$string};
 
-}
-
-=head2 cached_evals
-
-Returns the number of keys in the evaluation cache
-
-=cut
-
-sub cached_evals {
-    return scalar keys %cache;
 }
 
 =head1 Copyright
