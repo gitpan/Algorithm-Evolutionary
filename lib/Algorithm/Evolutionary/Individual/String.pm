@@ -29,7 +29,7 @@ use warnings;
     tie my @vector, 'Algorithm::Evolutionary::Individual::String', @array;
     print tied( @vector )->asXML();
     
-    print $indi3->asString(); #Prints the individual
+    print $indi3->as_string(); #Prints the individual
     print $indi3->asXML(); #Prints it as XML. See 
 
     my $xml=<<EOC;
@@ -56,7 +56,7 @@ package Algorithm::Evolutionary::Individual::String;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.2 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.5 $ ' =~ / (\d+\.\d+)/ );
 
 use base 'Algorithm::Evolutionary::Individual::Base';
 
@@ -223,11 +223,18 @@ sub SHIFT {
   my $self = shift;
   my $shift = substr( $self->{_str}, 0, 1 );
   substr( $self->{_str}, 0, 1 ) = ''; 
+  return $shift;
 }
 
 sub SPLICE {
   my $self = shift;
-  substr( $self->{_str}, shift, shift ) = join("", @_ );
+  my $offset = shift;
+  my $length = shift || length( $self->{'_str'} - $offset );
+  my $sub_string =  substr( $self->{_str}, $offset, $length );
+  if ( @_ ) {
+    substr( $self->{_str}, $offset, $length ) = join("", @_ );
+  }
+  return split(//,$sub_string);
 }
 
 sub FETCHSIZE {
@@ -235,18 +242,30 @@ sub FETCHSIZE {
   return length( $self->{_str} );
 }
 
-=head2 length
+=head2 size()
 
-Returns length of the string that stores the info.
+Returns length of the string that stores the info; overloads abstract base method. 
 
 =cut 
 
-sub length {
+sub size {
   my $self = shift;
-  return length $self->{_str};
+  return length($self->{_str}); #Solves ambiguity
 }
 
-=head2 asXML
+=head2 as_string() 
+    
+    Returns the string used as internal representation
+
+=cut
+
+sub as_string {
+    my $self = shift;
+    return $self->{_str};
+}
+
+
+=head2 asXML()
 
 Prints it as XML. See L<Algorithm::Evolutionary::XML> for more info on this
 
@@ -291,10 +310,10 @@ L<Algorithm::Evolutionary::Individual::BitString|Algorithm::Evolutionary::Indivi
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/06/22 12:18:52 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/String.pm,v 1.2 2008/06/22 12:18:52 jmerelo Exp $ 
+  CVS Info: $Date: 2008/09/12 18:31:02 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/String.pm,v 1.5 2008/09/12 18:31:02 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.2 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

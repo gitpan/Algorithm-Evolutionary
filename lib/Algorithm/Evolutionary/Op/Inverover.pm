@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+use lib qw(../../..);
+
 =head1 NAME
 
     Algorithm::Evolutionary::Op::Inverover  - Michalewicz\'s inver-over Operator. 
@@ -32,7 +34,8 @@ permutations of each other.
 
 There is some information on this operator in
 L<http://www.dcs.napier.ac.uk/coil/news/feature48.html|this interview
-with Michalewicz>. You can also download papers from L<http://www.coe.uncc.edu/~zbyszek/papers.html|his home page>.
+with Michalewicz>. You can also download papers from 
+L<http://www.cs.adelaide.edu.au/~zbyszek/Papers/|his home page>.
 
 =head1 METHODS
 
@@ -44,15 +47,13 @@ our ($VERSION) = ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ );
 
 use Carp;
 
-use Algorithm::Evolutionary::Op::Base;
-our @ISA = ('Algorithm::Evolutionary::Op::Base');
+use base 'Algorithm::Evolutionary::Op::Base';
 
 #Class-wide constants
 our $APPLIESTO =  'Algorithm::Evolutionary::Individual::Vector';
 our $ARITY = 2;
 
-
-=head2 new
+=head2 new( $rate )
 
 Creates a new Algorithm::Evolutionary::Op::Inverover operator.
 
@@ -80,7 +81,7 @@ sub create {
   return $self;
 }
 
-=head2 apply
+=head2 apply( $first, $second )
 
 Applies Algorithm::Evolutionary::Op::Inverover operator to a "Chromosome", a bitstring, really. Can be
 applied only to I<victims> with the C<_bitstring> instance variable; but

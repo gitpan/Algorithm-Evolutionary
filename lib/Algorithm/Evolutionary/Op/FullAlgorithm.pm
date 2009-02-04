@@ -1,4 +1,4 @@
-use strict;
+use strict; #-*-cperl-*-
 use warnings;
 
 =head1 NAME
@@ -12,7 +12,7 @@ use warnings;
   $easyEA->apply(\@pop ); 
 
   #Or using the constructor
-   use Algorithm::Evolutionary::Op::Bitflip;
+  use Algorithm::Evolutionary::Op::Bitflip;
   my $m = new Algorithm::Evolutionary::Op::Bitflip; #Changes a single bit
   my $c = new Algorithm::Evolutionary::Op::Crossover; #Classical 2-point crossover
   my $replacementRate = 0.3; #Replacement rate
@@ -56,7 +56,7 @@ of class L<Algorithm::Evolutionary::Op::GeneralGeneration>.
 
 package Algorithm::Evolutionary::Op::FullAlgorithm;
 
-our $VERSION = ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ ) ;
+our $VERSION = ( '$Revision: 1.4 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 
@@ -67,7 +67,7 @@ our @ISA = qw(Algorithm::Evolutionary::Op::Base);
 our $APPLIESTO =  'ARRAY';
 our $ARITY = 1;
 
-=head2 new
+=head2 new( $single_generation[, $termination_test] [, $verboseness] )
 
 Takes an already created algorithm and a terminator, and creates an object
 
@@ -84,10 +84,11 @@ sub new {
   my $self = Algorithm::Evolutionary::Op::Base::new( __PACKAGE__, 1, $hash );
   return $self;
 }
-=head2 set
 
-Sets the instance variables. Takes a ref-to-hash as
-input
+=head2 set( $hashref, $codehash, $opshash )
+
+Sets the instance variables. Takes hashes to the different options of
+    the algorithm: parameters, fitness functions and operators
 
 =cut
 
@@ -101,13 +102,12 @@ sub set {
   #Now reconstruct operators
   for ( keys %$opshash ) {
 	$self->{$opshash->{$_}[2]} = 
-#	  Algorithm::Evolutionary::Op::Base::fromXML( "Algorithm::Evolutionary::Op::$_", $opshash->{$_} );
 	  Algorithm::Evolutionary::Op::Base::fromXML( $_, $opshash->{$_}->[1], $opshash->{$_}->[0] ); 
   }
 
 }
 
-=head2 apply
+=head2 apply( $reference_to_population_array )
 
 Applies the algorithm to the population; checks that it receives a
 ref-to-array as input, croaks if it does not. Returns a sorted,
@@ -126,18 +126,17 @@ sub apply ($) {
   my $eval = $algo->{_eval};
   for ( @$pop ) {
     if ( !defined $_->Fitness() ) {
-      my $fitness = $eval->($_);
-      $_->Fitness( $fitness );
+      $_->evaluate( $eval );
     }
   }
   #Run the algorithm
   do {
-	$algo->apply( $pop );
-	if  ($self->{_verbose}) {
-	  print "Best ", $pop->[0]->asString(), "\n" ;
-	  print "Median ", $pop->[@$pop/2]->asString(), "\n";
-	  print "Worst ", $pop->[@$pop-1]->asString(), "\n\n";
-	}
+    $algo->apply( $pop );
+    if  ($self->{_verbose}) {
+      print "Best ", $pop->[0]->asString(), "\n" ;
+      print "Median ", $pop->[@$pop/2]->asString(), "\n";
+      print "Worst ", $pop->[@$pop-1]->asString(), "\n\n";
+    }
   } while( $term->apply( $pop ) );
   
 }
@@ -147,8 +146,8 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/02/12 17:49:39 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.1.1.1 2008/02/12 17:49:39 jmerelo Exp $ 
+  CVS Info: $Date: 2008/07/27 10:55:19 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/FullAlgorithm.pm,v 1.4 2008/07/27 10:55:19 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut

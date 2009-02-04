@@ -1,4 +1,4 @@
-use strict;
+use strict; #-*-CPerl-*-
 use warnings;
 
 =head1 NAME
@@ -30,12 +30,14 @@ package Algorithm::Evolutionary::Utils;
 
 use Exporter;
 our @ISA = qw(Exporter);
-our $VERSION = ( '$Revision: 1.3 $ ' =~ /(\d+\.\d+)/ ) ;
-our @EXPORT_OK = qw( entropy consensus hamming);
+our $VERSION = ( '$Revision: 1.6 $ ' =~ /(\d+\.\d+)/ ) ;
+our @EXPORT_OK = qw( entropy consensus hamming random_bitstring);
 
 use Carp;
+use String::Random;
 
-=head2 entropy
+
+=head2 entropy( $population)
 
 Computes the entropy using the well known Shannon's formula: L<http://en.wikipedia.org/wiki/Information_entropy>
 'to avoid botching highlighting
@@ -56,7 +58,7 @@ sub entropy {
 }
 
 
-=head2 hamming
+=head2 hamming( $string_a, $string_b )
 
 Computes the number of positions that are different among two strings
 
@@ -67,9 +69,10 @@ sub hamming {
     return ( ( $string_a ^ $string_b ) =~ tr/\1//);
 }
 
-=head2 consensus
+=head2 consensus( $population )
 
-Consensus sequence representing the majoritary value for each bit
+Consensus sequence representing the majoritary value for each bit;
+returns the consensus string. 
 
 =cut
 
@@ -77,7 +80,7 @@ sub consensus {
   my $population = shift;
   my @frequencies;
   for ( @$population ) {
-      for ( my $i = 0; $i < $_->length(); $i ++ ) {
+      for ( my $i = 0; $i < $_->size(); $i ++ ) {
 	  if ( !$frequencies[$i] ) {
 	      $frequencies[$i]={ 0 => 0,
 			     1 => 0};
@@ -96,16 +99,29 @@ sub consensus {
   return $consensus;
 }
 
+=head2 random_bitstring( $bits )
+
+Returns a random bitstring with the stated number of bits. Useful for testing,mainly
+
+=cut
+
+sub random_bitstring {
+  my $bits = shift || croak "No bits!";
+  my $generator = new String::Random;
+  my $regex = "\[01\]{$bits}";
+  return $generator->randregex($regex);
+}
+
 
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/06/16 16:31:28 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Utils.pm,v 1.3 2008/06/16 16:31:28 jmerelo Exp $ 
+  CVS Info: $Date: 2008/10/24 07:56:00 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Utils.pm,v 1.6 2008/10/24 07:56:00 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 1.6 $
   $Name $
 
 =cut

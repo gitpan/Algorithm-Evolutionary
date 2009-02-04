@@ -3,16 +3,15 @@ use warnings;
 
 =head1 NAME
 
-Algorithm::Evolutionary::Op::Crossover - n-point crossover
-    operator; puts a part of the second operand into the first
-    operand; can be 1 or 2 points.
+Algorithm::Evolutionary::Op::Gene_Boundary_Crossover - n-point crossover
+    operator that restricts crossing point to gene boundaries
              
 
 =head1 SYNOPSIS
 
   #Create from XML description using EvoSpec
   my $xmlStr3=<<EOC;
-  <op name='Crossover' type='binary' rate='1'>
+  <op name='Gene_Boundary_Crossover' type='binary' rate='1'>
     <param name='numPoints' value='3' /> #Max is 2, anyways
   </op>
   EOC
@@ -26,7 +25,7 @@ Algorithm::Evolutionary::Op::Crossover - n-point crossover
   my $offspring = $op3->apply( $indi2, $indi3 ); #$indi2 == $offspring
 
   #Initialize using OO interface
-  my $op4 = new Algorithm::Evolutionary::Op::Crossover 3; #Crossover with 3 crossover points
+  my $op4 = new Algorithm::Evolutionary::Op::Gene_Boundary_Crossover 3; #Gene_Boundary_Crossover with 3 crossover points
 
 =head1 Base Class
 
@@ -46,11 +45,9 @@ would be  L<Algorithm::Evolutionary::Op::VectorCrossover|Op::VectorCrossover>
 
 =cut
 
-package Algorithm::Evolutionary::Op::Crossover;
+package Algorithm::Evolutionary::Op::Gene_Boundary_Crossover;
 
-use lib qw(../../..);
-
-our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.1 $ ' =~ /(\d+\.\d+)/ );
 
 use Clone::Fast qw(clone);
 use Carp;
@@ -72,9 +69,11 @@ of points, that is, the default would be
 
 sub new {
   my $class = shift;
-  my $hash = { numPoints => shift || 2 };
+  my $num_points = shift || 2;
+  my $gene_size = shift || croak "No default gene size";
+  my $hash = { numPoints =>  $num_points, gene_size => $gene_size };
   my $rate = shift || 1;
-  my $self = Algorithm::Evolutionary::Op::Base::new( $class, $rate, $hash );
+  my $self = Algorithm::Evolutionary::Op::Base::new( __PACKAGE__, $rate, $hash );
   return $self;
 }
 
@@ -89,6 +88,7 @@ sub create {
   my $class = shift;
   my $self;
   $self->{_numPoints} = shift || 2;
+  $self->{_gene_size} = shift || croak "No default for gene size\n";
   bless $self, $class;
   return $self;
 }
@@ -100,30 +100,36 @@ applied only to I<victims> with the C<_str> instance variable; but
 it checks before application that both operands are of type
 L<BitString|Algorithm::Evolutionary::Individual::String>.
 
-Changes the first parent, and returns it. If you want to change both
-parents at the same time, check L<QuadXOver|Algorithm::Evolutionary::Op:QuadXOver>
-
 =cut
 
 sub  apply ($$$){
   my $self = shift;
   my $arg = shift || croak "No victim here!";
 #  my $victim = $arg->clone();
+  my $gene_size = $self->{'_gene_size'};
   my $victim = clone( $arg );
   my $victim2 = shift || croak "No victim here!";
 #  croak "Incorrect type ".(ref $victim) if !$self->check($victim);
 #  croak "Incorrect type ".(ref $victim2) if !$self->check($victim2);
   my $minlen = (  length( $victim->{_str} ) >  length( $victim2->{_str} ) )?
-	 length( $victim2->{_str} ): length( $victim->{_str} );
-  my $pt1 = int( rand( $minlen ) );
-  my $range = 1 + int( rand( $minlen  - $pt1 ) );
+	 length( $victim2->{_str} )/$gene_size: length( $victim->{_str} )/$gene_size;
+  croak "Crossover not possible" if ($minlen == 1);
+  my ($pt1, $range );
+  if ( $minlen == 2 ) {
+      $pt1 = $range = 1;
+  }  else {
+      $pt1 = int( rand( $minlen - 1 ) );
 #  print "Puntos: $pt1, $range \n";
-  croak "No number of points to cross defined" if !defined $self->{_numPoints};
-  if ( $self->{_numPoints} > 1 ) {
-	$range =  int ( rand( length( $victim->{_str} ) - $pt1 ) );
+      croak "No number of points to cross defined" if !defined $self->{_numPoints};
+      if ( $self->{_numPoints} > 1 ) {
+	  $range =  int ( 1 + rand( length( $victim->{_str} )/$gene_size - $pt1 - 1) );
+      } else {
+	  $range = 1 + int( $minlen  - $pt1 );
+      }
   }
   
-  substr( $victim->{_str}, $pt1, $range ) = substr( $victim2->{_str}, $pt1, $range );
+  substr( $victim->{_str}, $pt1*$gene_size, $range*$gene_size ) 
+      = substr( $victim2->{_str}, $pt1*$gene_size, $range*$gene_size );
   $victim->{'_fitness'} = undef;
   return $victim; 
 }
@@ -133,10 +139,10 @@ sub  apply ($$$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/11/08 18:25:54 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Crossover.pm,v 1.7 2008/11/08 18:25:54 jmerelo Exp $ 
+  CVS Info: $Date: 2008/11/02 19:21:57 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Gene_Boundary_Crossover.pm,v 1.1 2008/11/02 19:21:57 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.7 $
+  $Revision: 1.1 $
   $Name $
 
 =cut

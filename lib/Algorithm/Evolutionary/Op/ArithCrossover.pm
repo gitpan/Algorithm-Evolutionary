@@ -3,8 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op::ArithCrossover - Arithmetic crossover operator; performs the average of
-                     the n parents crossed
+Algorithm::Evolutionary::Op::ArithCrossover - Arithmetic crossover operator; performs the average of the n parents crossed
                  
 
 =head1 SYNOPSIS
@@ -34,18 +33,18 @@ Crossover operator for a vector-rep individual
 
 package Algorithm::Evolutionary::Op::ArithCrossover;
 
-our ($VERSION) = ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.3 $ ' =~ / (\d+\.\d+)/ );
 
 use Carp;
+use Clone::Fast qw(clone);
 
-use Algorithm::Evolutionary::Op::Base;
-our @ISA = ('Algorithm::Evolutionary::Op::Base');
+use base 'Algorithm::Evolutionary::Op::Base';
 
 #Class-wide constants
 our $APPLIESTO =  'Algorithm::Evolutionary::Individual::Vector';
 our $ARITY = 2;
 
-=head2 create
+=head2 create()
 
 Creates the operator, but is more or less empty. Does not have instance variables
 
@@ -58,19 +57,20 @@ sub create {
   return $self;
 }
 
-=head2 apply
+=head2 apply( $chromosome_1, $chromosome_2 )
 
 Applies xover operator to a "Chromosome", a vector of stuff,
 really. Can be applied only to I<victims> with the C<_array> instance
 variable; but it checks before application that both operands are of
-type L<Algorithm::Evolutionary::Individual::Vector|Algorithm::Evolutionary::Individual::Vector>.
+type L<Algorithm::Evolutionary::Individual::Vector|Algorithm::Evolutionary::Individual::Vector>. 
+Returns the resulting chromosome
 
 =cut
 
 sub  apply ($$;$){
   my $self = shift;
   my $arg = shift || croak "No victim here!";
-  my $victim = $arg->clone();
+  my $victim = clone($arg);
   my $victim2 = shift || croak "No victim here!";
   croak "Incorrect type ".(ref $victim) if !$self->check($victim);
   croak "Incorrect type ".(ref $victim2) if !$self->check($victim2);
@@ -88,10 +88,10 @@ sub  apply ($$;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/02/12 17:49:39 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/ArithCrossover.pm,v 1.1.1.1 2008/02/12 17:49:39 jmerelo Exp $ 
+  CVS Info: $Date: 2008/07/01 08:49:33 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/ArithCrossover.pm,v 1.3 2008/07/01 08:49:33 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1.1.1 $
+  $Revision: 1.3 $
   $Name $
 
 =cut

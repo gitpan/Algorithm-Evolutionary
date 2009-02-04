@@ -51,18 +51,21 @@ used, along with its priorities
 
 package Algorithm::Evolutionary::Op::GeneralGeneration;
 
-our $VERSION = ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ ) ;
+use lib qw(../../..);
+
+our $VERSION = ( '$Revision: 1.5 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 
-use Algorithm::Evolutionary::Op::Base;
-our @ISA = qw(Algorithm::Evolutionary::Op::Base);
+use base 'Algorithm::Evolutionary::Op::Base';
+
+use Algorithm::Evolutionary::Wheel;
 
 # Class-wide constants
 our $APPLIESTO =  'ARRAY';
 our $ARITY = 1;
 
-=head2 new
+=head2 new( $evaluation_function, $selector, $ref_to_operator_array, $replacement_rate )
 
 Creates an algorithm, with the usual operators. Includes a default mutation
 and crossover, in case they are not passed as parameters
@@ -81,7 +84,7 @@ sub new {
 }
 
 
-=head2 set
+=head2 set( $ref_to_params_hash, $ref_to_code_hash, $ref_to_operators_hash )
 
 Sets the instance variables. Takes a ref-to-hash as
 input
@@ -106,7 +109,7 @@ sub set {
   }
 }
 
-=head2 apply
+=head2 apply( $population )
 
 Applies the algorithm to the population, which should have
 been evaluated first; checks that it receives a
@@ -154,8 +157,8 @@ sub apply ($) {
   #Eliminate and substitute
   splice( @$pop, -$pringaos );
   for ( @newpop ) {
-	my $fitness = $self->{_eval}->( $_ );
-	$_->Fitness( $fitness );
+      my $fitness = $self->{_eval};
+      $_->evaluate( $fitness );
   }
   push @$pop, @newpop;
   my @sortPop = sort { $b->{_fitness} <=> $a->{_fitness}; } @$pop;
@@ -168,10 +171,10 @@ sub apply ($) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/02/12 17:49:39 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GeneralGeneration.pm,v 1.1.1.1 2008/02/12 17:49:39 jmerelo Exp $ 
+  CVS Info: $Date: 2008/11/08 18:25:54 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GeneralGeneration.pm,v 1.5 2008/11/08 18:25:54 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1.1.1 $
+  $Revision: 1.5 $
   $Name $
 
 =cut

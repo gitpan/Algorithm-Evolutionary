@@ -1,6 +1,5 @@
 use ExtUtils::MakeMaker;
-# See lib/ExtUtils/MakeMaker.pm for details of how to influence
-# the contents of the Makefile that is written.
+
 WriteMakefile(
     NAME                => 'Algorithm::Evolutionary',
     AUTHOR              => 'JJ Merelo <jj /at/ merelo.net>',
@@ -20,10 +19,12 @@ WriteMakefile(
 	'Algorithm::Permute' => 0.01,
 	'XML::LibXML' => 1.50,
 	'String::Random' => 0,
-	'Memoize' => 0, # Para arity. Hace maravillas
+	'Bit::Vector' => 0,
+	'Memoize' => 0, 
 	'Time::HiRes' => 0,
         'Clone::Fast' => 0,
 	YAML => 0,
+	'Object::Array' => 0
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz' },
     clean               => { FILES => 'Algorithm-Evolutionary-*' }
@@ -39,5 +40,18 @@ docs:
 		for i in *.pod; do base=`basename $$i .pod`; echo $$base; pod2html --verbose --htmlroot ../..   --podpath=Individual:Op --outfile $$base.html $$i; done; \
  		cd Op; for i in *.pm; do base=`basename $$i .pm`; echo $$base; pod2html --verbose --htmlroot ../../.. --podroot ..  --outfile $$base.html $$i; done ; \
 		cd ../Individual; for i in *.pm; do base=`basename $$i .pm`; echo $$base; pod2html --verbose --htmlroot ../../.. --podroot .. --outfile $$base.html $$i; done
+
+$(DISTVNAME)-examples.tar$(SUFFIX) : distdir
+	$(PREOP)
+	$(TO_UNIX)
+	$(TAR) $(TARFLAGS) $(DISTVNAME)-examples.tar $(DISTVNAME)/examples
+	$(RM_RF) $(DISTVNAME)
+	$(COMPRESS) $(DISTVNAME)-examples.tar
+	$(POSTOP)
+
+examplesdist : $(DISTVNAME)-examples.tar$(SUFFIX)
+	$(NOECHO) $(NOOP)
+
+
 MAKE_FRAG
 }

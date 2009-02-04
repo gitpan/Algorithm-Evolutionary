@@ -3,7 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Op::VectorCrossover - Crossover for L<Algorithm::Evolutionary::Individual::Vector>.
+Algorithm::Evolutionary::Op::VectorCrossover - Crossover for L<Algorithm::Evolutionary::Individual::Vector>.
 
 =head1 SYNOPSIS
 
@@ -29,27 +29,26 @@ L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-Crossover operator for a  individual with vector representation
+Crossover operator for a  individual with vector (array) representation
 
 =cut
 
 package Algorithm::Evolutionary::Op::VectorCrossover;
 
-our ($VERSION) = ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.4 $ ' =~ / (\d+\.\d+)/ );
 
 use Carp;
 
-use Algorithm::Evolutionary::Op::Base;
-our @ISA = ('Algorithm::Evolutionary::Op::Base');
+use base 'Algorithm::Evolutionary::Op::Base';
 
 #Class-wide constants
 our $APPLIESTO =  'Algorithm::Evolutionary::Individual::Vector';
 our $ARITY = 2;
 
-=head2 new
+=head2 new( [$number_of_crossing_points = 2], [$priority_rate = 1] )
 
 Creates a new 1 or 2 point crossover operator. But this is just to have a non-empty chromosome
-Defaults to 2 point
+Defaults to 2 point crossover
 
 =cut
 
@@ -61,10 +60,10 @@ sub new {
   return $self;
 }
 
-=head2 create
+=head2 create( [$number_of_crossing_points = 2] )
 
 Creates a new 1 or 2 point crossover operator. But this is just to have a non-empty chromosome
-Defaults to 2 point
+Defaults to 2 point. 
 
 =cut
 
@@ -76,7 +75,7 @@ sub create {
   return $self;
 }
 
-=head2 apply
+=head2 apply( $chromosome_1, $chromosome_2 )
 
 Applies xover operator to a "Chromosome",  a vector of stuff,
 really. Can be applied only to I<victims> with the C<_array> instance
@@ -89,8 +88,8 @@ sub  apply ($$;$){
   my $self = shift;
   my $victim = shift || croak "No victim here!";
   my $victim2 = shift || croak "No victim here!";
-  croak "Incorrect type ".(ref $victim) if !$self->check($victim);
-  croak "Incorrect type ".(ref $victim2) if !$self->check($victim2);
+  croak "Incorrect type ".(ref $victim) if !$victim->{'_array'};
+  croak "Incorrect type ".(ref $victim2) if !$victim2->{'_array'};
   if ( (scalar @{$victim->{_array}} == 2) || (scalar @{$victim2->{_array}} == 2 ) ) {
     #Too small, don't pay attention to number of cutting points
     my $i = (rand() > 0.5 )? 0:1;
@@ -105,7 +104,6 @@ sub  apply ($$;$){
     } else {
       $range = $possibleRange + 1;
     }
-#    print "Puntos: $pt1, $possibleRange, $range \n";
     #Check length to avoid unwanted lengthening
     return $victim if ( ( $pt1+$range >= @{$victim->{_array}} ) || ( $pt1+$range >= @{$victim2->{_array}} ));
     
@@ -121,10 +119,10 @@ sub  apply ($$;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/02/12 17:49:39 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/VectorCrossover.pm,v 1.1.1.1 2008/02/12 17:49:39 jmerelo Exp $ 
+  CVS Info: $Date: 2008/07/02 16:26:02 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/VectorCrossover.pm,v 1.4 2008/07/02 16:26:02 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1.1.1 $
+  $Revision: 1.4 $
   $Name $
 
 =cut

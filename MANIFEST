@@ -22,6 +22,7 @@ lib/Algorithm/Evolutionary/Op/DeltaTerm.pm
 lib/Algorithm/Evolutionary/Op/Easy.pm
 lib/Algorithm/Evolutionary/Op/FullAlgorithm.pm
 lib/Algorithm/Evolutionary/Op/GaussianMutation.pm
+lib/Algorithm/Evolutionary/Op/Gene_Boundary_Crossover.pm
 lib/Algorithm/Evolutionary/Op/GeneralGeneration.pm
 lib/Algorithm/Evolutionary/Op/GenerationalTerm.pm
 lib/Algorithm/Evolutionary/Op/IncMutation.pm
@@ -29,10 +30,13 @@ lib/Algorithm/Evolutionary/Op/Inverover.pm
 lib/Algorithm/Evolutionary/Op/LinearFreezer.pm
 lib/Algorithm/Evolutionary/Op/Mutation.pm
 lib/Algorithm/Evolutionary/Op/NoChangeTerm.pm
+lib/Algorithm/Evolutionary/Op/Novelty_Mutation.pm
 lib/Algorithm/Evolutionary/Op/Permutation.pm
 lib/Algorithm/Evolutionary/Op/QuadXOver.pm
 lib/Algorithm/Evolutionary/Op/RouletteWheel.pm
+lib/Algorithm/Evolutionary/Op/Selector.pm
 lib/Algorithm/Evolutionary/Op/SimulatedAnnealing.pm
+lib/Algorithm/Evolutionary/Op/Storing.pm
 lib/Algorithm/Evolutionary/Op/TournamentSelect.pm
 lib/Algorithm/Evolutionary/Op/TreeMutation.pm
 lib/Algorithm/Evolutionary/Op/VectorCrossover.pm
@@ -41,6 +45,7 @@ lib/Algorithm/Evolutionary/Individual/String.pm
 lib/Algorithm/Evolutionary/Individual/BitString.pm
 lib/Algorithm/Evolutionary/Individual/Tree.pm
 lib/Algorithm/Evolutionary/Individual/Vector.pm
+lib/Algorithm/Evolutionary/Individual/Bit_Vector.pm
 lib/Algorithm/Evolutionary/Fitness/Base.pm
 lib/Algorithm/Evolutionary/Fitness/String.pm
 lib/Algorithm/Evolutionary/Fitness/MMDP.pm
@@ -49,7 +54,10 @@ lib/Algorithm/Evolutionary/Fitness/wP_Peaks.pm
 lib/Algorithm/Evolutionary/Fitness/Knapsack.pm
 lib/Algorithm/Evolutionary/Fitness/ONEMAX.pm
 lib/Algorithm/Evolutionary/Fitness/Royal_Road.pm
+lib/Algorithm/Evolutionary/Fitness/ECC.pm
 t/00-load.t
+t/0100-bitvector.t
+t/0101-string.t
 t/0200-run-ga.t
 t/p_peaks.yaml
 t/0300-ppeaks.t
@@ -57,7 +65,9 @@ t/0301-wppeaks.t
 t/0302-knapsack.t
 t/0303-onemax.t
 t/0304-royalroad.t
+t/0305-ecc.t
 t/0333-mmdp.t
+t/0444-stored.t
 t/general.t
 t/GenerationalTerm.t
 t/NoChangeTerm.t
@@ -67,7 +77,6 @@ t/individuals.t
 t/experiment.t
 t/validate.t
 t/run.t
-t/string.t
 xml/EvoSpec.dtd
 xml/EvoSpecValidate.pl
 xml/marea.xml
@@ -85,4 +94,5 @@ examples/wp_peaks.pl
 examples/run_easy_ga.pl
 examples/p_peaks.yaml
 examples/canonical-genetic-algorithm.pl
+examples/simulated-annealing.pl
 META.yml                                 Module meta-data (added by MakeMaker)

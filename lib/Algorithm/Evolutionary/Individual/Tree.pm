@@ -1,9 +1,9 @@
-use strict;
+use strict; #-*-cperl-*-
 use warnings;
 
 =head1 NAME
 
-     Tree - A Direct Acyclic Graph, or tree, useful for Genetic Programming-Style stuff
+    Tree - A Direct Acyclic Graph, or tree, useful for Genetic Programming-Style stuff
 
 =head1 SYNOPSIS
 
@@ -31,7 +31,7 @@ L<Algorithm::Evolutionary::Individual::Base|Algorithm::Evolutionary::Individual:
 
 =head1 DESCRIPTION
 
-Array individual for a genetic programming. Uses Direct Acyclic graphs as
+Array individual for a genetic programming. Uses direct acyclic graphs as
 representation for trees, which is very convenient. 
 
 =cut
@@ -41,7 +41,7 @@ package Algorithm::Evolutionary::Individual::Tree;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 1.1.1.1 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ );
 
 use Tree::DAG_Node;
 
@@ -60,8 +60,8 @@ Creates a new tree
 sub new {
   my $class = shift; 
   my $self = {_primitives => shift,
-			  _depth => shift,
-			  _fitness => undef };
+	      _depth => shift,
+	      _fitness => undef };
   my @keys = keys %{$self->{_primitives}};
   $self->{_keys} = \@keys;
   bless $self, $class;
@@ -165,6 +165,12 @@ sub asString {
   return $str;
 }
 
+=head2 nodePrint
+
+Prints a node
+
+=cut
+
 sub nodePrint {
   my $node = shift;
   my $options = shift;
@@ -180,6 +186,12 @@ sub nodePrint {
   
 }
 
+=head2 closeParens
+
+Internal subrutine: closes node parenthesis
+
+=cut 
+
 sub closeParens {
   my $node = shift;
   my $options = shift;
@@ -191,6 +203,18 @@ sub closeParens {
     }
   }
  
+}
+
+
+=head2 Atom
+
+Returns the tree, which is atomic by itself. Cannot be used as lvalue
+
+=cut
+
+sub Atom {
+  my $self = shift;
+  return $self->{'_tree'};
 }
 
 =head2 asXML
@@ -210,7 +234,13 @@ sub asXML {
   return $str.$str2."\n</indi>";
 }
 
-#Dummy sub
+
+=head2 adddAtom
+
+Dummy sub
+
+=cut 
+
 sub addAtom {
   my $self = shift;
   $self->{_tree} = Tree::DAG_Node->new();
@@ -276,16 +306,26 @@ sub growSubTree {
   }
 }
 
+=head2 size()
+
+Returns 1, since it's got only 1 Atom
+
+=cut
+
+sub size {
+  my $self = shift;
+  return 1;
+}
 
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/02/12 17:49:39 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Tree.pm,v 1.1.1.1 2008/02/12 17:49:39 jmerelo Exp $ 
+  CVS Info: $Date: 2008/07/25 09:02:26 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Tree.pm,v 1.4 2008/07/25 09:02:26 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1.1.1 $
+  $Revision: 1.4 $
   $Name $
 
 =cut

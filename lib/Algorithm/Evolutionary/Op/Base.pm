@@ -1,4 +1,4 @@
-use strict;
+use strict; #-*-cperl-*-
 use warnings;
 
 =head1 NAME
@@ -18,10 +18,10 @@ Algorithm::Evolutionary::Op::Base - Base class for OPEAL operators; operators ar
     my $ref = XMLin($xmlStr);
     my $op = Algorithm::Evolutionary::Op::Base->fromXML( $ref ); #Takes a hash of parsed XML and turns it into an operator    
 
-    print $op->asXML(); #print its back in XML shape
+    print $op->asXML(); #prints it back in XML shape
 
     print $op->rate();  #application rate; relative number of times it must be applied
-    print "Yes" if $op->check( 'BinaryIndi' ); #Prints Yes, it can be applied to BinaryIndi
+    print "Yes" if $op->check( 'Algorithm::Evolutionary::Individual::Bit_Vector' ); #Prints Yes, it can be applied to Bit_Vector individual
     print $op->arity(); #Prints 1, number of operands it can be applied to
 
 =head1 DESCRIPTION
@@ -39,13 +39,12 @@ use lib qw( ../.. ../../.. );
 use XML::Parser;
 use XML::Parser::EasyTree;
 use Memoize;
-memoize('arity');
+memoize('arity'); #To speed up this frequent computation
 
 use B::Deparse; #For serializing code
 
 use Carp;
-our $VERSION = ( '$Revision: 1.4 $ ' =~ /(\d+\.\d+)/ ) ;
-
+our $VERSION = ( '$Revision: 1.12 $ ' =~ / (\d+\.\d+)/ ) ;
 
 =head2 AUTOLOAD
 
@@ -68,7 +67,7 @@ sub AUTOLOAD {
 
 }
 
-=head2 new
+=head2 new( [$priority] [,$options_hash] )
 
 Takes a hash with specific parameters for each subclass, creates the 
 object, and leaves subclass-specific assignments to subclasses
@@ -77,16 +76,16 @@ object, and leaves subclass-specific assignments to subclasses
 
 sub new {
   my $class = shift;
+  carp "Should be called from subclasses" if ( $class eq  __PACKAGE__ );
   my $rate = shift || 1;
   my $hash = shift; #No carp here, some operators do not need specific stuff
   my $self = { rate => $rate }; # Create a reference
-  carp "Should be called from subclasses" if ( $class eq  __PACKAGE__ );
   bless $self, $class; # And bless it
   $self->set( $hash ) if $hash ;
   return $self;
 }
 
-=head2 fromXML
+=head2 fromXML()
 
 Takes a definition in the shape <op></op> and turns it into an object, 
 if it knows how to do it. The definition must have been processed using XML::Simple.
@@ -148,7 +147,7 @@ sub fromXML {
 }
 
 
-=head2 asXML
+=head2 asXML( [$id] )
 
 Prints as XML, following the EvoSpec 0.2 XML specification. Should be
 called from derived classes, not by itself. Provides a default
@@ -160,7 +159,8 @@ name='foo' rate='1' E<gt> >.
 If there is not anything special, this takes also care of the instance
 variables different from C<rate>: they are inserted as C<param> within
 the XML file. In this case, C<param>s are void tags; if you want
-anything more fancy, you will have to override this method.
+anything more fancy, you will have to override this method. An
+optional ID can be used.
 
 =cut
 
@@ -199,7 +199,7 @@ sub asXML {
   return $str;
 }
 
-=head2 rate
+=head2 rate( [$rate] )
 
 Gets or sets the rate of application of the operator
 
@@ -211,7 +211,7 @@ sub rate {
   return $self;
 }
 
-=head2 check
+=head2 check()
 
 Check if the object the operator is applied to is in the correct
 class. 
@@ -225,7 +225,7 @@ sub check {
   return $object->isa( $at ) ;
 }
 
-=head2 arity
+=head2 arity()
 
 Returns the arity, ie, the number of individuals it can be applied to
 
@@ -236,7 +236,7 @@ sub arity {
   return eval( "\$"."$class"."::ARITY" );
 }
 
-=head2 set
+=head2 set( $options_hashref )
 
 Converts the parameters passed as hash in instance variables. Default
 method, probably should be overriden by derived classes. If it is not,
@@ -266,6 +266,10 @@ L<Algorithm::Evolutionary::Op::Creator|Algorithm::Evolutionary::Op::Creator>
 =item * 
 
 L<Algorithm::Evolutionary::Op::Mutation|Algorithm::Evolutionary::Op::Mutation>
+
+=item * 
+
+L<Algorithm::Evolutionary::Op::Mutation|Algorithm::Evolutionary::Op::IncMutation>
 
 =item * 
 
@@ -325,10 +329,10 @@ L<Algorithm::Evolutionary::XML>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/06/26 11:37:43 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Base.pm,v 1.4 2008/06/26 11:37:43 jmerelo Exp $ 
+  CVS Info: $Date: 2008/09/12 18:31:02 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Base.pm,v 1.12 2008/09/12 18:31:02 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.4 $
+  $Revision: 1.12 $
   $Name $
 
 =cut

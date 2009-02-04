@@ -1,4 +1,4 @@
-use strict;
+use strict; #-*-cperl-*-
 use warnings;
 
 =head1 NAME
@@ -34,13 +34,13 @@ use XML::Parser::EasyTree;
 use YAML qw(Dump Load LoadFile);
 use Carp;
 
-our ($VERSION) = ( '$Revision: 1.7 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 1.13 $ ' =~ / (\d+\.\d+)/ );
 
 use constant MY_OPERATORS => qw(None);
 
 =head1 METHODS 
 
-=head2 new
+=head2 new( $options )
 
 Creates a new Base individual of the required class, with a fitness, and sets fitnes to undef.
 Takes as params a hash to the options of the individual, that will be passed
@@ -51,7 +51,7 @@ on to the object of the class when it iss initialized.
 sub new {
   my $class = shift;
   if ( $class !~ /Algorithm::Evolutionary/ ) {
-    $class = "Algorithm::Evolutionary::Individual::$class";
+      $class = "Algorithm::Evolutionary::Individual::$class";
   }
   my $options = shift;
   my $self = { _fitness => undef }; # Avoid error
@@ -59,16 +59,16 @@ sub new {
 
   #If the class is not loaded, we load it. The 
   if ( !$INC{"$class\.pm"} ) {
-    eval "require $class" || croak "Can't find $class Module";
+      eval "require $class" || croak "Can't find $class Module";
   }
   if ( $options ) {
-	$self->set( $options );
+      $self->set( $options );
   }
 
   return $self;
 }
 
-=head2 create
+=head2 create( $ref_to_hash )
 
 Creates a new random string, but uses a different interface: takes a
 ref-to-hash, with named parameters, which gives it a common interface
@@ -79,13 +79,13 @@ after creation, it is initialized with random values.
 
 sub create {
   my $class = shift; 
-  my $ref = shift || carp "Can't find the parameters hash";
+  my $ref = shift ||  croak "Can't find the parameters hash";
   my $self = Algorithm::Evolutionary::Individual::Base::new( $class, $ref );
   $self->randomize();
   return $self;
 }
 
-=head2 set
+=head2 set( $ref_to_hash )
 
 Sets values of an individual; takes a hash as input. Keys are prepended an
 underscore and turn into instance variables
@@ -100,7 +100,7 @@ sub set {
   }
 }
 
-=head2 fromXML
+=head2 fromXML( $xml_string )
 
 Takes a definition in the shape <indi><atom>....</indi><fitness></fitness></indi> and turns it into a bitstring, 
 if it knows how to do it. The definition must have been processed using XML::Simple. It forwards stuff it does 
@@ -144,9 +144,9 @@ sub fromXML {
   return $self;
 }
 
-=head2 fromParam
+=head2 fromParam( $xml_fragment )
 
-Takes an array of params that describe the individual, and build it, with
+Takes an array of params that describe the individual, and builds it, with
 random initial values.
 
 Params have this shape:
@@ -182,7 +182,7 @@ sub fromParam {
   return $self;
 }
 
-=head2 asXML
+=head2 asXML()
 
 Prints it as XML. The caller must close the tags.
 
@@ -199,7 +199,7 @@ sub asXML {
   return $str;
 }
 
-=head2 as_yaml
+=head2 as_yaml()
 
 Prints it as YAML. 
 
@@ -210,7 +210,29 @@ sub as_yaml {
   return Dump($self);
 }
 
-=head2 Atom
+=head2 as_string()
+
+Prints it as a string in the most meaningful representation possible
+
+=cut
+
+sub as_string {
+  croak "This function is not defined at this level, you should override it in a subclass\n";
+}
+
+=head2 as_string_with_fitness( [$separator] )
+
+Prints it as a string followeb by fitness. Separator by default is C<;>
+
+=cut
+
+sub as_string_with_fitness {
+  my $self = shift;
+  my $separator = shift || "; ";
+  return $self->as_string().$separator.$self->Fitness();
+}
+
+=head2 Atom( $index [, $value )
 
 Sets or gets the value of an atom. Each individual is divided in atoms, which
 can be accessed sequentially. If that does not apply, Atom can simply return the
@@ -222,7 +244,7 @@ sub Atom {
   croak "This function is not defined at this level, you should override it in a subclass\n";
 }
 
-=head2 Fitness
+=head2 Fitness( [$value] )
 
 Sets or gets fitness
 
@@ -236,7 +258,7 @@ sub Fitness {
   return $self->{_fitness};
 }
 
-=head2 my_operators
+=head2 my_operators()
 
 Operators that can act on this data structure. Returns an array with the names of the known operators
 
@@ -261,12 +283,12 @@ sub evaluate {
   } elsif (  ( ref $fitness_func ) =~ 'Fitness' ) {
       return $self->Fitness( $fitness_func->apply($self) );
   } else {
-      croak "$fitness_func is can't be used to evaluate";
+      croak "$fitness_func can't be used to evaluate";
   }
 
 }
 
-=head2 Chrom
+=head2 Chrom()
 
 Sets or gets the chromosome itself, that is, the data
 structure evolved. Since each derived class has its own
@@ -280,6 +302,17 @@ sub Chrom {
   croak "To be implemented in derived classes!";
 }
 
+=head2 size()
+
+OK, OK, this is utter inconsistence, but I'll re-consistence it
+    eventually. Returns a meaningful size; but should be reimplemented
+    by siblings
+
+=cut
+
+sub size() {
+    croak "To be implemented in derived classes!";
+}
 
 =head1 Known subclasses
 
@@ -297,6 +330,10 @@ L<Algorithm::Evolutionary::Individual::String>
 
 L<Algorithm::Evolutionary::Individual::Tree>
 
+=item * 
+
+L<Algorithm::Evolutionary::Individual::Bit_Vector>
+
 =back
 
 =head1 Copyright
@@ -304,10 +341,10 @@ L<Algorithm::Evolutionary::Individual::Tree>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2008/06/26 11:37:43 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Base.pm,v 1.7 2008/06/26 11:37:43 jmerelo Exp $ 
+  CVS Info: $Date: 2008/07/27 08:09:32 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Base.pm,v 1.13 2008/07/27 08:09:32 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.7 $
+  $Revision: 1.13 $
   $Name $
 
 =cut
