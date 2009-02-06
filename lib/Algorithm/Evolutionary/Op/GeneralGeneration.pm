@@ -53,7 +53,7 @@ package Algorithm::Evolutionary::Op::GeneralGeneration;
 
 use lib qw(../../..);
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 

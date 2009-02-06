@@ -56,12 +56,11 @@ of class L<Algorithm::Evolutionary::Op::GeneralGeneration>.
 
 package Algorithm::Evolutionary::Op::FullAlgorithm;
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 
-use Algorithm::Evolutionary::Op::Base;
-our @ISA = qw(Algorithm::Evolutionary::Op::Base);
+use base 'Algorithm::Evolutionary::Op::Base';
 
 #  Class-wide constants
 our $APPLIESTO =  'ARRAY';

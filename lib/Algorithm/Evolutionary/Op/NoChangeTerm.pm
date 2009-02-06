@@ -31,11 +31,11 @@ you want to apply some fancy diversity operator
 
 package Algorithm::Evolutionary::Op::NoChangeTerm;
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use base 'Algorithm::Evolutionary::Op::Base';
 
-=head2 new
+=head2 new( [$number_of_generations_without_change] )
 
 Creates a new terminator. Takes as an argument the number of
 generations after which it will return false, which defaults to 10. 

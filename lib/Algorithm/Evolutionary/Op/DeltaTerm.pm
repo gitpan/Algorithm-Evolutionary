@@ -32,11 +32,11 @@ to the target as the differente indicated.
 package Algorithm::Evolutionary::Op::DeltaTerm;
 use Carp;
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use base 'Algorithm::Evolutionary::Op::Base';
 
-=head2 new
+=head2 new( $target[, $delta] )
 
 Creates a new terminator. Takes as parameters the target and the
 epsilon (or delta, whatever you want to call it): 

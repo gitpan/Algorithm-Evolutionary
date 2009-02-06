@@ -44,10 +44,10 @@ use lib qw( ../.. ../../.. );
 use Algorithm::Evolutionary::Individual::Base;
 
 use Carp;
-our $VERSION = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ ) ;
 
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
 
-=head2 new
+=head2 new( $number_of_individuals, $class_to_generate, $options_hash )
 
 Takes a hash with specific parameters for each subclass, creates the 
 object, and leaves subclass-specific assignments to subclasses
@@ -66,7 +66,7 @@ sub new {
   return $self;
 }
 
-=head2 apply
+=head2 apply( $population_hash )
 
 Generates the population according to the parameters passed in the ctor
 
@@ -82,7 +82,7 @@ sub apply ($) {
   }
 }
 
-=head2 asXML
+=head2 asXML()
 
 Serializes the object as an XML nodeset
 
@@ -104,7 +104,7 @@ EOC
   return $str;
 }  
 
-=head2 set
+=head2 set( $params_hash )
 
 Sets the instance variables of the object, which, so far, should be a 
 bit "raw". Usually called from the base class

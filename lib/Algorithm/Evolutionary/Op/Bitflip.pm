@@ -99,7 +99,7 @@ sub apply ($;$){
   my $size =  $victim->size();
 #  croak "Incorrect type ".(ref $victim) if ! $self->check( $victim );
   croak "Too many changes" if $self->{_howMany} >= $size;
-  my @bits = 0..$size; # Hash with all bits
+  my @bits = 0..($size-1); # Hash with all bits
   for ( my $i = 0; $i < $self->{_howMany}; $i++ ) {
       my $rnd = int (rand( @bits ));
       my $who = splice(@bits, $rnd, 1 );

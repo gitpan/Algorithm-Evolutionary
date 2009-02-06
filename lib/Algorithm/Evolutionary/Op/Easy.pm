@@ -50,7 +50,7 @@ iteration of the algorithm to the population it takes as input
 
 package Algorithm::Evolutionary::Op::Easy;
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 use Clone::Fast qw(clone);
@@ -118,7 +118,7 @@ sub set {
   }
 }
 
-=head2 apply
+=head2 apply( $population )
 
 Applies the algorithm to the population; checks that it receives a
 ref-to-array as input, croaks if it does not. Returns a sorted,

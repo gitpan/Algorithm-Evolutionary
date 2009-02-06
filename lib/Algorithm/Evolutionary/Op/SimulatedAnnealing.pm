@@ -27,7 +27,7 @@ Simulated Annealing
 
 package Algorithm::Evolutionary::Op::SimulatedAnnealing;
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ ) ;
 use Carp;
 
 use Algorithm::Evolutionary::Op::LinearFreezer;

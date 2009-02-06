@@ -33,11 +33,12 @@ package Algorithm::Evolutionary::Utils;
 use Exporter;
 our @ISA = qw(Exporter);
 our ($VERSION) = ( '$Revision: 2.2 $ ' =~ /(\d+\.\d+)/ ) ;
-our @EXPORT_OK = qw( entropy consensus hamming random_bitstring);
+our @EXPORT_OK = qw( entropy consensus hamming random_bitstring parse_xml);
 
 use Carp;
 use String::Random;
-
+use XML::Parser;
+use XML::Parser::EasyTree;
 
 =head2 entropy( $population)
 
@@ -112,6 +113,19 @@ sub random_bitstring {
   my $generator = new String::Random;
   my $regex = "\[01\]{$bits}";
   return $generator->randregex($regex);
+}
+
+=head2 parse_xml( $string ) 
+
+Parses the string and returns an XML tree
+
+=cut
+
+sub parse_xml {
+  my $string = shift || croak "No string to parse!\n";
+  my $p=new XML::Parser(Style=>'EasyTree');
+  $XML::Parser::EasyTree::Noempty=1;
+  return $p->parse($string);
 }
 
 

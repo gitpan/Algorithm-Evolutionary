@@ -1,6 +1,8 @@
 use strict; # -*- cperl -*-
 use warnings;
 
+use lib qw( ../../../../lib );
+
 =head1 NAME
 
 Algorithm::Evolutionary::Fitness::ECC - Error Correcting codes problem generator
@@ -34,7 +36,7 @@ computed by the algorithm"
 
 package Algorithm::Evolutionary::Fitness::ECC;
 
-our $VERSION = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.2 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use String::Random;
 use Carp qw(croak);
@@ -73,7 +75,7 @@ sub _really_apply {
   return $self->ecc( @_ );
 }
 
-=head2 p_peaks
+=head2 ecc
 
 Applies the instantiated problem to a string
 
@@ -105,10 +107,10 @@ sub ecc {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/04 20:43:14 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/ECC.pm,v 2.1 2009/02/04 20:43:14 jmerelo Exp $ 
+  CVS Info: $Date: 2009/02/05 07:10:35 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/ECC.pm,v 2.2 2009/02/05 07:10:35 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.1 $
+  $Revision: 2.2 $
   $Name $
 
 =cut

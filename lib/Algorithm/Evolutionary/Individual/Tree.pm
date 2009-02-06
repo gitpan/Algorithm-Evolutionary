@@ -31,8 +31,9 @@ L<Algorithm::Evolutionary::Individual::Base|Algorithm::Evolutionary::Individual:
 
 =head1 DESCRIPTION
 
-Array individual for a genetic programming. Uses direct acyclic graphs as
-representation for trees, which is very convenient. 
+Array individual for a genetic programming. Uses direct acyclic graphs
+as representation for trees, which is very convenient. This class has
+not been tested extensively, so it might not work.
 
 =cut
 
@@ -41,7 +42,7 @@ package Algorithm::Evolutionary::Individual::Tree;
 use Carp;
 use Exporter;
 
-our ($VERSION) = ( '$Revision: 2.1 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 2.1 $ ' =~ / (\d+\.\d+)/ );
 
 use Tree::DAG_Node;
 
@@ -51,9 +52,10 @@ our @ISA = qw (Algorithm::Evolutionary::Individual::Base);
 
 =head1 METHODS
 
-=head2 new
+=head2 new( $primitives, $depth, $fitness )
 
-Creates a new tree
+Creates a new tree using a primitives hashref, max depth, and a
+ref-to-fitness 
 
 =cut
 
@@ -235,7 +237,7 @@ sub asXML {
 }
 
 
-=head2 adddAtom
+=head2 addAtom
 
 Dummy sub
 
