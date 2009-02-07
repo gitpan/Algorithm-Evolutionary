@@ -49,7 +49,7 @@ ok( ref Algorithm::Evolutionary::Individual::Tree->new( $primitives, 3 ), "Algor
 ##############################
 print "Individual XML tests\n"; # 8..10
 use XML::Parser;
-use XML::Parser::EasyTree;
+
 my $p=new XML::Parser(Style=>'EasyTree');
 $XML::Parser::EasyTree::Noempty=1;
 
@@ -76,7 +76,7 @@ $xml=<<EOC;
 </section>
 EOC
 $ref = $p->parse($xml);
-my $bs = Algorithm::Evolutionary::Individual::Base->fromParam( $ref->[0]{content}  );
+my $bs = Algorithm::Evolutionary::Individual::Base->fromParam( $ref->{'section'}  );
 ok( ref $bs, "Algorithm::Evolutionary::Individual::BitString" );
 
 my $fitness = sub {

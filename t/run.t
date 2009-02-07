@@ -6,10 +6,9 @@ use warnings;
 #########################
 use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 use Algorithm::Evolutionary::Experiment;
-use Algorithm::Evolutionary::Op::Easy;
 
-use Test;
-BEGIN { plan tests => 4 };
+
+use Test::More tests => 4;
 #########################
 
 
@@ -17,12 +16,13 @@ my @files = qw( marea.xml royalroad.xml onemax.xml experiment.xml );
 
 for ( @files ) {	
   local( $/, *X);
-  open (X, "<xml/$_" ) || die "Problems opening xml/$_: $@\n";
+  my $filename = -e "xml/$_"? "xml/$_": "../xml/$_";
+  open (X, "<$filename" ) || die "Problems opening $filename: $@\n";
   my $xml = <X>;
   close X;
   my $xp = Algorithm::Evolutionary::Experiment->fromXML( $xml );
   my $popRef = $xp->go();	
-  ok ( $popRef->[0]->Fitness() > 0, 1 );
+  ok ( $popRef->[0]->Fitness() > 0, "XML from $filename" );
 }
 
 

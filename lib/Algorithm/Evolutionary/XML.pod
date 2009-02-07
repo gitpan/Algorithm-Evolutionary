@@ -1,6 +1,6 @@
 =head1 NAME
 
-    XML - Syntax and semantics of the XML files used in OPEAL
+XML - Syntax and semantics of the XML files used in OPEAL
 
 =cut
 

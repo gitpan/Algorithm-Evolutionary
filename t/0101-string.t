@@ -52,7 +52,7 @@ my @mini_vector = splice( @vector, 2, 2 );
 is( $mini_vector[1], 'k', 'Splice' );
 
 #Testing XML stuff
-  my $xml=<<EOC;
+my $xml=<<EOC;
 <indi type='String'>
     <atom>a</atom><atom>z</atom><atom>q</atom><atom>i</atom><atom>h</atom>
 </indi>
