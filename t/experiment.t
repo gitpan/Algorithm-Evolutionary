@@ -106,10 +106,10 @@ EOC
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/04 20:43:15 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/experiment.t,v 2.1 2009/02/04 20:43:15 jmerelo Exp $ 
+  CVS Info: $Date: 2009/02/07 18:31:28 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/experiment.t,v 2.2 2009/02/07 18:31:28 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.1 $
+  $Revision: 2.2 $
   $Name $
 
 =cut

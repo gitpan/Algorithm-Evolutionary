@@ -8,11 +8,9 @@ use Test;
 BEGIN { plan tests => 43 };
 use lib qw( lib ../lib ../../lib ); #Just in case we are testing it in-place
 
-use Algorithm::Evolutionary::Individual::String;
-use Algorithm::Evolutionary::Individual::BitString;
-use Algorithm::Evolutionary::Individual::Vector;
-use Algorithm::Evolutionary::Individual::Tree;
-use Algorithm::Evolutionary::Fitness::ONEMAX;
+use Algorithm::Evolutionary qw( Individual::String Individual::BitString 
+				Individual::Vector Individual::Tree 
+				Fitness::ONEMAX);
 
 #########################
 
@@ -265,10 +263,10 @@ ok( $sortPop[0]->Fitness() >= $oldBestFitness, 1);
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/04 20:43:15 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/general.t,v 2.1 2009/02/04 20:43:15 jmerelo Exp $ 
+  CVS Info: $Date: 2009/02/08 17:23:18 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/general.t,v 2.3 2009/02/08 17:23:18 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.1 $
+  $Revision: 2.3 $
   $Name $
 
 =cut

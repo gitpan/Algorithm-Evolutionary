@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Algorithm-Evolutionary
-version:            0.62_3
+version:            0.63
 abstract:           Perl extension for performing paradigm-free evolutionary algorithms. 
 author:
     - JJ Merelo <jj /at/ merelo.net>
@@ -32,7 +32,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.46
+generated_by:       ExtUtils::MakeMaker version 6.48
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4

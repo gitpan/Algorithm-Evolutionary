@@ -32,7 +32,7 @@ package Algorithm::Evolutionary::Utils;
 
 use Exporter;
 our @ISA = qw(Exporter);
-our ($VERSION) = ( '$Revision: 2.3 $ ' =~ /(\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 2.4 $ ' =~ /(\d+\.\d+)/ ) ;
 our @EXPORT_OK = qw( entropy consensus hamming random_bitstring parse_xml);
 
 use Carp;
@@ -134,10 +134,10 @@ sub parse_xml {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/06 16:03:03 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Utils.pm,v 2.3 2009/02/06 16:03:03 jmerelo Exp $ 
+  CVS Info: $Date: 2009/02/07 18:31:28 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Utils.pm,v 2.4 2009/02/07 18:31:28 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.3 $
+  $Revision: 2.4 $
   $Name $
 
 =cut
