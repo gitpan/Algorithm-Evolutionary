@@ -2,7 +2,7 @@ package Algorithm::Evolutionary;
 
 use Carp qw(croak);
 
-our $VERSION = '0.64';
+our $VERSION = '0.64_1';
 
 # Preloaded methods go here.
 
@@ -85,8 +85,13 @@ one:</p>
 =end html
 
  @InProceedings{jj:2008:PPSN,
-   author =	"Juan J. Merelo and  Antonio M. Mora and Pedro A. Castillo and Juan L. J. Laredo and Lourdes Araujo and Ken C. Sharman and Anna I. Esparcia-Alc√°zar and Eva Alfaro-Cid and Carlos Cotta",
-   title =	"Testing the Intermediate Disturbance Hypothesis: Effect of Asynchronous Population Incorporation on Multi-Deme Evolutionary Algorithms",
+   author =	"Juan J. Merelo and  Antonio M. Mora and Pedro A. Castillo 
+                 and Juan L. J. Laredo and Lourdes Araujo and Ken C. Sharman 
+                 and Anna I. Esparcia-Alc·zar and Eva Alfaro-Cid 
+                 and Carlos Cotta",
+   title =	"Testing the Intermediate Disturbance Hypothesis: Effect of 
+                 Asynchronous Population Incorporation on Multi-Deme 
+                 Evolutionary Algorithms",
    booktitle =	"Parallel Problem Solving from Nature - PPSN X",
    year = 	"2008",
    editor =	"Gunter Rudolph and Thomas Jansen and Simon Lucas and
@@ -119,7 +124,7 @@ group blog</a></p>
 
 Main author and developer is J. J. Merelo, jmerelo (at)
 geneura.ugr.es. There have also been some contributions from Javi
-Garc√≠a, fjgc (at) decsai.ugr.es and Pedro Castillo, pedro (at)
+GarcÌa, fjgc (at) decsai.ugr.es and Pedro Castillo, pedro (at)
 geneura.ugr.es. Patient users that have submitted bugs include <a
 href='http://barbacana.net'>jamarier</a>. Bugs, requests and any kind
 of comment are welcome.
@@ -133,6 +138,9 @@ have been included with your CPAN bundle. Foor instance, check out
 C<tide_float.pl>, an example of floating point vector optimization, or
 C<run_easy_ga.pl p_peaks.yaml>, which should run an example of a
 simple GA on the P_Peaks deceptive function. 
+
+Some other examples are installed: check out L<tide_bitstring.pl>,
+which you can play with to get a taste of what EA programming is like. 
 
 =head1 SEE ALSO
 
@@ -163,10 +171,10 @@ as L<AI::Genetic::Pro>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/10 06:51:27 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 2.6 2009/02/10 06:51:27 jmerelo Exp $ 
+  CVS Info: $Date: 2009/02/11 12:38:14 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 2.7 2009/02/11 12:38:14 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.6 $
+  $Revision: 2.7 $
   $Name $
 
 =cut
