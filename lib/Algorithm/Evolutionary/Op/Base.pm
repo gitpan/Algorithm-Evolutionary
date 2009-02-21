@@ -47,7 +47,8 @@ our ($VERSION) = ( '$Revision: 2.5 $ ' =~ / (\d+\.\d+)/ ) ;
 
 =head2 AUTOLOAD
 
-Automatically define accesors for instance variables
+Automatically define accesors for instance variables. You should
+probably not worry about this unless you are going to subclass.
 
 =cut
 
@@ -283,23 +284,23 @@ L<Algorithm::Evolutionary::Op::BitFlip|Algorithm::Evolutionary::Op::BitFlip>
 
 =item * 
 
-L<Algorithm::Evolutionary::Op:GaussianMutation|Algorithm::Evolutionary::Op:GaussianMutation>
+L<Algorithm::Evolutionary::Op::GaussianMutation|Algorithm::Evolutionary::Op:GaussianMutation>
 
 =item * 
 
-L<Algorithm::Evolutionary::Op:Novelty_Mutation>
+L<Algorithm::Evolutionary::Op::Novelty_Mutation>
 
 =item * 
 
-L<Algorithm::Evolutionary::Op:Crossover|Algorithm::Evolutionary::Op:Crossover>
+L<Algorithm::Evolutionary::Op::Crossover|Algorithm::Evolutionary::Op:Crossover>
 
 =item * 
 
-L<Algorithm::Evolutionary::Op:VectorCrossover|Algorithm::Evolutionary::Op:VectorCrossover>
+L<Algorithm::Evolutionary::Op::VectorCrossover|Algorithm::Evolutionary::Op:VectorCrossover>
 
 =item * 
 
-L<Algorithm::Evolutionary::Op:CX|Algorithm::Evolutionary::Op:CX>
+L<Algorithm::Evolutionary::Op::CX|Algorithm::Evolutionary::Op:CX>
 
 =item * 
 
@@ -332,7 +333,7 @@ L<Algorithm::Evolutionary::Op::FullAlgorithm|Algorithm::Evolutionary::Op::FullAl
 =head1 See Also
 
 The introduction to the XML format used here,
-L<Algorithm::Evolutionary::XML>
+L<XML>
 
 =head1 Copyright
   

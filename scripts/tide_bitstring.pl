@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-tide_bitstring.pl - Implementation of the Tide optimization using A::E
+  tide_bitstring.pl - Implementation of the Tide optimization using A::E
 
 =head1 SYNOPSIS
 

@@ -221,7 +221,7 @@ sub as_string {
 
 =head2 as_string_with_fitness( [$separator] )
 
-Prints it as a string followeb by fitness. Separator by default is C<;>
+Prints it as a string followed by fitness. Separator by default is C<;>
 
 =cut
 
@@ -270,7 +270,7 @@ sub my_operators {
 
 =head2 evaluate( $fitness )
 
-Evaluates using the $fitness function given. Can be a Fitness object or a ref-to-sub
+Evaluates using the $fitness thingy given. Can be a L<Algorithm::Evolutionary::Fitness::Base|Fitness> object or a ref-to-sub
 
 =cut
 
