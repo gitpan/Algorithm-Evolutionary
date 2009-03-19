@@ -35,7 +35,7 @@ use Algorithm::Evolutionary::Utils qw(parse_xml);
 use YAML qw(Dump Load LoadFile);
 use Carp;
 
-our ($VERSION) = ( '$Revision: 2.4 $ ' =~ / (\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 2.5 $ ' =~ / (\d+\.\d+)/ );
 
 use constant MY_OPERATORS => qw(None);
 
@@ -340,10 +340,10 @@ L<Algorithm::Evolutionary::Individual::Bit_Vector>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/07 18:31:28 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Base.pm,v 2.4 2009/02/07 18:31:28 jmerelo Exp $ 
+  CVS Info: $Date: 2009/02/21 12:33:48 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Base.pm,v 2.5 2009/02/21 12:33:48 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.4 $
+  $Revision: 2.5 $
   $Name $
 
 =cut
