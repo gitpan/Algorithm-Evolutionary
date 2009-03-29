@@ -47,7 +47,7 @@ package Algorithm::Evolutionary::Op::Crossover;
 
 use lib qw(../../..);
 
-our ($VERSION) = ( '$Revision: 2.4 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) = ( '$Revision: 2.6 $ ' =~ /(\d+\.\d+)/ );
 
 use Clone::Fast qw(clone);
 use Carp;
@@ -57,6 +57,7 @@ use base 'Algorithm::Evolutionary::Op::Base';
 #Class-wide constants
 our $APPLIESTO =  'Algorithm::Evolutionary::Individual::String';
 our $ARITY = 2;
+our %parameters = ( numPoints => 2 );
 
 =head2 new( [$options_hash] [, $operation_priority] )
 
@@ -75,21 +76,6 @@ sub new {
   return $self;
 }
 
-=head2 create( [$num_points] )
-
-Creates a new 1 or 2 point crossover operator. But this is just to have a non-empty chromosome
-Defaults to 2 point
-
-=cut
-
-sub create {
-  my $class = shift;
-  my $self;
-  $self->{_numPoints} = shift || 2;
-  bless $self, $class;
-  return $self;
-}
-
 =head2 apply( $chromsosome_1, $chromosome_2 )
 
 Applies xover operator to a "Chromosome", a string, really. Can be
@@ -98,7 +84,7 @@ it checks before application that both operands are of type
 L<BitString|Algorithm::Evolutionary::Individual::String>.
 
 Changes the first parent, and returns it. If you want to change both
-parents at the same time, check L<QuadXOver|Algorithm::Evolutionary::Op:QuadXOver>
+parents at the same time, check L<QuadXOver|Algorithm::Evolutionary::Op::QuadXOver>
 
 =cut
 
@@ -130,10 +116,10 @@ sub  apply ($$$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/03/19 21:13:47 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Crossover.pm,v 2.4 2009/03/19 21:13:47 jmerelo Exp $ 
+  CVS Info: $Date: 2009/03/22 11:29:33 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Crossover.pm,v 2.6 2009/03/22 11:29:33 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.4 $
+  $Revision: 2.6 $
   $Name $
 
 =cut

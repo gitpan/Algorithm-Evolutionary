@@ -1,12 +1,14 @@
 --- #YAML:1.0
 name:               Algorithm-Evolutionary
-version:            0.66
+version:            0.67
 abstract:           Perl module for performing paradigm-free evolutionary algorithms. 
 author:
     - JJ Merelo <jj /at/ merelo.net>
-license:            unknown
+license:            gpl
 distribution_type:  module
 configure_requires:
+    ExtUtils::MakeMaker:  0
+build_requires:
     ExtUtils::MakeMaker:  0
 requires:
     Algorithm::Permute:   0.01
@@ -33,7 +35,7 @@ no_index:
     directory:
         - t
         - inc
-generated_by:       ExtUtils::MakeMaker version 6.48
+generated_by:       ExtUtils::MakeMaker version 6.50
 meta-spec:
     url:      http://module-build.sourceforge.net/META-spec-v1.4.html
     version:  1.4
