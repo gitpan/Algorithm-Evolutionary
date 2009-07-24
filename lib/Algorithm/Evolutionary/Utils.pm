@@ -32,8 +32,9 @@ package Algorithm::Evolutionary::Utils;
 
 use Exporter;
 our @ISA = qw(Exporter);
-our ($VERSION) = ( '$Revision: 2.6 $ ' =~ /(\d+\.\d+)/ ) ;
-our @EXPORT_OK = qw( entropy consensus hamming random_bitstring average parse_xml);
+our ($VERSION) = ( '$Revision: 2.10 $ ' =~ /(\d+\.\d+)/ ) ;
+our @EXPORT_OK = qw( entropy consensus hamming random_bitstring average 
+		     parse_xml decode_string vector_compare);
 
 use Carp;
 use String::Random;
@@ -157,17 +158,67 @@ sub parse_xml {
   return $xml_dom;
 }
 
+=head2 decode_string( $chromosome, $gene_size, $min, $range )
+
+Decodes to a vector, each one of whose components ranges between $min
+and $max. Returns that vector.
+
+It does not work for $gene_size too big. Certainly not for 64, maybe for 32
+
+=cut
+
+sub decode_string {
+  my ( $chromosome, $gene_size, $min, $range ) = @_;
+
+  my @output_vector;
+  my $max_range = eval "0b"."1"x$gene_size;
+  for (my $i = 0; $i < length($chromosome)/$gene_size; $i ++ ) {
+    my $substr = substr( $chromosome, $i*$gene_size, $gene_size );
+    push @output_vector, $range*eval("0b$substr")/$max_range - $min;
+  }
+  return @output_vector;
+}
+
+=head2 vector_compare( $vector_1, $vector_2 )
+
+Compares vectors, returns 1 if 1 dominates 2, -1 if it's the other way
+round, and 0 if neither dominates the other. Both vectors are supposed
+to be numeric. Returns C<undef> if neither is bigger, and they are not
+equal. 
+
+=cut
+
+sub vector_compare {
+  my ( $vector_1, $vector_2 ) = @_;
+
+  if ( scalar @$vector_1 != scalar @$vector_2 ) {
+    croak "Different lengths, can't compare\n";
+  }
+
+  my $length = scalar @$vector_1;
+  my @results = map( $vector_1->[$_] <=> $vector_2->[$_], 0..($length-1));
+  my %comparisons;
+  map( $comparisons{$_}++, @results );
+  if ( $comparisons{1} && !$comparisons{-1} ) {
+    return 1;
+  }
+  if ( !$comparisons{1} && $comparisons{-1} ) {
+    return -1;
+  }
+  if ( defined $comparisons{0} && $comparisons{0} == $length ) {
+    return 0;
+  }
+}
 
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/03/29 09:42:41 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Utils.pm,v 2.6 2009/03/29 09:42:41 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/23 17:17:26 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Utils.pm,v 2.10 2009/07/23 17:17:26 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.6 $
-  $Name $
+  $Revision: 2.10 $
 
 =cut
 

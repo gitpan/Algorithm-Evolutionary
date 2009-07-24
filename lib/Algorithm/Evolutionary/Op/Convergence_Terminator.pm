@@ -8,14 +8,17 @@ Algorithm::Evolutionary::Op::Convergence_Terminator  - Checks for termination of
 =head1 SYNOPSIS
 
   my $ct = new Algorithm::Evolutionary::Op::Convergence_Terminator 0.5; 
+  do {
+    $generation->apply($pop_hashref );
+  } until ($ct->apply( $pop_hashref );
 
 =head1 Base Class
 
-L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
+L<Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-    Checks for termination after if population has converged
+Checks for termination after if population has converged
 
 =head1 METHODS
 
@@ -23,7 +26,7 @@ L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
 
 package Algorithm::Evolutionary::Op::Convergence_Terminator;
 
-our ($VERSION) = ( '$Revision: 2.3 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 1.2 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use base 'Algorithm::Evolutionary::Op::Base';
 
@@ -81,10 +84,10 @@ L<Algorithm::Evolutionary::Op::DeltaTerm>.
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/02/16 16:16:40 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GenerationalTerm.pm,v 2.3 2009/02/16 16:16:40 jmerelo Exp $ 
+  CVS Info: $Date: 2009/04/03 16:00:49 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Convergence_Terminator.pm,v 1.2 2009/04/03 16:00:49 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.3 $
+  $Revision: 1.2 $
   $Name $
 
 =cut
