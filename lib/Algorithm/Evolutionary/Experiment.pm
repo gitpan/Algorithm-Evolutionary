@@ -32,11 +32,11 @@ using XML, and can read an XML description of the experiment.
 package Algorithm::Evolutionary::Experiment;
 
 use Algorithm::Evolutionary::Utils qw(parse_xml);
-use Algorithm::Evolutionary::Individual::Base;
-use Algorithm::Evolutionary::Op::Base;
-use Algorithm::Evolutionary::Op::Creator;
+use Algorithm::Evolutionary qw(Individual::Base
+			       Op::Base
+			       Op::Creator );
 
-our ($VERSION) = ( '$Revision: 2.7 $ ' =~ / (\d+\.\d+)/ ) ;
+our $VERSION =   sprintf "%d.%03d", q$Revision: 3.2 $ =~ /(\d+)\.(\d+)/g;
 
 use Carp;
 
@@ -112,9 +112,9 @@ example of it follows:
 
  </ea>
  
- This is an alternative constructor. Takes a well-formed string with the XML
- spec, which should have been done according to EvoSpec 0.3, or the same
- string processed with C<XML::Parser::EasyTree>, and returns a built experiment
+This is an alternative constructor. Takes a well-formed string with the XML
+spec, which should have been done according to EvoSpec 0.3, or the same
+string processed with C<XML::Parser::EasyTree>, and returns a built experiment
 
 =cut
 
@@ -196,7 +196,7 @@ sub asXML {
   my $str=<<'EOC';
 <ea version='0.4'>
 <!-- Serialization of an Experiment object. Generated automatically by
-     Experiment $Revision: 2.7 $ -->
+     Experiment $Revision: 3.2 $ -->
     <initial>
 EOC
 
@@ -212,16 +212,19 @@ EOC
   return $str;
 }
 
+=head2 SEE ALSO
+
+L<Algorithm::Evolutionary::Run> , another option for setting up experiments
+
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/03/19 21:13:47 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Experiment.pm,v 2.7 2009/03/19 21:13:47 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/24 09:10:09 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Experiment.pm,v 3.2 2009/07/24 09:10:09 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.7 $
-  $Name $
+  $Revision: 3.2 $
 
 =cut
 

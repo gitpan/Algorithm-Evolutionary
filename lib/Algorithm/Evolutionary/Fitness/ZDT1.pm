@@ -10,10 +10,11 @@ Algorithm::Evolutionary::Fitness::ZDT1 - Zitzler-Deb-Thiele #1 Multiobjective te
 =head1 SYNOPSIS
 
     my $number_of_bits = 5;
-    my $a = $number_of_bits -1;
-    my $b = $number_of_bits;
-    my $z = $number_of_bits -1;
-    my $trap = Algorithm::Evolutionary::Fitness::Trap->new( $number_of_bits, $a, $b, $z );
+    my $z = Algorithm::Evolutionary::Fitness::ZDT1->new( $number_of_bits);
+    my $string = "10101"x30;
+    $z->zdt1( $string);
+    #Previously created binary chromosome with 5x30 bits
+    $z->apply( $chromosome );
 
 =head1 DESCRIPTION
 
@@ -27,7 +28,7 @@ Algorithms: Empirical Results" by Zitzler, Deb and Thiele
 
 package Algorithm::Evolutionary::Fitness::ZDT1;
 
-our $VERSION =   sprintf "%d.%03d", q$Revision: 1.3 $ =~ /(\d+)\.(\d+)/g; 
+our $VERSION =   sprintf "%d.%03d", q$Revision: 3.1 $ =~ /(\d+)\.(\d+)/g; 
 
 use Carp qw(croak);
 
@@ -41,7 +42,7 @@ use constant { M => 30,
 
 =head2 new
 
-    Creates a new instance of the problem, with the said number of bits and peaks
+Creates a new instance of the problem, with the said number of bits and peaks
 
 =cut 
 
@@ -102,10 +103,10 @@ sub g {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/23 18:03:20 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/ZDT1.pm,v 1.3 2009/07/23 18:03:20 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/24 10:25:49 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/ZDT1.pm,v 3.1 2009/07/24 10:25:49 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.3 $
+  $Revision: 3.1 $
   $Name $
 
 =cut

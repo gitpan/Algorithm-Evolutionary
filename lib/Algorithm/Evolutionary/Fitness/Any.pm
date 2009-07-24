@@ -18,7 +18,7 @@ look like fitness
      return $values[0] * $values[1];
    }
 
-   my $any_eval = new Algorithm::Evolutionary::Fitness::Any \&squares
+   my $any_eval = new Algorithm::Evolutionary::Fitness::Any \&squares;
 
    
 
@@ -37,7 +37,7 @@ use Carp;
 
 use base 'Algorithm::Evolutionary::Fitness::Base';
 
-our $VERSION =   sprintf "%d.%03d", q$Revision: 2.1 $ =~ /(\d+)\.(\d+)/g; 
+our $VERSION =   sprintf "%d.%03d", q$Revision: 3.1 $ =~ /(\d+)\.(\d+)/g; 
 
 =head2 new( $function )
 
@@ -95,10 +95,10 @@ sub _apply {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/22 12:07:03 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/Any.pm,v 2.1 2009/07/22 12:07:03 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/24 10:25:49 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Fitness/Any.pm,v 3.1 2009/07/24 10:25:49 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 2.1 $
+  $Revision: 3.1 $
 
 =cut
 

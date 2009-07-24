@@ -5,31 +5,19 @@ use lib qw( ../../.. );
 
 =head1 NAME
 
-Algorithm::Evolutionary::Op::Easy - evolutionary algorithm, single generation, with 
-                    variable operators.
+Algorithm::Evolutionary::Op::Easy_MO - Multiobjecttive evolutionary algorithm, single generation, with 
+                    variable operators 
                  
 
 =head1 SYNOPSIS
 
-  my $easyEA = Algorithm::Evolutionary::Op::Base->fromXML( $ref->{initial}{section}{pop}{op} );
-  # Parsed XML fragment, see samples
-
-  for ( my $i = 0; $i < $ref->{initial}{section}{pop}{op}{param}{maxgen}{value}; $i++ ) {
-    print "<", "="x 20, "Generation $i", "="x 20, ">\n"; 
-    $easyEA->apply(\@pop ); 
-    for ( @pop ) { 
-      print $_->asString, "\n"; 
-    } 
-  }
-
-  #Define a default algorithm with predefined evaluation function,
   #Mutation and crossover. Default selection rate is 0.4
-  my $algo = new Algorithm::Evolutionary::Op::Easy( $eval ); 
+  my $algo = new Algorithm::Evolutionary::Op::Easy_MO( $eval ); 
 
   #Define an easy single-generation algorithm with predefined mutation and crossover
   my $m = new Algorithm::Evolutionary::Op::Bitflip; #Changes a single bit
   my $c = new Algorithm::Evolutionary::Op::Crossover; #Classical 2-point crossover
-  my $generation = new Algorithm::Evolutionary::Op::Easy( $rr, 0.2, [$m, $c] );
+  my $generation = new Algorithm::Evolutionary::Op::Easy_MO( $rr, 0.2, [$m, $c] );
 
 =head1 Base Class
 
@@ -48,16 +36,16 @@ iteration of the algorithm to the population it takes as input
 
 =cut
 
-package Algorithm::Evolutionary::Op::Easy;
+package Algorithm::Evolutionary::Op::Easy_MO;
 
 our ($VERSION) = ( '$Revision: 3.0 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 use Clone::Fast qw(clone);
 
-use Algorithm::Evolutionary::Wheel;
-use Algorithm::Evolutionary::Op::Bitflip;
-use Algorithm::Evolutionary::Op::Crossover;
+use Algorithm::Evolutionary qw( Wheel Op::Bitflip
+				Op::Crossover
+				Op::Eval::MO_Rank );
 
 use base 'Algorithm::Evolutionary::Op::Base';
 
@@ -78,6 +66,7 @@ sub new {
   my $class = shift;
   my $self = {};
   $self->{_eval} = shift || croak "No eval function found";
+  $self->{_rank} = new Algorithm::Evolutionary::Op::Eval::MO_Rank $self->{'_eval'};
   $self->{_selrate} = shift || 0.4;
   if ( @_ ) {
       $self->{_ops} = shift;
@@ -116,6 +105,7 @@ sub set {
     push @{$self->{_ops}},  
       Algorithm::Evolutionary::Op::Base::fromXML( $_, $opshash->{$_}->[1], $opshash->{$_}->[0] );
   }
+
 }
 
 =head2 apply( $population )
@@ -133,18 +123,10 @@ sub apply ($) {
   #Evaluate
   my $eval = $self->{_eval};
   my @ops = @{$self->{_ops}};
-  my @popEval;
-  for ( @$pop ) {
-    my $fitness;  #Evaluates only those that have no fitness
-    if ( !defined ($_->Fitness() ) ) {
-      $_->evaluate( $eval );
-    }
-    push @popEval, $_;
-  }
+  $self->{'_rank'}->apply( $pop );
 
   #Sort
-  my @popsort = sort { $b->{_fitness} <=> $a->{_fitness}; }
-    @popEval ;
+  my @popsort = sort { $b->{_fitness} <=> $a->{_fitness}; } @$pop;
 
   #Cull
   my $pringaos = int(($#popsort+1)*$self->{_selrate}); #+1 gives you size
@@ -188,7 +170,7 @@ L<Algorithm::Evolutionary::Op::FullAlgorithm>.
   or go to http://www.fsf.org/licenses/gpl.txt
 
   CVS Info: $Date: 2009/07/24 08:46:59 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Easy.pm,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Easy_MO.pm,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
   $Author: jmerelo $ 
   $Revision: 3.0 $
   $Name $
