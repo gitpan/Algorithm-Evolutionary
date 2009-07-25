@@ -13,19 +13,20 @@ my $nct = new Algorithm::Evolutionary::Op::Convergence_Terminator 0.5;
 ok( ref $nct, "Algorithm::Evolutionary::Op::Convergence_Terminator" );
 
 my @pop;
-for ( 1..4 ) {
+my $pop_size=5;
+for ( 1..$pop_size ) {
     my $indi= new Algorithm::Evolutionary::Individual::String [0,1], 8;
     push @pop, $indi;
 }
 
 is( $nct->apply(\@pop ), 0, 'Not yet' ); #Should return 0
 
-for ( 1..4 ) {
+for ( 1..$pop_size+1 ) { # Clones to ensure convergence
     my $indi = clone( $pop[0]);
     push @pop, $indi;
 }
 
-is( $nct->apply(\@pop ), 1, 'Now' ); #Should return 0
+is( $nct->apply(\@pop ), 1, 'Now' ); #Should return 1
 my $xml = $nct->asXML();
 my $newnct =  Algorithm::Evolutionary::Op::Base->fromXML( $xml );
 
