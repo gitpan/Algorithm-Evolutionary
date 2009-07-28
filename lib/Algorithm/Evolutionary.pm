@@ -2,7 +2,7 @@ package Algorithm::Evolutionary;
 
 use Carp qw(croak);
 
-our $VERSION = '0.69_1'; #sexy number special
+our $VERSION = '0.70'; #First round number since 2008
 
 # Preloaded methods go here.
 
@@ -142,7 +142,9 @@ also been some contributions from Javi García, fjgc (at) decsai.ugr.es
 and Pedro Castillo, pedro (at) geneura.ugr.es. Patient users that have
 submitted bugs include <a
 href='http://barbacana.net'>jamarier</a>. Bugs, requests and any kind
-of comment are welcome.
+of comment are welcome. <a href='http://alexm.org'>Alex Muntada</a>,
+from the <a href='http://barcelona.pm.org/'>Barcelona Perl
+Mongers</a>, helped me to solve a problem with the Makefile.PL.
 
 =end html
 
@@ -193,9 +195,9 @@ L<AI::Genetic::Pro>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/24 12:58:45 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.2 2009/07/24 12:58:45 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/26 21:33:06 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.3 2009/07/26 21:33:06 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.2 $
+  $Revision: 3.3 $
 
 =cut

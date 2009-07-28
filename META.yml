@@ -1,42 +1,35 @@
 --- #YAML:1.0
-name:               Algorithm-Evolutionary
-version:            0.69_1
-abstract:           Perl module for performing paradigm-free evolutionary algorithms. 
-author:
+name:                Algorithm-Evolutionary
+version:             0.70
+abstract:            Perl module for performing paradigm-free evolutionary algorithms. 
+license:             gpl
+author:              
     - JJ Merelo <jj /at/ merelo.net>
-license:            gpl
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
-build_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    Algorithm::Permute:   0.01
-    B::Deparse:           0.56
-    Bit::Vector:          0
-    Clone::Fast:          0
-    constant:             0
-    Math::Random:         0.63
-    Memoize:              0
-    Object::Array:        0
-    Pod::Escapes:         0
-    Statistics::Basic:    1.6
-    String::Random:       0
-    Test::More:           0
-    Test::Pod:            0
-    Test::Simple:         0.44
-    Time::HiRes:          0
-    Tree::DAG_Node:       1.04
-    version:              0
-    XML::LibXML:          1.5
-    XML::Parser:          0
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
+    Algorithm::Permute:            0.01
+    B::Deparse:                    0.56
+    Bit::Vector:                   0
+    Clone::Fast:                   0
+    constant:                      0
+    GD:                            2.17
+    Math::Random:                  0.63
+    Memoize:                       0
+    Object::Array:                 0
+    Pod::Escapes:                  0
+    Statistics::Basic:             1.6
+    String::Random:                0
+    Test::More:                    0
+    Test::Pod:                     0
+    Test::Simple:                  0.44
+    Time::HiRes:                   0
+    Tree::DAG_Node:                1.04
+    version:                       0
+    XML::LibXML:                   1.5
+    XML::Parser:                   0
     XML::Parser::Style::EasyTree:  0.01
-    YAML:                 0
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.54
+    YAML:                          0
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

@@ -39,10 +39,10 @@ if ( !$no_test_output ) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/25 09:49:46 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/0502-pop_printer.t,v 3.1 2009/07/25 09:49:46 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/25 10:16:49 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/0502-pop_printer.t,v 3.2 2009/07/25 10:16:49 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.1 $
+  $Revision: 3.2 $
   $Name $
 
 =cut
