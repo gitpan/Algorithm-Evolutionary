@@ -2,7 +2,7 @@ package Algorithm::Evolutionary;
 
 use Carp qw(croak);
 
-our $VERSION = '0.70'; #First round number since 2008
+our $VERSION = '0.71'; # Moved out of developer's release
 
 # Preloaded methods go here.
 
@@ -78,7 +78,18 @@ reports, news, updates, whatever.</p>
     href='https://sourceforge.net/project/showfiles.php?group_id=34080&package_id=54504'>-examples</a>
     tarballs in the file download area of that repository</p>
 
-<p>You can also get help from the <a href='https://sourceforge.net/forum/forum.php?forum_id=107255'>project forum</a> (where I usually hang around) or from <a href='mailto:opeal-help-request@lists.sourceforge.net'>the mailing list</a> (information at <a href='https://lists.sourceforge.net/lists/listinfo/opeal-help'>its web site</a>)</p>
+<p>You can also get help from the <a
+href='https://sourceforge.net/forum/forum.php?forum_id=107255'>project
+forum</a> (where I usually hang around) or from <a
+href='mailto:opeal-help-request@lists.sourceforge.net'>the mailing
+list</a> (information at <a
+href='https://lists.sourceforge.net/lists/listinfo/opeal-help'>its web
+site</a>)</p> 
+
+<p>It might be also helpful for you to check out <a
+href='http://arxiv.org/abs/0908.0516'>Still doing evolutionary
+algorithms with Perl</a>, a gentle introduction to evolutionary
+algorithms in general and doing them using this module in particular.</p>
 
 <p>I have used this continously for my research all these year, and
 any search will return a number of papers; a journal article is
@@ -115,6 +126,8 @@ one:</p>
 
 =begin html
 
+<p>or the one linked above.</p>
+
 <p>Some information on this paper and instructions for downloading the code used in it can
 be found in <a
 href='http://nohnes.wordpress.com/2008/09/21/paper-on-performance-of-asynchronous-distributed-evolutionary-algorithms-available-online/'>our
@@ -124,11 +137,15 @@ group blog</a></p>
 
 =head1 DISCUSSION, FEATURE REQUESTS
 
-Head to the CPAN forum for this module: L<http://www.cpanforum.com/dist/Algorithm-Evolutionary>
+Head to the CPAN forum for this module:
+L<http://www.cpanforum.com/dist/Algorithm-Evolutionary> 
 
 =head1 BUGS?
 
-Have you found any bugs? Use the CPAN tracker to inform about them (L<http://rt.cpan.org/Public/Dist/Display.html?Name=Algorithm-Evolutionary>) or email the author (below).
+Have you found any bugs? Use the CPAN tracker to inform about them
+(L<http://rt.cpan.org/Public/Dist/Display.html?Name=Algorithm-Evolutionary>)
+or email the author (below) or
+C<bug-algorithm-evolutionary@rt.cpan.org>. 
 
 =head1 AUTHOR
 
@@ -137,7 +154,7 @@ Have you found any bugs? Use the CPAN tracker to inform about them (L<http://rt.
 Main author and developer is J. J. Merelo, jmerelo (at) geneura.ugr.es
 who blogs at <a href='http://blojj.blogalia.com'>BloJJ</a> and
 twitters at <a
-href='http://twitter.com/jmerelo'>twitter.com/jmerelo</a>. There have
+href='http://twitter.com/jmerelo'>twitter.com/jjmerelo</a>. There have
 also been some contributions from Javi García, fjgc (at) decsai.ugr.es
 and Pedro Castillo, pedro (at) geneura.ugr.es. Patient users that have
 submitted bugs include <a
@@ -158,8 +175,12 @@ C<cd examples; run_easy_ga.pl p_peaks.yaml>, which should run an
 simple GA on the P_Peaks deceptive function.
 
 Some other examples are installed: check out L<tide_bitstring.pl>,
-    L<tide_float.pl> and L<canonical-genetic-algorithm.pl>,
-which you can run and play with to get a taste of what EA programming is like, and then ammend, add and modify at leisure to create your own evolutionary algorithms. 
+    L<tide_float.pl> and L<canonical-genetic-algorithm.pl>, which you
+    can run and play with to get a taste of what EA programming is
+    like, and then ammend, add and modify at leisure to create your
+    own evolutionary algorithms. For a GUI example, check
+    L<rectangle-coverage.pl>, which uses L<Tk> to show the population
+    and its evolution.
 
 =head1 SEE ALSO
 
@@ -195,9 +216,9 @@ L<AI::Genetic::Pro>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/26 21:33:06 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.3 2009/07/26 21:33:06 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/30 07:48:48 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.6 2009/07/30 07:48:48 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.3 $
+  $Revision: 3.6 $
 
 =cut

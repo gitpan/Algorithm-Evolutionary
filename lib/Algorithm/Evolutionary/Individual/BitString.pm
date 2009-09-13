@@ -3,8 +3,7 @@ use warnings;
 
 =head1 NAME
 
-    Algorithm::Evolutionary::Individual::BitString - Classic bitstring individual for evolutionary computation; 
-                 usually called I<chromosome>
+Algorithm::Evolutionary::Individual::BitString - Classic bitstring individual for evolutionary computation; usually called I<chromosome>
 
 
 =head1 SYNOPSIS
@@ -44,7 +43,7 @@ use warnings;
 
 =head1 Base Class
 
-L<Algorithm::Evolutionary::Individual::String|Algorithm::Evolutionary::Individual::String>
+L<Algorithm::Evolutionary::Individual::String>
 
 =head1 DESCRIPTION
 
@@ -56,12 +55,12 @@ package Algorithm::Evolutionary::Individual::BitString;
 
 use Carp;
 
-our ($VERSION) =  ( '$Revision: 3.0 $ ' =~ /(\d+\.\d+)/ );
+our ($VERSION) =  ( '$Revision: 3.3 $ ' =~ /(\d+\.\d+)/ );
 
 use base 'Algorithm::Evolutionary::Individual::String';
 
-use constant MY_OPERATORS => (Algorithm::Evolutionary::Individual::String::MY_OPERATORS, 
-			      qw(Algorithm::Evolutionary::Op::BitFlip Algorithm::Evolutionary::Op::Mutation )); 
+use constant MY_OPERATORS => ( Algorithm::Evolutionary::Individual::String::MY_OPERATORS, 
+			       qw(Algorithm::Evolutionary::Op::BitFlip Algorithm::Evolutionary::Op::Mutation )); 
 
 use Algorithm::Evolutionary::Utils qw(decode_string); 
 
@@ -107,7 +106,7 @@ sub decode {
   my $self = shift;
   my ( $gene_size, $min, $range ) = @_;
   my $chromosome = $self->{'_str'};
-  return decode_chromosome( $chromosome, $gene_size, $min, $range );
+  return decode_string( $chromosome, $gene_size, $min, $range );
 }
 
 =head2 Copyright
@@ -115,10 +114,10 @@ sub decode {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/24 08:46:59 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/BitString.pm,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
+  CVS Info: $Date: 2009/07/29 21:58:51 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/BitString.pm,v 3.3 2009/07/29 21:58:51 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.0 $
+  $Revision: 3.3 $
   $Name $
 
 =cut
