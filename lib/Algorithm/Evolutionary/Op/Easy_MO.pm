@@ -38,7 +38,7 @@ iteration of the algorithm to the population it takes as input
 
 package Algorithm::Evolutionary::Op::Easy_MO;
 
-our ($VERSION) = ( '$Revision: 3.3 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 3.5 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 use Clone::Fast qw(clone);
@@ -52,13 +52,14 @@ use base 'Algorithm::Evolutionary::Op::Base';
 # Class-wide constants
 our $APPLIESTO =  'ARRAY';
 
-=head2 new( $eval_func, [$operators_arrayref] )
+=head2 new( $eval_func, [$selection_rate,] [$operators_arrayref] )
 
 Creates an algorithm that optimizes the handled fitness function and
 reference to an array of operators. If this reference is null, an
 array consisting of bitflip mutation and 2 point crossover is
-generated. Which, of course, might not what you need in case you
-don't have a binary chromosome.
+generated. Which, of course, might not what you need in case you don't
+have a binary chromosome. Take into account that in this case the
+fitness function should return a reference to array. 
 
 =cut
 
@@ -130,7 +131,9 @@ sub apply ($) {
 
   #Cull
   my $pringaos = int(($#popsort+1)*$self->{_selrate}); #+1 gives you size
+#  print "Pringaos $pringaos\n";
   splice @popsort, - $pringaos;
+#  print "Población ", scalar @popsort, "\n";
  
   #Reproduce
   my @rates = map( $_->{'rate'}, @ops );
@@ -169,10 +172,10 @@ L<Algorithm::Evolutionary::Op::Easy> for the scalar version of this code.
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/29 21:58:51 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Easy_MO.pm,v 3.3 2009/07/29 21:58:51 jmerelo Exp $ 
+  CVS Info: $Date: 2009/11/23 12:31:16 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Easy_MO.pm,v 3.5 2009/11/23 12:31:16 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.3 $
+  $Revision: 3.5 $
   $Name $
 
 =cut

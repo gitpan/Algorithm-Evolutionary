@@ -6,7 +6,7 @@ use strict;
 
 use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
-BEGIN { plan tests => 24;
+BEGIN { plan tests => 28;
 	use_ok('Algorithm::Evolutionary::Wheel');
 	use_ok('Algorithm::Evolutionary::Hash_Wheel');
 };
@@ -20,6 +20,12 @@ isa_ok( $wheel, 'Algorithm::Evolutionary::Wheel' );
 for (1..10) {
   my $result = $wheel->spin;
   cmp_ok( $result, '<', @probabilities, "Spinning = $result" );
+}
+
+
+for (2..5) {
+  my @result = $wheel->spin( $_);  
+  is( scalar @result, $_, "Spinning = ".join( " - ", @result ) );
 }
 
 my $probabilities = { a => 1,
@@ -42,10 +48,10 @@ for (1..10) {
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/09/09 09:02:40 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/0001-wheel.t,v 1.1 2009/09/09 09:02:40 jmerelo Exp $ 
+  CVS Info: $Date: 2010/01/17 17:49:54 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/0001-wheel.t,v 1.2 2010/01/17 17:49:54 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 1.1 $
+  $Revision: 1.2 $
   $Name $
 
 =cut
