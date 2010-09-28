@@ -6,8 +6,8 @@ use strict;
 
 use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
-BEGIN { plan tests => 18;
-    use_ok('Algorithm::Evolutionary::Individual::String');
+BEGIN { 
+  use_ok('Algorithm::Evolutionary::Individual::String');
 };
 
 #Object methods
@@ -42,14 +42,18 @@ is( $vector[3], 'W', 'Untieing');
 my @splice_result = splice( @vector, 0, 2 );
 is_deeply( \@splice_result, [ 'a', 'x'], 'Splice '.tied(@vector)->as_string() );
 
-is( pop( @vector ), 'ñ', 'Pop' );
-is( shift( @vector), 'q', 'Shift' );
+is( pop( @vector ), 'ñ', 'Pop '. join("", @vector) );
+is( shift( @vector), 'q', 'Shift '. join("", @vector)  );
 push( @vector, 'p' );
-is( pop( @vector ), 'p', 'Push + pop' );
+is( pop( @vector ), 'p', 'Push + pop '. join("", @vector) );
 unshift( @vector, 'u' );
-is( shift( @vector ), 'u', 'Unshift + shift' );
+is( shift( @vector ), 'u', 'Unshift + shift '. join("", @vector) );
+push( @vector, qw( a b c ) );
 $vector[2] = 'k';
-is( $vector[2], 'k', 'Store + fetch' );
+is( tied( @vector )->Atom(2), 'k', 'Storing + Tieing '. join("", @vector));
+$vector[$#vector] = 'z';
+is( tied( @vector )->Atom(4), 'z', 'Storing last + Tieing '. join("", @vector));
+is( $vector[2], 'k', 'Store + fetch '. join("", @vector) );
 
 my @mini_vector = splice( @vector, 1, 2 );
 is( $mini_vector[1], 'k', 'Splice' );
@@ -63,15 +67,17 @@ EOC
 $indi4=  Algorithm::Evolutionary::Individual::String->fromXML( $xml );
 is( $indi4->Atom(4), 'h', 'from XML' );
 
+done_testing;
+
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/24 08:46:59 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/0101-string.t,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
+  CVS Info: $Date: 2010/09/28 19:41:27 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/0101-string.t,v 3.3 2010/09/28 19:41:27 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.0 $
+  $Revision: 3.3 $
   $Name $
 
 =cut
