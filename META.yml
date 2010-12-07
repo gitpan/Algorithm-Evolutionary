@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Algorithm-Evolutionary
-version:            0.74_1
+version:            0.74_2
 abstract:           Perl module for performing paradigm-free evolutionary algorithms. 
 author:
     - JJ Merelo <jj /at/ merelo.net>

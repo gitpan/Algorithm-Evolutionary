@@ -1,6 +1,8 @@
-2010-09-28  Juan J. Merelo  <jmerelo@sheldon>
+2010-11-24  Juan Julian Merelo Guervos  <jmerelo@usuario-desktop>
 
-	* lib/Algorithm/Evolutionary.pm: Added tests to see what can make some of them fail
+	* lib/Algorithm/Evolutionary/Wheel.pm (spin): Changed spin
+	implementation to make it faster and more efficient. It was
+	sucking time out of mastermind EAs
 
 2010-09-25  Juan J. Merelo  <jmerelo@sheldon>
 
