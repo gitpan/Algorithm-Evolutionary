@@ -3,14 +3,14 @@ use warnings;
 
 =head1 NAME
 
-Algorithm::Evolutionary::Op::QuadXOver - N-point crossover operator that changes operands
+Algorithm::Evolutionary::Op::Quad_Crossover_Diff - Uniform crossover, but interchanges only those atoms that are different
 
                  
 
 =head1 SYNOPSIS
 
   my $xmlStr3=<<EOC;
-  <op name='QuadXOver' type='binary' rate='1'>
+  <op name='Quad_Crossover_Diff' type='binary' rate='1'>
     <param name='numPoints' value='2' /> #Max is 2, anyways
   </op>
   EOC
@@ -24,7 +24,7 @@ Algorithm::Evolutionary::Op::QuadXOver - N-point crossover operator that changes
   my $indi3 = $indi->clone(); #Operands are modified, so better to clone them
   $op3->apply( $indi2, $indi3 );
 
-  my $op4 = new Algorithm::Evolutionary::Op::QuadXOver 1; #QuadXOver with 1 crossover points
+  my $op4 = new Algorithm::Evolutionary::Op::Quad_Crossover_Diff 1; #Quad_Crossover_Diff with 1 crossover points
 
 =head1 Base Class
 
@@ -39,11 +39,11 @@ children from two parents
 
 =cut
 
-package Algorithm::Evolutionary::Op::QuadXOver;
+package Algorithm::Evolutionary::Op::Quad_Crossover_Diff;
 
 use lib qw( ../../.. );
 
-our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.4 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
+our $VERSION =   sprintf "%d.1%02d", q$Revision: 1.2 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
 
 use Carp;
 
@@ -69,17 +69,25 @@ sub  apply ($$){
 #  croak "Incorrect type ".(ref $victim2) if !$self->check($victim2);
   my $minlen = (  length( $victim->{_str} ) >  length( $victim2->{_str} ) )?
 	 length( $victim2->{_str} ): length( $victim->{_str} );
-  my $pt1 = 1+int( rand( $minlen - 1 ) ); # first crossover point shouldn't be 0
-  my $range;
-  if ( $self->{_numPoints} > 1 ) {
-    $range= 1 + int( rand( $minlen  - $pt1 ) );
-  } else {
-    $range = $minlen - $pt1;
+
+  my @diffs;
+  for ( my $i = 0; $i < $minlen; $i ++ ) {
+    if  ( substr(  $victim2->{_str}, $i, 1 ) ne substr(  $victim->{_str}, $i, 1 ) ) {
+      push @diffs, $i;
+    }
+  }
+
+  for ( my $i = 0; $i < $self->{_numPoints}; $i ++ ) {
+    if ( @diffs ) {
+      my $diff = splice( @diffs, rand(@diffs), 1 );
+      my $char = substr($victim->{'_str'},$diff,1);
+      substr( $victim->{_str}, $diff, 1 ) = substr( $victim2->{_str}, $diff, 1 );
+      substr( $victim2->{_str}, $diff, 1 ) = $char;
+    } else {
+      last;
+    }
   }
 #  print "Puntos: $pt1, $range \n";
-  my $str = $victim->{_str};
-  substr( $victim->{_str}, $pt1, $range ) = substr( $victim2->{_str}, $pt1, $range );
-  substr( $victim2->{_str}, $pt1, $range ) = substr( $str, $pt1, $range );
   $victim->Fitness( undef );
   $victim2->Fitness( undef );
   return undef; #As a warning that you should not expect anything
@@ -91,9 +99,9 @@ sub  apply ($$){
   or go to http://www.fsf.org/licenses/gpl.txt
 
   CVS Info: $Date: 2010/12/08 17:34:22 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/QuadXOver.pm,v 3.4 2010/12/08 17:34:22 jmerelo Exp $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Quad_Crossover_Diff.pm,v 1.2 2010/12/08 17:34:22 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.4 $
+  $Revision: 1.2 $
   $Name $
 
 =cut

@@ -2,7 +2,7 @@ package Algorithm::Evolutionary;
 
 use Carp qw(croak);
 
-our $VERSION = '0.74_2'; # Will we ever get to 1.0!!!
+our $VERSION = '0.75'; # Closer now... 
 
 # Preloaded methods go here.
 
@@ -236,9 +236,9 @@ L<AI::Genetic::Pro>.
 This file is released under the GPL. See the LICENSE file included in this distribution,
 or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2010/09/25 10:27:44 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.12 2010/09/25 10:27:44 jmerelo Exp $ 
+  CVS Info: $Date: 2010/12/07 12:04:51 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.13 2010/12/07 12:04:51 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.12 $
+  $Revision: 3.13 $
 
 =cut

@@ -25,7 +25,7 @@ work at all
 package Algorithm::Evolutionary::Wheel;
 use Carp;
 
-our ($VERSION) = ( '$Revision: 3.3 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 3.6 $ ' =~ / (\d+\.\d+)/ ) ;
 
 =head2 new( @probabilites )
 
@@ -71,13 +71,14 @@ sub spin {
     push @rand, rand();
   }
   my @individuals;
-  my @acc_probs = @{$self->{'_accProbs'}};
   for ( my $r=0; $r<= $#rand; $r++ ) {
-      my $i = -1; # First iteration must be 0
-      do {
-	  $i++;
-      } until (( $acc_probs[$i+1] > $rand[$r] ) || ($i >= $#acc_probs ));
-      $individuals[$r] = $i;
+    my $i = first( $rand[$r], $self->{'_accProbs'} );
+      # my $i = -1; # First iteration must be 0
+      # do {
+      # 	  $i++;
+      # } until (( $acc_probs[$i+1] > $rand[$r] ) || ($i >= $#acc_probs ));
+      # $individuals[$r] = $i;
+    push @individuals, $i;
   }
   if ( $number_of_individuals > 1 ) {
     return @individuals;
@@ -86,13 +87,37 @@ sub spin {
   }
   
 }
+
+=head2 first( $item, $ref_to_list ) 
+
+Returns the index of the first individual smaller than the item
+
+=cut
+
+sub first {
+  my $item = shift;
+  my $list = shift || croak "No list";
+  my $first=0; 
+  my $last= scalar @$list -1;
+  my $mid=int($last/2);
+  while ($first <= $last ) {
+    if ( $item > $list->[$mid] ) {
+      $first = $mid + 1;
+    } else {
+      $last = $mid -1;
+    }      
+    $mid = $first+ int(($last - $first )/2);
+  }
+  return $last;
+  
+}
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2010/11/24 09:43:38 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Wheel.pm,v 3.3 2010/11/24 09:43:38 jmerelo Exp $ 
+  CVS Info: $Date: 2010/12/08 09:31:24 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Wheel.pm,v 3.6 2010/12/08 09:31:24 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut
