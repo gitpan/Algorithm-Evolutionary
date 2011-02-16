@@ -2,7 +2,7 @@ package Algorithm::Evolutionary;
 
 use Carp qw(croak);
 
-our $VERSION = '0.76_1'; # But I need a GP module!
+our $VERSION = '0.76_2'; # But I need a GP module!
 
 # Preloaded methods go here.
 

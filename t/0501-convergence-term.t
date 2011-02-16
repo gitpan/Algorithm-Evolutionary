@@ -5,7 +5,7 @@ use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
 use Algorithm::Evolutionary::Op::Convergence_Terminator;
 use Algorithm::Evolutionary::Individual::String;
-use Clone::Fast qw( clone );
+use Clone qw( clone );
 
 #########################
 
