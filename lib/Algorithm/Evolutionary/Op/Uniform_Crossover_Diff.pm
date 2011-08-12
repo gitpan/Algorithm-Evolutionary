@@ -3,14 +3,14 @@ use warnings;
 
 =head1 NAME
 
-Algorithm::Evolutionary::Op::Quad_Crossover_Diff - Uniform crossover, but interchanges only those atoms that are different
+Algorithm::Evolutionary::Op::Uniform_Crossover_Diff - Uniform crossover, but interchanges only those atoms that are different
 
                  
 
 =head1 SYNOPSIS
 
   my $xmlStr3=<<EOC;
-  <op name='Quad_Crossover_Diff' type='binary' rate='1'>
+  <op name='Uniform_Crossover_Diff' type='binary' rate='1'>
     <param name='numPoints' value='2' /> #Max is 2, anyways
   </op>
   EOC
@@ -24,7 +24,7 @@ Algorithm::Evolutionary::Op::Quad_Crossover_Diff - Uniform crossover, but interc
   my $indi3 = $indi->clone(); #Operands are modified, so better to clone them
   $op3->apply( $indi2, $indi3 );
 
-  my $op4 = new Algorithm::Evolutionary::Op::Quad_Crossover_Diff 1; #Quad_Crossover_Diff with 1 crossover points
+  my $op4 = new Algorithm::Evolutionary::Op::Uniform_Crossover_Diff 1; #Uniform_Crossover_Diff with 1 crossover points
 
 =head1 Base Class
 
@@ -32,8 +32,7 @@ L<Algorithm::Evolutionary::Op::Base|Algorithm::Evolutionary::Op::Base>
 
 =head1 DESCRIPTION
 
-Crossover operator for a GA, takes args by reference and issues two
-children from two parents
+Crossover operator for a GA acting only on those bits that are different.
 
 =head1 METHODS
 
@@ -43,7 +42,7 @@ package Algorithm::Evolutionary::Op::Uniform_Crossover_Diff;
 
 use lib qw( ../../.. );
 
-our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.3 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
+our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.5 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
 
 use Carp;
 
@@ -74,9 +73,8 @@ sub new {
 
 =head2 apply( $parent_1, $parent_2 )
 
-Same as L<Algorithm::Evolutionary::Op::Crossover>, but changes
-parents, does not return anything; that is, $parent_1 and $parent_2
-interchange genetic material.
+Same as L<Algorithm::Evolutionary::Op::Uniform_Crossover>, but making
+sure that what is interchanged is different.
 
 =cut
 
@@ -85,8 +83,6 @@ sub  apply ($$){
   my $arg = shift || croak "No victim here!";
   my $victim2 = shift || croak "No victim here!";
   my $victim = $arg->clone();
-#  croak "Incorrect type ".(ref $victim) if !$self->check($victim);
-#  croak "Incorrect type ".(ref $victim2) if !$self->check($victim2);
   my $min_length = (  length( $victim->{_str} ) >  length( $victim2->{_str} ) )?
 	 length( $victim2->{_str} ): length( $victim->{_str} );
 
@@ -98,7 +94,7 @@ sub  apply ($$){
   }
 
   for ( my $i = 0; $i < $self->{'_numPoints'}; $i ++ ) {
-    if ( @diffs ) {
+    if ( $#diffs > 0 ) {
       my $diff = splice( @diffs, rand(@diffs), 1 );
       substr( $victim->{'_str'}, $diff, 1 ) = substr( $victim2->{'_str'}, $diff, 1 );
     } else {
@@ -114,10 +110,10 @@ sub  apply ($$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2011/02/13 11:02:11 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Uniform_Crossover_Diff.pm,v 3.3 2011/02/13 11:02:11 jmerelo Exp $ 
+  CVS Info: $Date: 2011/08/12 09:08:47 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Uniform_Crossover_Diff.pm,v 3.5 2011/08/12 09:08:47 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.3 $
+  $Revision: 3.5 $
   $Name $
 
 =cut
