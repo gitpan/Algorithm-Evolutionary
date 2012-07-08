@@ -81,7 +81,8 @@ sure that what is interchanged is different.
 sub  apply ($$){
   my $self = shift;
   my $arg = shift || croak "No victim here!";
-  my $victim2 = shift || croak "No victim here!";
+  my $arg2 =   shift || croak "No victim here!";
+  my $victim2 = $arg2->clone();
   my $victim = $arg->clone();
   my $min_length = (  length( $victim->{_str} ) >  length( $victim2->{_str} ) )?
 	 length( $victim2->{_str} ): length( $victim->{_str} );

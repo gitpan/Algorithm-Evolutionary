@@ -39,7 +39,7 @@ Mutation operator for a GA: applies gaussian mutation to a number
 
 package Algorithm::Evolutionary::Op::GaussianMutation;
 
-our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.1 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
+our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.3 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
 
 use Carp;
 use Math::Random;
@@ -94,8 +94,8 @@ sub create {
 
 Applies mutation operator to a "Chromosome", a vector of stuff,
 really. Can be applied only to I<victims> with the C<_array> instance
-variable; but it checks before application that both operands are of
-type L<Algorithm::Evolutionary::Individual::Vector|Algorithm::Evolutionary::Individual::Vector>.
+variable; but it checks before application (roughly) that both operands are of
+type L<Algorithm::Evolutionary::Individual::Vector>.
 
 =cut
 
@@ -104,23 +104,35 @@ sub apply ($$) {
   my $arg = shift || croak "No victim here!";
   croak "Incorrect type".(ref $arg) if !$arg->{_array};
   my $victim = clone($arg);
-#  croak "Incorrect type ".(ref $victim) if !$self->check($victim);  
-  my @deltas = random_normal( @{$victim->{_array}} + 1, $self->{_avg}, $self->{_stddev} );
+  my @deltas = random_normal( @{$victim->{_array}} + 1,  #+1 is needed, returns empty if not
+			      $self->{_avg}, $self->{_stddev} );
   for ( @{$victim->{_array}} ) {
-	$_ += pop @deltas;
+      my $adjust = pop @deltas;
+      $_ += $adjust;
+      # makes sure that the new value stays within its confines
+      if($_ < $victim->{_rangestart}) {
+	  $_ = $victim->{_rangestart};
+      } elsif($_ > $victim->{_rangeend}) {
+	  $_ = $victim->{_rangeend};
+      }
   }
+  $victim->{_fitness} = undef;
   return $victim;
 }
+
+=head1 THANKS
+
+This file has been improved with input from Christoph Meißner.
 
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2011/02/14 06:55:36 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GaussianMutation.pm,v 3.1 2011/02/14 06:55:36 jmerelo Exp $ 
+  CVS Info: $Date: 2011/11/23 11:10:10 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GaussianMutation.pm,v 3.3 2011/11/23 11:10:10 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.1 $
+  $Revision: 3.3 $
   $Name $
 
 =cut

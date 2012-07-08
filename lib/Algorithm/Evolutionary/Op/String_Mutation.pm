@@ -5,21 +5,12 @@ use lib qw( ../../lib ../../../lib ../../../../lib);
 
 =head1 NAME
 
-Algorithm::Evolutionary::Op::String_Mutation - Bit-flip mutation
+Algorithm::Evolutionary::Op::String_Mutation - Single character string mutation
 
 =head1 SYNOPSIS
 
-  my $xmlStr2=<<EOC; #howMany should be integer
-  <op name='String_Mutation' type='unary' rate='0.5' >
-    <param name='howMany' value='2' /> 
-  </op>
-  EOC
-  my $ref2 = XMLin($xmlStr2);
-
-  my $op2 = Algorithm::Evolutionary::Op::Base->fromXML( $ref2 );
-  print $op2->asXML(), "\n*Arity ", $op->arity(), "\n";
-
-  my $op = new Algorithm::Evolutionary::Op::String_Mutation 2; #Create from scratch with default rate
+  #Create from scratch with priority = 2
+  my $op = new Algorithm::Evolutionary::Op::String_Mutation 2; 
 
 =head1 Base Class
 
@@ -59,7 +50,7 @@ sub new {
 
   my $hash = { howMany => $howMany || 1};
   my $self = Algorithm::Evolutionary::Op::Base::new( 'Algorithm::Evolutionary::Op::String_Mutation', 
-						     $rate, $hash );
+			 $rate, $hash );
   return $self;
 }
 
