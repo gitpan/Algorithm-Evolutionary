@@ -27,7 +27,7 @@ does not need a rate
 
 package Algorithm::Evolutionary::Op::String_Mutation;
 
-our $VERSION =   sprintf "%d.%03d", q$Revision: 3.5 $ =~ /(\d+)\.(\d+)/g; 
+our $VERSION =   sprintf "%d.%03d", q$Revision: 3.6 $ =~ /(\d+)\.(\d+)/g; 
 
 use Carp;
 
@@ -103,10 +103,10 @@ sub apply ($;$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2011/02/14 06:55:36 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/String_Mutation.pm,v 3.5 2011/02/14 06:55:36 jmerelo Exp $ 
+  CVS Info: $Date: 2012/07/08 10:38:52 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/String_Mutation.pm,v 3.6 2012/07/08 10:38:52 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.5 $
+  $Revision: 3.6 $
   $Name $
 
 =cut

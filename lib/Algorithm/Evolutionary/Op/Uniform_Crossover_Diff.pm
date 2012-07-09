@@ -42,7 +42,7 @@ package Algorithm::Evolutionary::Op::Uniform_Crossover_Diff;
 
 use lib qw( ../../.. );
 
-our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.5 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
+our $VERSION =   sprintf "%d.1%02d", q$Revision: 3.6 $ =~ /(\d+)\.(\d+)/g; # Hack for avoiding version mismatch
 
 use Carp;
 
@@ -111,10 +111,10 @@ sub  apply ($$){
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2011/08/12 09:08:47 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Uniform_Crossover_Diff.pm,v 3.5 2011/08/12 09:08:47 jmerelo Exp $ 
+  CVS Info: $Date: 2012/07/08 10:38:52 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Uniform_Crossover_Diff.pm,v 3.6 2012/07/08 10:38:52 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.5 $
+  $Revision: 3.6 $
   $Name $
 
 =cut
