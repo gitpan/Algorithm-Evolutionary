@@ -1,6 +1,15 @@
+2012-07-10  Juan J. Merelo Guervós  <jjmerelo@gmail.com>
+
+	* MANIFEST: Eliminating pod.t also in production code.
+
+2012-07-09  Juan J. Merelo Guervós  <jjmerelo@gmail.com>
+
+	* MANIFEST: Eliminated pod-coverage.t, which is not needed for
+	production and causes errors in some systems. 
+
 2012-07-08  Juan J. Merelo Guervós  <jjmerelo@gmail.com>
 
-	* MANIFEST: Adding missint test files
+	* MANIFEST: Adding missing test files
 
 	* lib/Algorithm/Evolutionary.pm: Starting a maintenance version,
 	which will include the bugs fixed since last summer. 
@@ -41,7 +50,8 @@
 
 2011-02-16  Juan J. Merelo  <jmerelo@sheldon>
 
-	* lib/Algorithm/Evolutionary.pm: Upgraded to 0.76_2 by eliminating a useless test and changing Clone::Fast to Clone in another test 
+	* lib/Algorithm/Evolutionary.pm: Upgraded to 0.76_2 by eliminating
+	a useless test and changing Clone::Fast to Clone in another test  
 
 2011-02-14  Juan J. Merelo Guervós  <jjmerelo@gmail.com>
 

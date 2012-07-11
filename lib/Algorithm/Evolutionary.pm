@@ -2,7 +2,7 @@ package Algorithm::Evolutionary;
 
 use Carp qw(croak);
 
-our $VERSION = '0.78_1'; # Another year in paradise
+our $VERSION = '0.78_2'; # Another year in paradise
 
 # Preloaded methods go here.
 
@@ -89,7 +89,7 @@ site</a>).</p>
 <p>It might be also helpful for you to check out <a
 href='http://arxiv.org/abs/0908.0516'>Still doing evolutionary
 algorithms with Perl</a>, a gentle introduction to evolutionary
-algorithms in general and doing them using this module in particular.</p>
+algorithms in general and working with them using this module in particular.</p>
 
 <p>I have used this continously for my research all these year, and
 any search will return a number of papers; a journal article is
@@ -167,7 +167,9 @@ Some other examples are installed: check out L<tide_bitstring.pl>,
     like, and then ammend, add and modify at leisure to create your
     own evolutionary algorithms. For a GUI example, check
     L<rectangle-coverage.pl>, which uses L<Tk> to show the population
-    and its evolution.
+    and its evolution. You will need to install the required modules,
+    however, since it needs additional ones to those required by this
+    module. 
 
 
 =head1 DISCUSSION, FEATURE REQUESTS
@@ -248,9 +250,9 @@ L<AI::Genetic::Pro>.
 This file is released under the GPL. See the LICENSE file included in this distribution,
 or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2012/07/09 15:12:35 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.21 2012/07/09 15:12:35 jmerelo Exp $ 
+  CVS Info: $Date: 2012/07/09 15:46:15 $ 
+  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary.pm,v 3.22 2012/07/09 15:46:15 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.21 $
+  $Revision: 3.22 $
 
 =cut

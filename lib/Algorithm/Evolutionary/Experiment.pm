@@ -21,8 +21,8 @@ experiment with algorithms and population
 
 =head1 DESCRIPTION
 
-Experiment contains an algorithm and a population, and applies one to
-the other. Contains both as instance variables. Can be serialized
+This class contains (as instance variables) an algorithm and a population, and applies one to
+the other.  Can be serialized
 using XML, and can read an XML description of the experiment. 
 
 =head1 METHODS
@@ -76,7 +76,7 @@ sub new ($$$$;$) {
 
 =head2 fromXML
 
-Creates a new experiment, same as before, but with an XML specification. An 
+Creates a new experiment, same as before, but with an L<XML> specification. An 
 example of it follows:
 
  <ea xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -214,7 +214,9 @@ EOC
 
 =head2 SEE ALSO
 
-L<Algorithm::Evolutionary::Run> , another option for setting up experiments
+L<Algorithm::Evolutionary::Run> , another option for setting up
+experiments, which is the one you should rather use, as XML support is
+going to be deprecated (some day).
 
 =head1 Copyright
   

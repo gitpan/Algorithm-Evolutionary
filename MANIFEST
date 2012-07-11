@@ -132,7 +132,6 @@ t/individuals.t
 t/NoChangeTerm.t
 t/ops.t
 t/p_peaks.yaml
-t/pod.t
 t/run.t
 t/validate.t
 xml/EvoSpec.dtd
@@ -160,4 +159,5 @@ examples/fake-parallel-ga.pl
 examples/ga.yaml
 examples/run_EDA.pl
 examples/eda.yaml
-META.yml                                 Module meta-data (added by MakeMaker)
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)
