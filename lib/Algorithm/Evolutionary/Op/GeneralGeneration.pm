@@ -6,6 +6,7 @@ use warnings;
 Algorithm::Evolutionary::Op::GeneralGeneration - Customizable single generation for an evolutionary algorithm.
                  
 =head1 SYNOPSIS
+
   #Taken from the t/general.t file, verbatim
   my $m = new Algorithm::Evolutionary::Op::Bitflip; #Changes a single bit
   my $c = new Algorithm::Evolutionary::Op::Crossover; #Classical 2-point crossover
@@ -53,7 +54,7 @@ package Algorithm::Evolutionary::Op::GeneralGeneration;
 
 use lib qw(../../..);
 
-our ($VERSION) = ( '$Revision: 3.0 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 3.2 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 
@@ -75,10 +76,10 @@ and crossover, in case they are not passed as parameters
 sub new {
   my $class = shift;
   my $self = {};
-  $self->{_eval} = shift || croak "No eval function found";
-  $self->{_selector} = shift || croak "No selector found";
-  $self->{_ops} = shift || croak "No operator found";
-  $self->{_replacementRate} = shift || 1; #Default to all  replaced
+  $self->{'_eval'} = shift || croak "No eval function found";
+  $self->{'_selector'} = shift || croak "No selector found";
+  $self->{'_ops'} = shift || croak "No operator found";
+  $self->{'_replacementRate'} = shift || 1; #Default to all  replaced
   bless $self, $class;
   return $self;
 }
@@ -165,15 +166,35 @@ sub apply ($) {
   
 }
 
-=head1 Copyright
-  
-  This file is released under the GPL. See the LICENSE file included in this distribution,
-  or go to http://www.fsf.org/licenses/gpl.txt
+=head1 SEE ALSO
 
-  CVS Info: $Date: 2009/07/24 08:46:59 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GeneralGeneration.pm,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
+=over 4
+
+=item *
+
+A more modern and flexible version: L<Algorithm::Evolutionary::Op::Generation_Skeleton>.
+
+=item * 
+
+L<Algorithm::Evolutionary::Op::CanonicalGA>.
+
+=item * 
+
+L<Algorithm::Evolutionary::Op::FullAlgorithm>.
+
+
+=back
+
+=head1 Copyright
+
+  
+This file is released under the GPL. See the LICENSE file included in this distribution,
+or go to http://www.fsf.org/licenses/gpl.txt
+
+  CVS Info: $Date: 2012/11/10 18:38:18 $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/GeneralGeneration.pm,v 3.2 2012/11/10 18:38:18 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.0 $
+  $Revision: 3.2 $
 
 =cut
 

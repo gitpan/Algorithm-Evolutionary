@@ -3,8 +3,7 @@ use warnings;
 
 =head1 NAME
 
-Algorithm::Evolutionary::Op::Base - Base class for Algorithm::Evolutionary operators, that is any object with the "apply" method, which does things to
-individuals or populations.
+Algorithm::Evolutionary::Op::Base - Base class for Algorithm::Evolutionary operators,
 
 =head1 SYNOPSIS
 
@@ -27,7 +26,10 @@ individuals or populations.
 
 =head1 DESCRIPTION
 
-Base class for operators applied to Individuals and Populations and all the rest
+Base class for operators applied to Individuals and Populations and
+all the rest.  An operator is any object with the "apply" method,
+which does things to individuals or populations. It is intendedly
+quite general so that any genetic or population operator can fit in. 
 
 =head1 METHODS
 
@@ -44,7 +46,7 @@ use B::Deparse; #For serializing code
 use Algorithm::Evolutionary::Utils qw(parse_xml);
 
 use Carp;
-our ($VERSION) = ( '$Revision: 3.2 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 3.3 $ ' =~ / (\d+\.\d+)/ ) ;
 our %parameters;
 
 =head2 AUTOLOAD
@@ -81,7 +83,8 @@ sub new {
   carp "Should be called from subclasses" if ( $class eq  __PACKAGE__ );
   my $rate = shift || 1;
   my $hash = shift; #No carp here, some operators do not need specific stuff
-  my $self = { rate => $rate }; # Create a reference
+  my $self = { rate => $rate,
+	       _arity => eval( "\$"."$class"."::ARITY" )}; # Create a reference
   bless $self, $class; # And bless it
   $self->set( $hash ) if $hash ;
   return $self;
@@ -203,20 +206,21 @@ sub asXML {
   } else {
     $str .= " >";
     for ( keys %$self ) {
+      next if !$self->{$_};
       if (!/\brate\b/ ) {
-		my ($paramName) = /_(\w+)/;
-		if ( ! ref $self->{$_}  ) {
-		  $str .= "\n\t<param name='$paramName' value='$self->{$_}' />";
-		} elsif ( ref $self->{$_} eq 'ARRAY' ) {
-		  for my $i ( @{$self->{$_}} ) {
-			$str .= $i->asXML()."\n";
-		  }
-		} elsif ( ref $self->{$_} eq 'CODE' ) {
-		  my $deparse = B::Deparse->new;
-		  $str .="<code type='eval' language='perl'>\n<src><![CDATA[".$deparse->coderef2text($self->{$_})."]]>\n </src>\n</code>";
-		} elsif ( (ref $self->{$_} ) =~ 'Algorithm::Evolutionary' ) { #Composite object, I guess...
-		$str .= $self->{$_}->asXML( $_ );
-		}
+	my ($paramName) = /_(\w+)/;
+	if ( ! ref $self->{$_}  ) {
+	  $str .= "\n\t<param name='$paramName' value='$self->{$_}' />";
+	} elsif ( ref $self->{$_} eq 'ARRAY' ) {
+	  for my $i ( @{$self->{$_}} ) {
+	    $str .= $i->asXML()."\n";
+	  }
+	} elsif ( ref $self->{$_} eq 'CODE' ) {
+	  my $deparse = B::Deparse->new;
+	  $str .="<code type='eval' language='perl'>\n<src><![CDATA[".$deparse->coderef2text($self->{$_})."]]>\n </src>\n</code>";
+	} elsif ( (ref $self->{$_} ) =~ 'Algorithm::Evolutionary' ) { #Composite object, I guess...
+	  $str .= $self->{$_}->asXML( $_ );
+	}
       }
     }
     $str .= "\n</op>";
@@ -349,24 +353,16 @@ L<Algorithm::Evolutionary::Op::Easy|Algorithm::Evolutionary::Op::Easy>
 L<Algorithm::Evolutionary::Op::FullAlgorithm>
 
 
-
 =back
 
 =head1 See Also
 
-The introduction to the XML format used here,
-L<XML>
+The introduction to the XML format used here, L<XML>
 
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
-
-  CVS Info: $Date: 2009/09/14 16:36:38 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Base.pm,v 3.2 2009/09/14 16:36:38 jmerelo Exp $ 
-  $Author: jmerelo $ 
-  $Revision: 3.2 $
-  $Name $
 
 =cut
 

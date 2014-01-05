@@ -36,7 +36,7 @@ use Algorithm::Evolutionary qw(Individual::Base
 			       Op::Base
 			       Op::Creator );
 
-our $VERSION =   sprintf "%d.%03d", q$Revision: 3.2 $ =~ /(\d+)\.(\d+)/g;
+our $VERSION =   sprintf "%d.%03d", q$Revision: 3.3 $ =~ /(\d+)\.(\d+)/g;
 
 use Carp;
 
@@ -196,7 +196,7 @@ sub asXML {
   my $str=<<'EOC';
 <ea version='0.4'>
 <!-- Serialization of an Experiment object. Generated automatically by
-     Experiment $Revision: 3.2 $ -->
+     Experiment $Revision: 3.3 $ -->
     <initial>
 EOC
 
@@ -223,10 +223,10 @@ going to be deprecated (some day).
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/24 09:10:09 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Experiment.pm,v 3.2 2009/07/24 09:10:09 jmerelo Exp $ 
+  CVS Info: $Date: 2012/07/11 06:14:51 $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Experiment.pm,v 3.3 2012/07/11 06:14:51 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.2 $
+  $Revision: 3.3 $
 
 =cut
 

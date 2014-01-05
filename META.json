@@ -4,7 +4,7 @@
       "JJ Merelo <jj /at/ merelo.net>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "ExtUtils::MakeMaker version 6.6302, CPAN::Meta::Converter version 2.120630",
+   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.120921",
    "license" : [
       "open_source"
    ],
@@ -41,6 +41,7 @@
             "Memoize" : "0",
             "Object::Array" : "0",
             "Pod::Escapes" : "0",
+            "Sort::Key" : "0",
             "Statistics::Basic" : "1.6",
             "String::Random" : "0",
             "Test::More" : "0",
@@ -57,6 +58,6 @@
          }
       }
    },
-   "release_status" : "testing",
-   "version" : "0.78_2"
+   "release_status" : "stable",
+   "version" : "0.79"
 }

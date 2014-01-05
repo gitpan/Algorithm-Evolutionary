@@ -32,7 +32,7 @@ set of individuals randomly out of the population, and select  the best.
 package Algorithm::Evolutionary::Op::Tournament_Selection;
 use Carp;
 
-our ($VERSION) = ( '$Revision: 1.3 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 1.5 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use base 'Algorithm::Evolutionary::Op::Base';
 
@@ -52,8 +52,10 @@ sub new {
 
 =head2 apply( $ref_to_population[, $output_size || @$ref_to_population] )
 
-Applies the tournament selection to a population, returning
-another of the same size by default or whatever size is selected
+Applies the tournament selection to a population, returning another of
+the same size by default or whatever size is selected. Please bear in
+mind that, unlike other selectors, this one uses a reference to
+population instead of a population array. 
 
 =cut
 
@@ -67,7 +69,7 @@ sub apply ($$) {
     my $best = $pop->[ rand( @$pop ) ];
     for ( my $j = 1; $j < $self->{'_tournament_size'}; $j++ ) {
       my $this_one = $pop->[ rand( @$pop ) ];
-      if ( $this_one->Fitness() > $best->Fitness() ) {
+      if ( $this_one->{'_fitness'} > $best->{'_fitness'} ) {
 	$best = $this_one;
       }
     }
@@ -87,8 +89,8 @@ selecting a pool of individuals
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2012/05/15 11:58:01 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Tournament_Selection.pm,v 1.3 2012/05/15 11:58:01 jmerelo Exp $ 
+  CVS Info: $Date: 2013/01/05 12:54:48 $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Tournament_Selection.pm,v 1.5 2013/01/05 12:54:48 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =cut

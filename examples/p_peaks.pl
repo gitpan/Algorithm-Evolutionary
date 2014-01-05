@@ -123,7 +123,7 @@ Contributed by Pedro Castillo Valdivieso, modified by J. J. Merelo
   or go to http://www.fsf.org/licenses/gpl.txt
 
   CVS Info: $Date: 2012/05/15 11:58:01 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/examples/p_peaks.pl,v 3.1 2012/05/15 11:58:01 jmerelo Exp $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/examples/p_peaks.pl,v 3.1 2012/05/15 11:58:01 jmerelo Exp $ 
   $Author: jmerelo $ 
   $Revision: 3.1 $
   $Name $

@@ -1,7 +1,7 @@
 #-*-Perl-*-
 
 use Test;
-BEGIN { plan tests => 3 };
+BEGIN { plan tests => 2 };
 use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
 use Algorithm::Evolutionary::Op::NoChangeTerm;
@@ -20,18 +20,13 @@ for ( my $i = 0; $i < $times; $i++ ) {
 }
 ok( $nct->apply([$indi]), '' ); #Should return 0
 
-my $xml = $nct->asXML();
-my $newnct =  Algorithm::Evolutionary::Op::Base->fromXML( $xml );
-
-ok( $xml, $newnct->asXML() );
-  
 =head1 Copyright
   
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
   CVS Info: $Date: 2009/07/24 08:46:59 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/t/NoChangeTerm.t,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/t/NoChangeTerm.t,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
   $Author: jmerelo $ 
   $Revision: 3.0 $
   $Name $

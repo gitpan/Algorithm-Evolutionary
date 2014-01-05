@@ -60,13 +60,14 @@ package Algorithm::Evolutionary::Op::Generation_Skeleton;
 
 use lib qw(../../..);
 
-our ($VERSION) = ( '$Revision: 3.0 $ ' =~ / (\d+\.\d+)/ ) ;
+our ($VERSION) = ( '$Revision: 3.3 $ ' =~ / (\d+\.\d+)/ ) ;
 
 use Carp;
 
 use base 'Algorithm::Evolutionary::Op::Base';
 
 use Algorithm::Evolutionary qw(Wheel Op::Replace_Worst);
+use Sort::Key qw( rnkeysort);
 
 # Class-wide constants
 our $APPLIESTO =  'ARRAY';
@@ -131,23 +132,23 @@ sub apply ($) {
     croak "Incorrect type ".(ref $pop) if  ref( $pop ) ne $APPLIESTO;
 
     #Evaluate only the new ones
-    my $eval = $self->{_eval};
-    my @ops = @{$self->{_ops}};
+    my $eval = $self->{'_eval'};
+    my @ops = @{$self->{'_ops'}};
 
     #Breed
-    my $selector = $self->{_selector};
+    my $selector = $self->{'_selector'};
     my @genitors = $selector->apply( @$pop );
 
     #Reproduce
     my $totRate = 0;
     my @rates;
     for ( @ops ) {
-	push( @rates, $_->{rate});
+	push( @rates, $_->{'rate'});
     }
     my $opWheel = new Algorithm::Evolutionary::Wheel @rates;
 
     my @newpop;
-    my $pringaos =  @$pop  * $self->{_replacementRate} ;
+    my $pringaos =  @$pop  * $self->{'_replacementRate'} ;
     for ( my $i = 0; $i < $pringaos; $i++ ) {
 	my @offspring;
 	my $selectedOp = $ops[ $opWheel->spin()];
@@ -164,8 +165,7 @@ sub apply ($) {
     #Eliminate and substitute
     map( $_->evaluate( $eval), @newpop );
     my $pop_hash = $self->{'_replacement_op'}->apply( $pop, \@newpop );
-    @$pop = sort { $b->{_fitness} <=> $a->{_fitness}; } @$pop_hash ;
-    
+    @$pop = rnkeysort { $_->{'_fitness'} } @$pop_hash ;    
 }
 
 =head1 SEE ALSO
@@ -182,13 +182,13 @@ L<Algorithm::Evolutionary::Op::GeneralGeneration>
 
 =head1 Copyright
   
-  This file is released under the GPL. See the LICENSE file included in this distribution,
-  or go to http://www.fsf.org/licenses/gpl.txt
+This file is released under the GPL. See the LICENSE file included in this distribution,
+or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/07/24 08:46:59 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Generation_Skeleton.pm,v 3.0 2009/07/24 08:46:59 jmerelo Exp $ 
+  CVS Info: $Date: 2013/01/05 12:43:32 $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Generation_Skeleton.pm,v 3.3 2013/01/05 12:43:32 jmerelo Exp $ 
   $Author: jmerelo $ 
-  $Revision: 3.0 $
+  $Revision: 3.3 $
 
 =cut
 

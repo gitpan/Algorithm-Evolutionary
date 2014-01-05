@@ -151,7 +151,7 @@ This file is released under the GPL. See the LICENSE file included in this distr
   or go to http://www.fsf.org/licenses/gpl.txt
 
   CVS Info: $Date: 2010/12/19 21:39:12 $ 
-  $Header: /cvsroot/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Animated_GIF_Output.pm,v 1.5 2010/12/19 21:39:12 jmerelo Exp $ 
+  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Animated_GIF_Output.pm,v 1.5 2010/12/19 21:39:12 jmerelo Exp $ 
   $Author: jmerelo $ 
 
 =head1 DISCLAIMER OF WARRANTY
