@@ -41,4 +41,4 @@ requires:
   YAML: 0
   constant: 0
   version: 0
-version: 0.79_1
+version: 0.79_2
