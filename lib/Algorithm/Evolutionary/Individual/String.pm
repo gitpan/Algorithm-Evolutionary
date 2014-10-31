@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use lib qw(../../..);
+use lib qw(../../../lib);
 
 =encoding utf8
 
@@ -31,7 +31,6 @@ use lib qw(../../..);
 
     my @array = qw( a x q W z ñ); #Tie a String individual
     tie my @vector, 'Algorithm::Evolutionary::Individual::String', @array;
-    print tied( @vector )->asXML();
     
     print $indi3->as_string(); #Prints the individual
 
@@ -52,9 +51,15 @@ package Algorithm::Evolutionary::Individual::String;
 
 use Carp;
 
-our $VERSION =   '3.6';
+our $VERSION = '3.7';
 
 use base 'Algorithm::Evolutionary::Individual::Base';
+
+=head2 MY_OPERATORS
+
+Known operators that act on this subroutine. Probably will be deprecated, so don't rely on it
+
+=cut
 
 use constant MY_OPERATORS => qw(Algorithm::Evolutionary::Op::Crossover 
 				Algorithm::Evolutionary::Op::QuadXOver
@@ -172,15 +177,15 @@ sub clone {
 
 =head2 asString
 
-Prints it
+Returns the individual as a string with the fitness as a suffix.
 
 =cut
 
 sub asString {
   my $self = shift;
-  my $str = $self->{_str} . " -> ";
-  if ( defined $self->{_fitness} ) {
-	$str .=$self->{_fitness};
+  my $str = $self->{'_str'} . " -> ";
+  if ( defined $self->{'_fitness'} ) {
+	$str .=$self->{'_fitness'};
   }
   return $str;
 }
@@ -280,22 +285,6 @@ sub as_string {
     my $self = shift;
     return $self->{_str};
 }
-
-
-=head2 asXML()
-
-Prints it as XML. See L<Algorithm::Evolutionary::XML> for more info on this
-
-=cut
-
-sub asXML {
-  my $self = shift;
-  my $str = $self->SUPER::asXML();
-  my $str2 = "> " .join( "", map( "<atom>$_</atom> ", split( "", $self->{_str} )));
-  $str =~ s/\/>/$str2/e ;
-  return $str."\n</indi>";
-}
-
 
 =head2 Chrom
 

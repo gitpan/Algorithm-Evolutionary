@@ -10,13 +10,8 @@ Algorithm::Evolutionary::Individual::Base - Base class for chromosomes that know
 =head1 SYNOPSIS
 
   use  Algorithm::Evolutionary::Individual::Base;
-  my $xmlStr="<indi type='BitString'><atom>1</atom><atom>0</atom><atom>1</atom><atom>0</atom></indi>";
-  my $ref = XMLin($xmlStr);
 
-  my $binIndi2 = Algorithm::Evolutionary::Individual::Base->fromXML( $ref ); #From XML fragment
-  print $binIndi2->asXML();
-
-  my $indi = Algorithm::Evolutionary::Individual::Base->fromParam( $ref->{initial}{section}{indi}{param} ); #From parametric description
+  my $indi = Algorithm::Evolutionary::Individual::Base->fromParam( $param_hashref ); #From parametric description
 
   $binIndi2->Fitness( 3.5 ); #Sets or gets fitness
   print $binIndi2->Fitness();
@@ -34,11 +29,10 @@ that acts as a boilerplate for deriving others.
 
 package Algorithm::Evolutionary::Individual::Base;
 
-use Algorithm::Evolutionary::Utils qw(parse_xml);
 use YAML qw(Dump Load LoadFile);
 use Carp;
 
-our $VERSION =   sprintf "%d.%03d", q$Revision: 3.2 $ =~ /(\d+)\.(\d+)/g;
+our $VERSION = '3.3';
 
 use constant MY_OPERATORS => qw(None);
 
@@ -78,7 +72,7 @@ sub new {
   my $self = { _fitness => undef }; # Avoid error
   bless $self, $class; # And bless it
 
-  #If the class is not loaded, we load it. The 
+  #If the class is not loaded, we load it. 
   if ( !$INC{"$class\.pm"} ) {
       eval "require $class" || croak "Can't find $class Module";
   }
@@ -119,104 +113,6 @@ sub set {
   for ( keys %{$hash} ) {
     $self->{"_$_"} = $hash->{$_};
   }
-}
-
-=head2 fromXML( $xml_string )
-
-Takes a definition in the shape <indi><atom>....</indi><fitness></fitness></indi> and turns it into a bitstring, 
-if it knows how to do it. The definition must have been processed using XML::Simple. It forwards stuff it does 
-not know about to the corresponding subclass, which should implement the C<set> method. The class it refers
-about is C<require>d in runtime.
-
-=cut
-
-sub fromXML {
-  my $class = shift;
-  my $xml = shift || croak "XML fragment missing ";
-  my $fragment; # Inner part of the XML
-  if ( ref $xml eq ''  ) { #We are receiving a string, parse it
-    $xml = parse_xml ($xml );
-    croak "Incorrect XML fragment" if !$xml->{'indi'}; #
-    $fragment = $xml->{'indi'};
-  } elsif ( $xml->{'indi'} ) { # parsed externally, as in general.t
-    $fragment = $xml->{'indi'};
-  } else { #parsed fragment
-    $fragment = $xml;
-  }
-
-  my $thisClassName = $fragment->{'-type'};
-  if ( $class eq  __PACKAGE__ ) { #Deduct class from the XML
-    $class = $thisClassName || shift || croak "Class name missing";
-  }
-
-  #Calls new, adds preffix if it's not there
-  my $self = Algorithm::Evolutionary::Individual::Base::new( $class );
-  ($self->Fitness( $fragment->{'fitness'} ) ) if defined $fragment->{'fitness'};
- 
-  $class = ref $self;
-  eval "require $class"  || croak "Can't find $class\.pm Module";
-  no strict qw(refs); # To be able to check if a ref exists or not
-
-  for (@{$fragment->{'atom'}} ) {
-    $self->addAtom($_); #roundabout way of adding the content of the stuff
-  }
-  return $self;
-}
-
-=head2 fromParam( $xml_fragment )
-
-Takes an array of params that describe the individual, and builds it, with
-random initial values.
-
-Params have this shape:
- <param name='type' value='Vector' /> 
- <param name='length' value='2' />
- <param name='range' start='0' end='1' />
-
-The 'type' will show the class of the individuals that are going to
-be created, and the rest will be type-specific, and left to the particular
-object to interpret.
-
-=cut
-
-sub fromParam {
-  my $class = shift;
-  my $xml = shift || croak "XML fragment missing ";
-  my $thisClass;
-  
-  my %params;
-  for ( @{$xml->{'param'}} ) {
-    if ( $_->{'-name'} eq 'type' ) {
-      $thisClass = $_->{'-value'}
-    } else {
-      $params{ $_->{'-name'} } = $_->{'-value'};
-    }
-  }
-  $thisClass = "Algorithm::Evolutionary::Individual::$thisClass" 
-    if $thisClass !~ /Algorithm::Evolutionary/;
-
-  eval "require $thisClass" || croak "Can't find $class\.pm Module";
-  my $self = $thisClass->new();
-  $self->set( \%params );
-  $self->randomize();
-  return $self;
-}
-
-=head2 asXML()
-
-Prints it as XML. The caller must close the tags.
-
-=cut
-
-sub asXML {
-  my $self = shift;
-  my ($opName) = ( ( ref $self) =~ /::(\w+)$/ );
-  my $str = "<indi type='$opName' ";
-  if ( defined $self->{_fitness} ) {
-	$str.= "fitness='$self->{_fitness}'";
-  }
-  $str.=" />\n\t";
-  return $str;
 }
 
 =head2 as_yaml()
@@ -336,6 +232,8 @@ sub size() {
 
 =head1 Known subclasses
 
+There are others, but I'm not so sure they work.
+
 =over 4
 
 =item * 
@@ -361,11 +259,6 @@ L<Algorithm::Evolutionary::Individual::Bit_Vector>
   This file is released under the GPL. See the LICENSE file included in this distribution,
   or go to http://www.fsf.org/licenses/gpl.txt
 
-  CVS Info: $Date: 2009/11/17 19:19:41 $ 
-  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Individual/Base.pm,v 3.2 2009/11/17 19:19:41 jmerelo Exp $ 
-  $Author: jmerelo $ 
-  $Revision: 3.2 $
-  $Name $
 
 =cut
 

@@ -5,7 +5,7 @@ use warnings;
 use strict;
 use YAML qw(Load);
 
-BEGIN { plan tests => 87 };
+BEGIN { plan 'no_plan' };
 use lib qw( lib ../lib ../../lib  ); #Just in case we are testing it in-place
 
 my $size = 16;
@@ -48,10 +48,6 @@ sub createAndTest ($$;$) {
     is( defined( $nct->Atom($i)), 1, "Atom($i)");
   }
   
-  my $xml = $nct->asXML();
-  my $newnct =  Algorithm::Evolutionary::Individual::Base->fromXML( $xml );
-  
-  ok( $xml, $newnct->asXML() );
   my $yaml = $nct->as_yaml();
   my $fromyaml = Load($yaml);
   ok( $yaml, $fromyaml->as_yaml());

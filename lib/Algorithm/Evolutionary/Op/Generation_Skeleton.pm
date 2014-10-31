@@ -60,7 +60,7 @@ package Algorithm::Evolutionary::Op::Generation_Skeleton;
 
 use lib qw(../../..);
 
-our ($VERSION) = ( '$Revision: 3.3 $ ' =~ / (\d+\.\d+)/ ) ;
+our $VERSION = '3.3';
 
 use Carp;
 
@@ -131,10 +131,6 @@ sub apply ($) {
     my $pop = shift || croak "No population here";
     croak "Incorrect type ".(ref $pop) if  ref( $pop ) ne $APPLIESTO;
 
-    #Evaluate only the new ones
-    my $eval = $self->{'_eval'};
-    my @ops = @{$self->{'_ops'}};
-
     #Breed
     my $selector = $self->{'_selector'};
     my @genitors = $selector->apply( @$pop );
@@ -142,6 +138,7 @@ sub apply ($) {
     #Reproduce
     my $totRate = 0;
     my @rates;
+    my @ops = @{$self->{'_ops'}};
     for ( @ops ) {
 	push( @rates, $_->{'rate'});
     }
@@ -162,8 +159,10 @@ sub apply ($) {
 	push( @newpop, $mutante );
     }
     
-    #Eliminate and substitute
+    my $eval = $self->{'_eval'};
     map( $_->evaluate( $eval), @newpop );
+
+    #Eliminate and substitute
     my $pop_hash = $self->{'_replacement_op'}->apply( $pop, \@newpop );
     @$pop = rnkeysort { $_->{'_fitness'} } @$pop_hash ;    
 }
@@ -184,11 +183,6 @@ L<Algorithm::Evolutionary::Op::GeneralGeneration>
   
 This file is released under the GPL. See the LICENSE file included in this distribution,
 or go to http://www.fsf.org/licenses/gpl.txt
-
-  CVS Info: $Date: 2013/01/05 12:43:32 $ 
-  $Header: /media/Backup/Repos/opeal/opeal/Algorithm-Evolutionary/lib/Algorithm/Evolutionary/Op/Generation_Skeleton.pm,v 3.3 2013/01/05 12:43:32 jmerelo Exp $ 
-  $Author: jmerelo $ 
-  $Revision: 3.3 $
 
 =cut
 
